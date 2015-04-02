@@ -78,22 +78,22 @@ public class ROBotManagedObject : NSManagedObject {
     }
     
     
-    func createUrl() -> String {
+    public func createUrl() -> String {
         fatalError("Did you forget to override the create url?")
         return ""
     }
     
-    func readUrl() -> String {
+    public func readUrl() -> String {
         fatalError("Did you forget to override the read url?")
         return ""
     }
     
-    func updateUrl() -> String {
+    public func updateUrl() -> String {
         fatalError("Did you forget to override the update url?")
         return ""
     }
     
-    func deleteUrl() -> String {
+    public func deleteUrl() -> String {
         fatalError("Did you forget to override the delete url?")
         return ""
     }
