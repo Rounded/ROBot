@@ -1,0 +1,14 @@
+PODS:
+  - ROBot (0.1.0)
+
+DEPENDENCIES:
+  - ROBot (from `../`)
+
+EXTERNAL SOURCES:
+  ROBot:
+    :path: ../
+
+SPEC CHECKSUMS:
+  ROBot: ca2b7138a4b712c7927643ef973d7aebaed05943
+
+COCOAPODS: 0.36.0

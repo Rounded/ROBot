@@ -10,21 +10,20 @@
 Pod::Spec.new do |s|
   s.name             = "ROBot"
   s.version          = "0.1.0"
-  s.summary          = "A short description of ROBot."
+  s.summary          = "The worlds simplest networking / core-data library."
   s.description      = <<-DESC
-                       An optional longer description of ROBot
-
-                       * Markdown format.
-                       * Don't worry about the indent, we strip it!
+                       ROBot solves two problems.
+                       * Making REST API calls easy
+                       * Automatic sync'ing of REST API calls to your database
                        DESC
-  s.homepage         = "https://github.com/<GITHUB_USERNAME>/ROBot"
+  s.homepage         = "https://github.com/Rounded/ROBot"
   # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
   s.license          = 'MIT'
   s.author           = { "Brian Weinreich" => "be.weinreich@gmail.com" }
-  s.source           = { :git => "https://github.com/<GITHUB_USERNAME>/ROBot.git", :tag => s.version.to_s }
+  s.source           = { :git => "https://github.com/Rounded/ROBot.git", :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.platform     = :ios, '7.0'
+  s.platform     = :ios, '8.0'
   s.requires_arc = true
 
   s.source_files = 'Pod/Classes/**/*'
