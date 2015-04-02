@@ -1,0 +1,11 @@
+source 'https://github.com/CocoaPods/Specs.git'
+
+target 'ROBot', :exclusive => true do
+  pod "ROBot", :path => "../"
+end
+
+target 'Tests', :exclusive => true do
+  pod "ROBot", :path => "../"
+
+  
+end
