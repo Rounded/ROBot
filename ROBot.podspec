@@ -17,11 +17,10 @@ Pod::Spec.new do |s|
                        * Automatic sync'ing of REST API calls to your database
                        DESC
   s.homepage         = "https://github.com/Rounded/ROBot"
-  # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
   s.license          = 'MIT'
-  s.author           = { "Brian Weinreich" => "be.weinreich@gmail.com" }
+  s.author           = { "Heather Spenenger" => "hs@roundedco.com" }
   s.source           = { :git => "https://github.com/Rounded/ROBot.git", :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.social_media_url = 'https://twitter.com/roundedco'
 
   s.platform     = :ios, '8.0'
   s.requires_arc = true
