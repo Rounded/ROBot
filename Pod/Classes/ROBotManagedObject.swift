@@ -7,7 +7,7 @@ import Foundation
 import CoreData
 
 @objc(ROBotManagedObject)
-class ROBotManagedObject : NSManagedObject {
+public class ROBotManagedObject : NSManagedObject {
     
     private struct DBdefaults {
         // default the primary key value to "id"
@@ -131,7 +131,7 @@ class ROBotManagedObject : NSManagedObject {
     //        }
     //    }
     
-    func create() {
+    public func create() {
         // create from server
         let URL = NSURL(string: ROBotManagedObject.baseURLString + createUrl())!
         let mutableURLRequest = NSMutableURLRequest(URL: URL)
@@ -146,12 +146,10 @@ class ROBotManagedObject : NSManagedObject {
         var task = session.dataTaskWithRequest(mutableURLRequest, completionHandler: {
             data, response, error -> Void in
             
-            
             if (ROBotManagedObject.verboseLogging) {
                 var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
                 ROBotManagedObject.printResults(mutableURLRequest, response: response, JSON: strData, error: error)
-            }
-            
+            }            
             
             var err: NSError?
             var json = NSJSONSerialization.JSONObjectWithData(data, options: .MutableLeaves, error: &err) as? NSDictionary
@@ -179,7 +177,7 @@ class ROBotManagedObject : NSManagedObject {
         task.resume()
     }
     
-    func read() {
+    public func read() {
         
         // read from server
         let URL = NSURL(string: ROBotManagedObject.baseURLString + readUrl())!
@@ -224,7 +222,7 @@ class ROBotManagedObject : NSManagedObject {
         task.resume()
     }
     
-    func update() {
+    public func update() {
         // update to server
         let URL = NSURL(string: ROBotManagedObject.baseURLString + updateUrl())!
         let mutableURLRequest = NSMutableURLRequest(URL: URL)
@@ -272,7 +270,7 @@ class ROBotManagedObject : NSManagedObject {
         
     }
     
-    func delete() {
+    public func delete() {
         // delete from server
         let URL = NSURL(string: ROBotManagedObject.baseURLString + deleteUrl())!
         let mutableURLRequest = NSMutableURLRequest(URL: URL)
