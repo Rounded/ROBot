@@ -22,7 +22,7 @@ pod "RoundedRobot"
 
 ## Author
 
-Brian Weinreich, be.weinreich@gmail.com
+Heather Snepenger, hs@roundedco.com
 
 ## License
 
