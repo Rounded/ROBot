@@ -6,15 +6,15 @@
 import Foundation
 import CoreData
 
-class ROBotManager {
+@objc(ROBotManager) public class ROBotManager {
     
     //    private var reachability:Reachability?
     
-    class func initialize(baseUrl: String, token: String) -> ROBotManager{
+    public class func initialize(baseUrl: String, token: String) -> ROBotManager{
         return initialize(baseUrl, token: token, shouldCacheOffline: true, verboseLogging: true)
     }
     
-    class func initialize(baseUrl: String, token: String, shouldCacheOffline: Bool, verboseLogging: Bool) -> ROBotManager {
+    public class func initialize(baseUrl: String, token: String, shouldCacheOffline: Bool, verboseLogging: Bool) -> ROBotManager {
         ROBotManagedObject.baseURLString = baseUrl
         ROBotManagedObject.token = token
         //        ROBotManagedObject.persistentStoreCoordinator = storeCoordinator!
