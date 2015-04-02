@@ -1,0 +1,14 @@
+PODS:
+  - RoundedRobot (0.1.0)
+
+DEPENDENCIES:
+  - RoundedRobot (from `../`)
+
+EXTERNAL SOURCES:
+  RoundedRobot:
+    :path: ../
+
+SPEC CHECKSUMS:
+  RoundedRobot: ea0b7bbb6b398a6e87ec51a3e94de92196ca85a0
+
+COCOAPODS: 0.36.0

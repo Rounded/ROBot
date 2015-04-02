@@ -9,27 +9,25 @@
 
 Pod::Spec.new do |s|
   s.name             = "RoundedRobot"
-  s.version          = "0.1.0"
-  s.summary          = "A short description of RoundedRobot."
+  s.version          = "0.1.3"
+  s.summary          = "The worlds simplest networking / core-data library."
   s.description      = <<-DESC
-                       An optional longer description of RoundedRobot
-
-                       * Markdown format.
-                       * Don't worry about the indent, we strip it!
+                       ROBot solves two problems.
+                       * Making REST API calls easy
+                       * Automatic sync'ing of REST API calls to your database
                        DESC
-  s.homepage         = "https://github.com/<GITHUB_USERNAME>/RoundedRobot"
-  # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
+  s.homepage         = "https://github.com/Rounded/ROBot"
   s.license          = 'MIT'
-  s.author           = { "Brian Weinreich" => "be.weinreich@gmail.com" }
-  s.source           = { :git => "https://github.com/<GITHUB_USERNAME>/RoundedRobot.git", :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.author           = { "Heather Spenenger" => "hs@roundedco.com" }
+  s.source           = { :git => "https://github.com/Rounded/ROBot.git", :tag => s.version.to_s }
+  s.social_media_url = 'https://twitter.com/roundedco'
 
-  s.platform     = :ios, '7.0'
+  s.platform     = :ios, '8.0'
   s.requires_arc = true
 
   s.source_files = 'Pod/Classes/**/*'
   s.resource_bundles = {
-    'RoundedRobot' => ['Pod/Assets/*.png']
+    'ROBot' => ['Pod/Assets/*.png']
   }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
