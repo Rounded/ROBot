@@ -1,5 +1,5 @@
 #
-# Be sure to run `pod lib lint ROBot.podspec' to ensure this is a
+# Be sure to run `pod lib lint RoundedRobot.podspec' to ensure this is a
 # valid spec and remove all comments before submitting the spec.
 #
 # Any lines starting with a # are optional, but encouraged
@@ -8,8 +8,8 @@
 #
 
 Pod::Spec.new do |s|
-  s.name             = "ROBot"
-  s.version          = "0.1.0"
+  s.name             = "RoundedRobot"
+  s.version          = "0.1.2"
   s.summary          = "The worlds simplest networking / core-data library."
   s.description      = <<-DESC
                        ROBot solves two problems.

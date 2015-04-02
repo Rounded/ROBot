@@ -1,4 +1,4 @@
-# ROBot
+# RoundedRobot
 
 [![CI Status](http://img.shields.io/travis/Brian Weinreich/ROBot.svg?style=flat)](https://travis-ci.org/Brian Weinreich/ROBot)
 [![Version](https://img.shields.io/cocoapods/v/ROBot.svg?style=flat)](http://cocoapods.org/pods/ROBot)
@@ -17,7 +17,7 @@ ROBot is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod "ROBot"
+pod "RoundedRobot"
 ```
 
 ## Author
