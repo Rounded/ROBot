@@ -12,7 +12,7 @@ public class ROBotManagedObject : NSManagedObject {
     private struct DBdefaults {
         // default the primary key value to "id"
         static var pkValue : String = "id"
-//        static var mapping : Dictionary<String, String> = ["":""]
+        //        static var mapping : Dictionary<String, String> = ["":""]
         static var indexUrl: String = ""
         static var shouldCacheOffline : Bool = true
         
@@ -35,17 +35,17 @@ public class ROBotManagedObject : NSManagedObject {
         set { DBdefaults.pkValue = newValue }
     }
     
-    class var indexUrl: String
-        {
-        get { return DBdefaults.indexUrl }
-        set { DBdefaults.indexUrl = newValue }
-    }
-    
-//    class var mapping: Dictionary<String, String>
+//    class var indexUrl: String
 //        {
-//        get { return DBdefaults.mapping }
-//        set { DBdefaults.mapping = newValue }
+//        get { return DBdefaults.indexUrl }
+//        set { DBdefaults.indexUrl = newValue }
 //    }
+    
+    //    class var mapping: Dictionary<String, String>
+    //        {
+    //        get { return DBdefaults.mapping }
+    //        set { DBdefaults.mapping = newValue }
+    //    }
     
     class var shouldCacheOffline: Bool
         {
@@ -77,6 +77,10 @@ public class ROBotManagedObject : NSManagedObject {
         set { DBdefaults.token = newValue }
     }
     
+    public class func indexUrl() -> String {
+        fatalError("Did you forget to override the create url?")
+        return ""
+    }
     
     public func createUrl() -> String {
         fatalError("Did you forget to override the create url?")
@@ -107,29 +111,40 @@ public class ROBotManagedObject : NSManagedObject {
         println(error)
     }
     
-    //    class func index(primaryKey: String, entityName: String) {
-    //
-    //        // read from server
-    //        let URL = NSURL(string: ROBotManagedObject.baseURLString + ROBotManagedObject.indexUrl)!
-    //        let mutableURLRequest : NSMutableURLRequest = NSMutableURLRequest(URL: URL)
-    //        mutableURLRequest.HTTPMethod = "GET"
-    //        mutableURLRequest.setValue("Bearer \(ROBotManagedObject.token)", forHTTPHeaderField: "Authorization")
-    //
-    //        request(mutableURLRequest)
-    //        .responseJSON { (request, response, JSON, error) in
-    //
-    //
-    //            if (ROBotManagedObject.verboseLogging) {
-    //                ROBotManagedObject.printResults(request, response: response, JSON: JSON, error: error)
-    //            }
-    //            // Save the updated results
-    //            if let array = JSON as Array<Dictionary<String, AnyObject>>? {
-    //                for dict in array {
-    //                    ROBotManagedObject.save(primaryKey, entityName: entityName, json: dict)
-    //                }
-    //            }
-    //        }
-    //    }
+    public class func index() {
+        let URL = NSURL(string: ROBotManagedObject.baseURLString + self.indexUrl())!
+        let mutableURLRequest : NSMutableURLRequest = NSMutableURLRequest(URL: URL)
+        var session = NSURLSession.sharedSession()
+        mutableURLRequest.HTTPMethod = "GET"
+        mutableURLRequest.setValue("Bearer \(ROBotManagedObject.token)", forHTTPHeaderField: "Authorization")
+        
+        var task = session.dataTaskWithRequest(mutableURLRequest, completionHandler: {
+            data, response, error -> Void in
+                        
+            if (ROBotManagedObject.verboseLogging) {
+                var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
+                ROBotManagedObject.printResults(mutableURLRequest, response: response, JSON: strData, error: error)
+            }
+            
+            var err: NSError?
+            var json = NSJSONSerialization.JSONObjectWithData(data, options: .MutableLeaves, error: &err) as? NSDictionary
+            
+            // Did the JSONObjectWithData constructor return an error? If so, log the error to the console
+            if(err != nil) {
+                if (ROBotManagedObject.verboseLogging) {
+                    println(err!.localizedDescription)
+                    let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
+                    println("Error could not parse JSON: '\(jsonStr)'")
+                }
+            }
+            else {
+                // Save the updated results
+                println("were back");
+                println(json);
+            }
+        })
+        task.resume()
+    }
     
     public func create() {
         // create from server
@@ -149,7 +164,7 @@ public class ROBotManagedObject : NSManagedObject {
             if (ROBotManagedObject.verboseLogging) {
                 var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
                 ROBotManagedObject.printResults(mutableURLRequest, response: response, JSON: strData, error: error)
-            }            
+            }
             
             var err: NSError?
             var json = NSJSONSerialization.JSONObjectWithData(data, options: .MutableLeaves, error: &err) as? NSDictionary

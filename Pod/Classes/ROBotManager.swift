@@ -6,7 +6,8 @@
 import Foundation
 import CoreData
 
-@objc(ROBotManager) public class ROBotManager {
+@objc(ROBotManager)
+public class ROBotManager {
     
     //    private var reachability:Reachability?
     
