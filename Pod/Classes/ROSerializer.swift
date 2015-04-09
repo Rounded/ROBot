@@ -84,8 +84,8 @@ extension NSManagedObject {
                 self.setValue(value, forKey: newKey)
             } else if let attribValue = attributes[key]{
                 if (value as! NSObject == NSNull()) {
-                    println("here")
-                } else {                    
+                    println("null value")
+                } else {
                     // if the attibute value exists in the database, add it
                     self.setValue(value, forKey: key)
                 }
