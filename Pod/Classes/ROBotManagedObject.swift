@@ -362,7 +362,7 @@ public class ROBotManagedObject : NSManagedObject {
         
         let defaults = NSUserDefaults.standardUserDefaults()
         // get the array of saved ids from the defaults based on the cache type
-        var ids = defaults.stringArrayForKey(cacheSlug) as [String]?
+        var ids = defaults.stringArrayForKey(cacheSlug) as! [String]?
         if (ids == nil) {
             ids = [String]()
         }

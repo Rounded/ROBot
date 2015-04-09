@@ -75,7 +75,7 @@ extension NSManagedObject {
     func update(json: Dictionary<String, AnyObject>) {
         // pull out the attributes that exist in the database
         var entity : NSEntityDescription = self.entity
-        var attributes = entity.attributesByName as [String: NSAttributeDescription]
+        var attributes = entity.attributesByName as! [String: NSAttributeDescription]
 
         // Update all the key / values for the object
         for (key, value) in json {
@@ -83,8 +83,12 @@ extension NSManagedObject {
             if let newKey = NSManagedObject.mapping[key] {
                 self.setValue(value, forKey: newKey)
             } else if let attribValue = attributes[key]{
-                // if the attibute value exists in the database, add it
-                self.setValue(value, forKey: key)
+                if (value as! NSObject == NSNull()) {
+                    println("here")
+                } else {                    
+                    // if the attibute value exists in the database, add it
+                    self.setValue(value, forKey: key)
+                }
             }
         }
 
@@ -117,7 +121,7 @@ extension NSManagedObject {
         
         var dictionary = Dictionary<String, AnyObject>()
         
-        var attributes = entity.attributesByName as [String: NSAttributeDescription]
+        var attributes = entity.attributesByName as! [String: NSAttributeDescription]
         
         for (key, value) in attributes {
             dictionary[key] = self.valueForKey(key)
