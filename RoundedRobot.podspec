@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "RoundedRobot"
-  s.version          = "0.1.8"
+  s.version          = "0.1.9"
   s.summary          = "The worlds simplest networking / core-data library."
   s.description      = <<-DESC
                        ROBot solves two problems.
@@ -30,7 +30,4 @@ Pod::Spec.new do |s|
     'ROBot' => ['Pod/Assets/*.png']
   }
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
 end
