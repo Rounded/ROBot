@@ -78,11 +78,15 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             if (success && complete) {
                 // if successfully saved to the database and the success callback isn't nil
-                complete();
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    complete();
+                }];
             } else if (failure) {
                 // if the failure callback isn't nil, set the roboterror
                 ROBotError *error = [[ROBotError alloc] initWithResponse:response andResponseData:data];
-                failure(error);
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    failure(error);
+                }];
             }
         });
         
@@ -118,11 +122,15 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             if (success && complete) {
                 // if successfully saved to the database and the success callback isn't nil
-                complete();
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    complete();
+                }];
             } else if (failure) {
                 // if the failure callback isn't nil, set the roboterror
                 ROBotError *error = [[ROBotError alloc] initWithResponse:response andResponseData:data];
-                failure(error);
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    failure(error);
+                }];
             }
         });
         
@@ -160,11 +168,15 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             if (success && complete) {
                 // if successfully saved to the database and the success callback isn't nil
-                complete();
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    complete();
+                }];
             } else if (failure) {
                 // if the failure callback isn't nil, set the roboterror
                 ROBotError *error = [[ROBotError alloc] initWithResponse:response andResponseData:data];
-                failure(error);
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    failure(error);
+                }];
             }
         });
         
@@ -185,18 +197,22 @@
     [[session dataTaskWithRequest:mutableURLRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
         if ([self validateResponseForData:data andResponse:response andError:error]) {
-            [self.managedObjectContext deleteObject:self];
+            [self MR_deleteEntity];
             [self saveContext];
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (complete) {
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                     complete();
+                }];
                 }
             });
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (failure) {
                     ROBotError *error = [[ROBotError alloc] initWithResponse:response andResponseData:data];
-                    failure(error);
+                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                        failure(error);
+                    }];
                 }
             });
         }
@@ -252,7 +268,9 @@
                 }
             }];
             if (complete) {
-                complete();
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    complete();
+                }];
             }
         }
     }] resume];
@@ -313,7 +331,9 @@
                 }
             }];
             if (complete) {
-                complete();
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    complete();
+                }];
             }
         }
         
@@ -325,21 +345,29 @@
     if ([self valueForKey:self.primaryKey]) {
         [self update:^{
             if(complete) {
-                complete();
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    complete();
+                }];
             }
         } failure:^(ROBotError *error) {
             if (failure) {
-                failure(error);
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    failure(error);
+                }];
             }
         }];
     } else {
         [self create:^{
             if(complete) {
-                complete();
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    complete();
+                }];
             }
         } failure:^(ROBotError *error) {
             if (failure) {
-                failure(error);
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    failure(error);
+                }];
             }
         }];
     }
