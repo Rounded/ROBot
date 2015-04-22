@@ -197,7 +197,7 @@
     [[session dataTaskWithRequest:mutableURLRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
         if ([self validateResponseForData:data andResponse:response andError:error]) {
-            [self MR_deleteEntity];
+            [self.managedObjectContext deleteObject:self];
             [self saveContext];
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (complete) {
