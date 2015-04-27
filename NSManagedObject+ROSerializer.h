@@ -12,6 +12,10 @@
 
 + (NSDictionary *)mapping;
 + (void)setMapping:(NSDictionary *)mapping;
-- (void)update:(NSDictionary *)json;
++ (NSString *)primaryKey;
++ (void)setPrimaryKey:(NSString *)primaryKey;
+- (void)setDictionaryToCoreDataEntity:(NSDictionary *)json;
+- (BOOL)saveContext;
++ (BOOL)saveContext:(NSManagedObjectContext *)context;
 
 @end

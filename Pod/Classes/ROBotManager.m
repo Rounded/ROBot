@@ -40,7 +40,7 @@ static ROBotManager *ROBotManagerInstance = nil;
 }
 
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
-    NSAssert(_persistentStoreCoordinator, @"You did not set your baseURL");
+    NSAssert(_persistentStoreCoordinator, @"You did not set your persistent store coordinator");
     return _persistentStoreCoordinator;
 }
 

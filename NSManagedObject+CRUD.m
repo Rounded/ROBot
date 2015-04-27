@@ -1,17 +1,16 @@
 //
-//  ROBotManagedObject.m
-//  scoutlook
+//  NSManagedObject+CRUD.m
+//  Pods
 //
-//  Created by bw on 4/13/15.
-//  Copyright (c) 2015 rounded. All rights reserved.
+//  Created by Heather Snepenger on 4/27/15.
+//
 //
 
-#import "ROBotManagedObject.h"
+#import "NSManagedObject+CRUD.h"
+#import "NSManagedObject+ROSerializer.h"
 #import "ROBotManager.h"
 
-@implementation ROBotManagedObject
-
-@synthesize primaryKey = _primaryKey;
+@implementation NSManagedObject (CRUD)
 
 + (NSString *)indexURL {
     NSAssert(false, @"You did not set your indexURL");
@@ -36,13 +35,6 @@
 - (NSString *)deleteURL {
     NSAssert(false, @"You did not set your deleteURL");
     return nil;
-}
-
-- (NSString *)primaryKey {
-    if (!_primaryKey) {
-        _primaryKey = @"id";
-    }
-    return _primaryKey;
 }
 
 #pragma mark — CRUD
@@ -201,9 +193,9 @@
             [self saveContext];
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (complete) {
-                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                    complete();
-                }];
+                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                        complete();
+                    }];
                 }
             });
         } else {
@@ -232,14 +224,14 @@
     [mutableURLRequest setValue:[NSString stringWithFormat:@"Bearer %@", [ROBotManager sharedInstance].accessToken] forHTTPHeaderField:@"Authorization"];
     
     [[session dataTaskWithRequest:mutableURLRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-
+        
         if ([ROBotManager sharedInstance].verboseLogging == TRUE) {
             NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             NSLog(@"%@",responseString);
             NSLog(@"%@",response);
             NSLog(@"%@",error);
         }
-
+        
         NSError *jsonError = nil;
         NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&jsonError];
         
@@ -248,25 +240,28 @@
                 NSLog(@"Could not parse JSON: %@", jsonError.localizedDescription);
             }
         } else {
+            // Create the context outside the enumeration block
+            NSManagedObjectContext *context = [NSManagedObjectContext new];
+            context.persistentStoreCoordinator = [[ROBotManager sharedInstance] persistentStoreCoordinator];
             [jsonArray enumerateObjectsUsingBlock:^(NSDictionary *jsonObject, NSUInteger idx, BOOL *stop) {
-                NSManagedObjectContext *context = [NSManagedObjectContext new];
-                context.persistentStoreCoordinator = [[ROBotManager sharedInstance] persistentStoreCoordinator];
-
+                
                 // Check the database to see if the object in the JSON response exists already (based on the primary key)
                 NSError *error = nil;
                 NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([self class])];
-                [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"%K = %@", @"id", jsonObject[@"id"]]];
-
+                [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"%K = %@", [[self class] primaryKey], jsonObject[[[self class] primaryKey]]]];
+                
                 NSArray *objects = [context executeFetchRequest:fetchRequest error:&error];
                 if (objects.count > 0) {
                     // The object already exists in the database, so let's just update it
-                    [[objects objectAtIndex:0] saveToDatabase:jsonObject];
+                    [[objects objectAtIndex:0] setDictionaryToCoreDataEntity:jsonObject];
                 } else {
                     // The object doesn't exist in the database, so we need to create it
-                    ROBotManagedObject *newObject = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class]) inManagedObjectContext:context];
-                    [newObject saveToDatabase:jsonObject];
+                    NSManagedObject *newObject = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class]) inManagedObjectContext:context];
+                    [newObject setDictionaryToCoreDataEntity:jsonObject];
                 }
             }];
+            // Save the context after all the objects have been created
+            [NSManagedObject saveContext:context];
             if (complete) {
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                     complete();
@@ -293,7 +288,7 @@
             NSLog(@"%@",response);
             NSLog(@"%@",error);
         }
-
+        
         NSError *jsonError = nil;
         [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&jsonError];
         
@@ -326,7 +321,7 @@
                     [[objects objectAtIndex:0] saveToDatabase:jsonObject];
                 } else {
                     // The object doesn't exist in the database, so we need to create it
-                    ROBotManagedObject *newObject = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class]) inManagedObjectContext:context];
+                    NSManagedObject *newObject = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class]) inManagedObjectContext:context];
                     [newObject saveToDatabase:jsonObject];
                 }
             }];
@@ -340,38 +335,7 @@
     }] resume];
 }
 
-- (void)save:(void (^)(void))complete failure:(void (^)(ROBotError *))failure {
-    // if the entity has the primaryKey already filled out, then we just update it
-    if ([self valueForKey:self.primaryKey]) {
-        [self update:^{
-            if(complete) {
-                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                    complete();
-                }];
-            }
-        } failure:^(ROBotError *error) {
-            if (failure) {
-                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                    failure(error);
-                }];
-            }
-        }];
-    } else {
-        [self create:^{
-            if(complete) {
-                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                    complete();
-                }];
-            }
-        } failure:^(ROBotError *error) {
-            if (failure) {
-                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                    failure(error);
-                }];
-            }
-        }];
-    }
-}
+
 
 
 #pragma mark — Helpers
@@ -397,50 +361,21 @@
     return [self saveContext];
 }
 
-- (void)setDictionaryToCoreDataEntity:(NSDictionary *)json {
-    NSArray *entityAttributes = [[[self entity] attributesByName] allKeys];
-    
-    // Get all the entity attributes and loop through them, setting the JSON data to the values if they exist    
-    [entityAttributes enumerateObjectsUsingBlock:^(NSString *entityAttribute, NSUInteger idx, BOOL *stop) {
-        if ([json objectForKey:entityAttribute] && [json objectForKey:entityAttribute] != [NSNull null]) {
-            [self setValue:[json objectForKey:entityAttribute] forKey:entityAttribute];
-        }
-    }];
-}
+//- (void)setDictionaryToCoreDataEntity:(NSDictionary *)json {
+//    NSArray *entityAttributes = [[[self entity] attributesByName] allKeys];
+//    
+//    // Get all the entity attributes and loop through them, setting the JSON data to the values if they exist
+//    [entityAttributes enumerateObjectsUsingBlock:^(NSString *entityAttribute, NSUInteger idx, BOOL *stop) {
+//        if ([json objectForKey:entityAttribute] && [json objectForKey:entityAttribute] != [NSNull null]) {
+//            [self setValue:[json objectForKey:entityAttribute] forKey:entityAttribute];
+//        }
+//    }];
+//}
 
-- (BOOL)saveContext {
-    NSManagedObjectContext *context;
-    if (self.managedObjectContext) {
-        context = self.managedObjectContext;
-    } else {
-        context = [NSManagedObjectContext new];
-        context.persistentStoreCoordinator = [[ROBotManager sharedInstance] persistentStoreCoordinator];
-        [context insertObject:self];
-    }
-    NSError *error = nil;
-    
-    if (context.hasChanges && ![context save:&error]) {
-        if ([ROBotManager sharedInstance].verboseLogging == TRUE) {
-            NSLog(@"Could not save context: %@", error.localizedDescription);
-        }
-        return FALSE;
-    }
-    
-    if (context.parentContext) {
-        if (context.parentContext.hasChanges && ![context.parentContext save:&error]) {
-            if ([ROBotManager sharedInstance].verboseLogging == TRUE) {
-                NSLog(@"Could not save context: %@", error.localizedDescription);
-            }
-            return FALSE;
-        }
-    }
-    
-    return TRUE;
-}
+
 
 - (NSDictionary *)asDictionary {
     return [self dictionaryWithValuesForKeys:[[[self entity] attributesByName] allKeys]];
 }
-
 
 @end
