@@ -17,5 +17,7 @@
 - (void)setDictionaryToCoreDataEntity:(NSDictionary *)json;
 - (BOOL)saveContext;
 + (BOOL)saveContext:(NSManagedObjectContext *)context;
+- (BOOL)saveToDatabase:(NSDictionary *)json;
+- (NSDictionary *)asDictionary;
 
 @end

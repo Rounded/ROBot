@@ -157,4 +157,13 @@ static NSString *pk = @"id";
     return TRUE;
 }
 
+- (BOOL)saveToDatabase:(NSDictionary *)json {
+    [self setDictionaryToCoreDataEntity:json];
+    return [self saveContext];
+}
+
+- (NSDictionary *)asDictionary {
+    return [self dictionaryWithValuesForKeys:[[[self entity] attributesByName] allKeys]];
+}
+
 @end

@@ -356,26 +356,4 @@
     return FALSE;
 }
 
-- (BOOL)saveToDatabase:(NSDictionary *)json {
-    [self setDictionaryToCoreDataEntity:json];
-    return [self saveContext];
-}
-
-//- (void)setDictionaryToCoreDataEntity:(NSDictionary *)json {
-//    NSArray *entityAttributes = [[[self entity] attributesByName] allKeys];
-//    
-//    // Get all the entity attributes and loop through them, setting the JSON data to the values if they exist
-//    [entityAttributes enumerateObjectsUsingBlock:^(NSString *entityAttribute, NSUInteger idx, BOOL *stop) {
-//        if ([json objectForKey:entityAttribute] && [json objectForKey:entityAttribute] != [NSNull null]) {
-//            [self setValue:[json objectForKey:entityAttribute] forKey:entityAttribute];
-//        }
-//    }];
-//}
-
-
-
-- (NSDictionary *)asDictionary {
-    return [self dictionaryWithValuesForKeys:[[[self entity] attributesByName] allKeys]];
-}
-
 @end
