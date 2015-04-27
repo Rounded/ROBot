@@ -11,6 +11,7 @@
 @interface NSManagedObject (ROSerializer)
 
 + (NSDictionary *)mapping;
++ (void)setMapping:(NSDictionary *)mapping;
 - (void)update:(NSDictionary *)json;
 
 @end

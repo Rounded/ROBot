@@ -10,6 +10,16 @@
 
 @implementation NSManagedObject (ROSerializer)
 
+static NSDictionary *customMapping;
+
++ (NSDictionary *)mapping {
+    return customMapping;
+}
+
++ (void)setMapping:(NSDictionary *)mapping {
+    customMapping = mapping;
+}
+
 - (void)update:(NSDictionary *)json {
     // pull out the attributes that exist in the database
     NSEntityDescription *entity = self.entity;
