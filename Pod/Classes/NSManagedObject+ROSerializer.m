@@ -23,7 +23,8 @@
         }
         // Otherwise assign the value to the corresponding value in the db
         else {
-            if (obj) {
+            // If the key is an element in the db, and if the object isn't null
+            if (attributes[key] && obj) {
                 [self setValue:obj forKey:key];
             }
         }
