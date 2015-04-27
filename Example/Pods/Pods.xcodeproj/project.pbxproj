@@ -49,6 +49,7 @@
 		44FD67D51AEE8B2100EEB4FF /* ROBotManagedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ROBotManagedObject.m; path = Pod/Classes/ROBotManagedObject.m; sourceTree = "<group>"; };
 		44FD67D61AEE8B2100EEB4FF /* ROBotManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ROBotManager.h; path = Pod/Classes/ROBotManager.h; sourceTree = "<group>"; };
 		44FD67D71AEE8B2100EEB4FF /* ROBotManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ROBotManager.m; path = Pod/Classes/ROBotManager.m; sourceTree = "<group>"; };
+		44FD67E41AEE91EF00EEB4FF /* ROBot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ROBot.h; sourceTree = "<group>"; };
 		4C17DAB80DFD1B6F08ABA062 /* Pods-RoundedRobot-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-RoundedRobot-acknowledgements.plist"; sourceTree = "<group>"; };
 		4D32E2978F1ADEC445993459 /* Pods-RoundedRobot-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-RoundedRobot-acknowledgements.markdown"; sourceTree = "<group>"; };
 		52D64C15AF24B6B0C290A885 /* Pods-Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Tests-acknowledgements.plist"; sourceTree = "<group>"; };
@@ -118,6 +119,7 @@
 				44FD67D71AEE8B2100EEB4FF /* ROBotManager.m */,
 				44FD67CF1AEE853400EEB4FF /* NSManagedObject+ROSerializer.h */,
 				44FD67D01AEE853400EEB4FF /* NSManagedObject+ROSerializer.m */,
+				44FD67E41AEE91EF00EEB4FF /* ROBot.h */,
 			);
 			name = RoundedRobot;
 			path = ../..;
