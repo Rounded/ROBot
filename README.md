@@ -24,93 +24,56 @@ pod "RoundedRobot"
 
 ## How to use
 
-RObot a Swift library is built off of [Alamofire](https://github.com/Alamofire/Alamofire) that handles CRUD methods for `NSManagedObjects`. 
+RObot a stand alone libraby that handles CRUD methods for `NSManagedObjects`. Calling create, read, update, delete, or index, will make the API and update the database appropriately.
 
 To begin, call this line:
 
-    ROBotManager.initialize(YOUR_BASE_URL, token: YOUR_AUTH_TOKEN)
+    [ROBotManager initializeWithBaseURL:@"https://your_base_url"];
+    
+If you plan on using the index methods or caching, you'll also need to set your persistent store coordinator:
 
-Then, subclass your `NSManagedObject` from `ROBotManagedObect`:
+    [ROBotManager sharedInstance].persistentStoreCoordinator = [self persistentStoreCoordinator];
 
-  	@objc(User)
-  	class User: ROBotManagedObject {
 
-and override the CRUD API endpoints:
+Next, `#import "ROBot.h"` into the classes you plan on using ROBot in.
 
-  	override func createUrl() -> String {
-    	return "/users"
-  	}
+You'll need to override the CRUD urls in your `NSManagedObject` (or corresponding catorgory). Ex:
 
-  	override func readUrl() -> String {
-    	return "/users/me"
-  	}
-
-	override func updateUrl() -> String {
-   		return "/users/\(id)"
+	+ (NSString *)indexURL
+	{
+    	return @"/users";
 	}
 
-    override func deleteUrl() -> String {
-      return "/users/\(id)"
-    }
+	- (NSString *)createURL
+	{
+    	return @"/users";
+	}
+
+	- (NSString *)readURL
+	{
+    	return [NSString stringWithFormat:@"/users/%@", self.user_id];
+	}
+
+	- (NSString *)updateURL
+	{
+    	return [NSString stringWithFormat:@"/users/%@", self.user_id];
+	}
+
 
 Note that the url path are instance methods, and will populate the variables in the url string when the url methods is called.
 
-The class will look as follows:
-
-  	@objc(User)
-  	class User: ROBotManagedObject {
-
-  	@NSManaged var email: String
-  	@NSManaged var first_name: String
-  	@NSManaged var id: NSNumber
-  	@NSManaged var last_name: String
-  	@NSManaged var password: String
-
-  	override func createUrl() -> String {
-    	return "/users"
-  	}
-
-  	override func readUrl() -> String {
-    	return "/users/me"
-  	}
-
-  	override func updateUrl() -> String {
-    	return "/users/\(id)"
-  	}
-
-  	override func deleteUrl() -> String {
-    	return "/users/\(id)"
-  	}
-
-  	}
-
 You can then call CRUD methods on the instances of the model, and the changes will be made to your database and API. 
+
+Get all Users:
+	
+	[User index:^{} failure:^(ROBotError *error) {}];
 
 Create Example:
 
-  	let user = NSEntityDescription.insertNewObjectForEntityForName("User", inManagedObjectContext:     managedObjectContext!) as User
-  	user.first_name = "Heather"
-  	user.last_name = "Sneps"
-  	user.email = "test@roundedco.com"
-  	user.password = "11111111"
-
-  	// Save the user to db and upload to server
-  	user.create()
-
-
-Update Example:
-
-  	var fetchRequest = NSFetchRequest(entityName: "User")
-  	fetchRequest.predicate = NSPredicate(format: "first_name = Heather")
-  	var users = managedObjectContext!.executeFetchRequest(fetchRequest, error: err) as [User]
-
-  	var user = users[0] as User
-  	user.first_name = "Jane"
-
-  	// Update the user to db and upload the server
-  	user.update()
-
-**Read and Delete methods are similar**
+    WRUser *user = [NSEntityDescription insertNewObjectForEntityForName:@"WRUser" inManagedObjectContext:[NSManagedObjectContext MR_defaultContext]];
+    user.fname = @"Heather";
+    user.lname = @"Sneps";
+    [user create:^{} failure:^(ROBotError *error) {}]
 
 
 ## Customization
@@ -119,7 +82,7 @@ You can specify a custom mapping from the API response to the database object. I
 
 To specify a mapping, do the following:
 
-  	User.mapping = ["last_name": "lname", "first_name": "fname"]
+  	[User setMapping:@[@"last_name": @"lname", @"first_name": @"fname"]];
 
 Note that a partial mapping can be used. In the case above, the email will still map to email.
 
@@ -136,11 +99,10 @@ to enable logging for a single `ROBotManagedObject` class, use
 ## Coming soon
 We're working on the following:
 
-1. an index route that will return an array of the objects
+1. ~~an index route that will return an array of the objects~~
 2. caching of objects when user doesn't have connection
-3. Success/fail callbacks for create()/read()/update()/delete() methods
+3. ~~Success/fail callbacks for create()/read()/update()/delete() methods~~
 
-A major limitation for 1 and 2 is the lack of static variables allowed in Swift.
 
 
 Feel free to submit a pull request and add your own contributions!
