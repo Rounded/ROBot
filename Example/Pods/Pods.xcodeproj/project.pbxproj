@@ -10,8 +10,8 @@
 		2F75C88E7FED921798C73837 /* Pods-RoundedRobot-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F9948231337BA76FB9822E /* Pods-RoundedRobot-dummy.m */; };
 		44FD67D81AEE8B2100EEB4FF /* ROBotError.m in Sources */ = {isa = PBXBuildFile; fileRef = 44FD67D31AEE8B2100EEB4FF /* ROBotError.m */; };
 		44FD67DA1AEE8B2100EEB4FF /* ROBotManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 44FD67D71AEE8B2100EEB4FF /* ROBotManager.m */; };
-		44FD67F11AEEC52800EEB4FF /* NSManagedObject+ROSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 44FD67F01AEEC52800EEB4FF /* NSManagedObject+ROSerializer.m */; };
-		44FD67F41AEEC55000EEB4FF /* NSManagedObject+CRUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 44FD67F31AEEC55000EEB4FF /* NSManagedObject+CRUD.m */; };
+		44FD68021AEEC66B00EEB4FF /* NSManagedObject+CRUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 44FD67FE1AEEC66B00EEB4FF /* NSManagedObject+CRUD.m */; };
+		44FD68031AEEC66B00EEB4FF /* NSManagedObject+ROSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 44FD68001AEEC66B00EEB4FF /* NSManagedObject+ROSerializer.m */; };
 		54BB14CEFCC9A75765A5E512 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A766D9329095E858938406E /* Foundation.framework */; };
 		6B2B7257D3020269A98323CF /* Pods-Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7042F13B6A9F3DEDAA7101AE /* Pods-Tests-dummy.m */; };
 		8763F3577EC181D631045CBA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A766D9329095E858938406E /* Foundation.framework */; };
@@ -45,11 +45,11 @@
 		44FD67D31AEE8B2100EEB4FF /* ROBotError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ROBotError.m; path = Pod/Classes/ROBotError.m; sourceTree = "<group>"; };
 		44FD67D61AEE8B2100EEB4FF /* ROBotManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ROBotManager.h; path = Pod/Classes/ROBotManager.h; sourceTree = "<group>"; };
 		44FD67D71AEE8B2100EEB4FF /* ROBotManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ROBotManager.m; path = Pod/Classes/ROBotManager.m; sourceTree = "<group>"; };
-		44FD67E41AEE91EF00EEB4FF /* ROBot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ROBot.h; sourceTree = "<group>"; };
-		44FD67EF1AEEC52800EEB4FF /* NSManagedObject+ROSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+ROSerializer.h"; sourceTree = "<group>"; };
-		44FD67F01AEEC52800EEB4FF /* NSManagedObject+ROSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+ROSerializer.m"; sourceTree = "<group>"; };
-		44FD67F21AEEC55000EEB4FF /* NSManagedObject+CRUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+CRUD.h"; sourceTree = "<group>"; };
-		44FD67F31AEEC55000EEB4FF /* NSManagedObject+CRUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+CRUD.m"; sourceTree = "<group>"; };
+		44FD67FD1AEEC66B00EEB4FF /* NSManagedObject+CRUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSManagedObject+CRUD.h"; path = "Pod/Classes/NSManagedObject+CRUD.h"; sourceTree = "<group>"; };
+		44FD67FE1AEEC66B00EEB4FF /* NSManagedObject+CRUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObject+CRUD.m"; path = "Pod/Classes/NSManagedObject+CRUD.m"; sourceTree = "<group>"; };
+		44FD67FF1AEEC66B00EEB4FF /* NSManagedObject+ROSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSManagedObject+ROSerializer.h"; path = "Pod/Classes/NSManagedObject+ROSerializer.h"; sourceTree = "<group>"; };
+		44FD68001AEEC66B00EEB4FF /* NSManagedObject+ROSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObject+ROSerializer.m"; path = "Pod/Classes/NSManagedObject+ROSerializer.m"; sourceTree = "<group>"; };
+		44FD68011AEEC66B00EEB4FF /* ROBot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ROBot.h; path = Pod/Classes/ROBot.h; sourceTree = "<group>"; };
 		4C17DAB80DFD1B6F08ABA062 /* Pods-RoundedRobot-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-RoundedRobot-acknowledgements.plist"; sourceTree = "<group>"; };
 		4D32E2978F1ADEC445993459 /* Pods-RoundedRobot-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-RoundedRobot-acknowledgements.markdown"; sourceTree = "<group>"; };
 		52D64C15AF24B6B0C290A885 /* Pods-Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Tests-acknowledgements.plist"; sourceTree = "<group>"; };
@@ -111,15 +111,15 @@
 		39C252B0DE849A8177B528CF /* RoundedRobot */ = {
 			isa = PBXGroup;
 			children = (
-				44FD67F21AEEC55000EEB4FF /* NSManagedObject+CRUD.h */,
-				44FD67F31AEEC55000EEB4FF /* NSManagedObject+CRUD.m */,
-				44FD67EF1AEEC52800EEB4FF /* NSManagedObject+ROSerializer.h */,
-				44FD67F01AEEC52800EEB4FF /* NSManagedObject+ROSerializer.m */,
+				44FD67FD1AEEC66B00EEB4FF /* NSManagedObject+CRUD.h */,
+				44FD67FE1AEEC66B00EEB4FF /* NSManagedObject+CRUD.m */,
+				44FD67FF1AEEC66B00EEB4FF /* NSManagedObject+ROSerializer.h */,
+				44FD68001AEEC66B00EEB4FF /* NSManagedObject+ROSerializer.m */,
+				44FD68011AEEC66B00EEB4FF /* ROBot.h */,
 				44FD67D21AEE8B2100EEB4FF /* ROBotError.h */,
 				44FD67D31AEE8B2100EEB4FF /* ROBotError.m */,
 				44FD67D61AEE8B2100EEB4FF /* ROBotManager.h */,
 				44FD67D71AEE8B2100EEB4FF /* ROBotManager.m */,
-				44FD67E41AEE91EF00EEB4FF /* ROBot.h */,
 			);
 			name = RoundedRobot;
 			path = ../..;
@@ -324,10 +324,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				44FD67D81AEE8B2100EEB4FF /* ROBotError.m in Sources */,
-				44FD67F11AEEC52800EEB4FF /* NSManagedObject+ROSerializer.m in Sources */,
+				44FD68031AEEC66B00EEB4FF /* NSManagedObject+ROSerializer.m in Sources */,
 				44FD67DA1AEE8B2100EEB4FF /* ROBotManager.m in Sources */,
 				2F75C88E7FED921798C73837 /* Pods-RoundedRobot-dummy.m in Sources */,
-				44FD67F41AEEC55000EEB4FF /* NSManagedObject+CRUD.m in Sources */,
+				44FD68021AEEC66B00EEB4FF /* NSManagedObject+CRUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

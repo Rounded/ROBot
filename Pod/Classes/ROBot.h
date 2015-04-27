@@ -11,7 +11,7 @@
 #define Pods_ROBot_h
 
 #import "ROBotError.h"
-#import "ROBotManagedObject.h"
+#import "NSManagedObject+CRUD.h"
 #import "ROBotManager.h"
 #import "NSManagedObject+ROSerializer.h"
 
