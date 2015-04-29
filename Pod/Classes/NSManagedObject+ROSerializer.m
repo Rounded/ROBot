@@ -50,7 +50,7 @@ static NSString *pk = @"id";
             }
         }
     }];
-
+    
     
     
     // Handle relationships
@@ -58,13 +58,18 @@ static NSString *pk = @"id";
     for (NSEntityDescription *entity in entities) {
         NSArray *relationships = [self.entity relationshipsWithDestinationEntity:entity];
         for (NSRelationshipDescription *relationshipDescription in relationships) {
-
+            
+            if (json[relationshipDescription.name] == (id)[NSNull null]) {
+                // if the object we receive is null, don't setup the relationship
+                return;
+            }
+            
             // If the json has the relationship already
             if (json[relationshipDescription.name]) {
                 if (relationshipDescription.isToMany) {
                     // If the relationship is toMany, make sure that the corresponding json object is an array
                     assert([json[relationshipDescription.name] isKindOfClass:[NSArray class]]);
-
+                    
                     NSMutableSet *relationshipObjects = [NSMutableSet new];
                     for (NSDictionary *childObject in json[relationshipDescription.name]) {
                         [relationshipObjects addObject:[self createOrUpdateObject:childObject forEntityName:entity.name]];
@@ -135,7 +140,7 @@ static NSString *pk = @"id";
 }
 
 + (BOOL)saveContext:(NSManagedObjectContext *)context {
-
+    
     NSError *error = nil;
     
     if (context.hasChanges && ![context save:&error]) {
@@ -170,7 +175,9 @@ static NSString *pk = @"id";
 + (NSManagedObject *)newTemporaryObject {
     NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
     context.persistentStoreCoordinator = [[ROBotManager sharedInstance] persistentStoreCoordinator];
-    return [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class]) inManagedObjectContext:context];
+    NSManagedObject *object = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class]) inManagedObjectContext:context];
+    
+    return object;
 }
 
 
