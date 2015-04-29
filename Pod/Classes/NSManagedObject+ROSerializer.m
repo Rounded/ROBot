@@ -166,4 +166,12 @@ static NSString *pk = @"id";
     return [self dictionaryWithValuesForKeys:[[[self entity] attributesByName] allKeys]];
 }
 
+
++ (NSManagedObject *)newTemporaryObject {
+    NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
+    context.persistentStoreCoordinator = [[ROBotManager sharedInstance] persistentStoreCoordinator];
+    return [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class]) inManagedObjectContext:context];
+}
+
+
 @end
