@@ -7,6 +7,8 @@
 //
 
 #import "ROBotManager.h"
+#import "NSManagedObject+CRUD.h"
+#import "ROReachability.h"
 
 static ROBotManager *ROBotManagerInstance = nil;
 
@@ -18,6 +20,23 @@ static ROBotManager *ROBotManagerInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         ROBotManagerInstance = [[ROBotManager alloc] init];
+        
+        // Allocate a reachability object
+        ROReachability* reach = [ROReachability reachabilityForInternetConnection];
+        
+        // Set the blocks
+        reach.reachableBlock = ^(ROReachability*reach)
+        {
+            [ROBotManagerInstance uploadCachedData];
+        };
+        
+        reach.unreachableBlock = ^(ROReachability*reach)
+        {
+            NSLog(@"UNREACHABLE!");
+        };
+        
+        // Start the notifier, which will cause the reachability object to retain itself!
+        [reach startNotifier];
     });
     
     return ROBotManagerInstance;
@@ -25,6 +44,11 @@ static ROBotManager *ROBotManagerInstance = nil;
 
 + (void)initializeWithBaseURL:(NSString *)baseURL {
     [ROBotManager sharedInstance].baseURL = baseURL;
+}
+
++ (void)initializeWithBaseURL:(NSString *)baseURL andPersistentStoreCoordinator:(NSPersistentStoreCoordinator *)coordinator{
+    [ROBotManager sharedInstance].baseURL = baseURL;
+    [ROBotManager sharedInstance].persistentStoreCoordinator = coordinator;
 }
 
 - (NSString *)baseURL {
@@ -43,5 +67,50 @@ static ROBotManager *ROBotManagerInstance = nil;
     NSAssert(_persistentStoreCoordinator, @"You did not set your persistent store coordinator");
     return _persistentStoreCoordinator;
 }
+
++ (NSString *) cacheType:(CRUD)crudType {
+    switch (crudType) {
+        case CREATE:
+            return @"create_cache";
+            break;
+        case READ:
+            return @"read_cache";
+            break;
+        case UPDATE:
+            return @"update_cache";
+            break;
+        case DELETE:
+            return @"delete_cache";
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)uploadCachedData {
+
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    NSManagedObjectContext *context = [NSManagedObjectContext new];
+    context.persistentStoreCoordinator = self.persistentStoreCoordinator;
+
+    NSArray *create_ids = [defaults stringArrayForKey:[ROBotManager cacheType:CREATE]];
+    if (create_ids) {
+        for (NSString *id in create_ids) {
+            NSManagedObjectID *moId = [self.persistentStoreCoordinator managedObjectIDForURIRepresentation:[NSURL URLWithString:id]];
+            NSManagedObject *object = [context objectWithID:moId];
+            [object create:nil failure:nil];
+            
+            if (self.verboseLogging) {
+                NSLog(@"creating object: %@", object);
+            }
+        }
+    }
+    [defaults removeObjectForKey:[ROBotManager cacheType:CREATE]];
+    [defaults synchronize];
+
+}
+
+
 
 @end

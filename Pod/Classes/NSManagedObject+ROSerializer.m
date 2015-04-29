@@ -31,10 +31,12 @@ static NSString *pk = @"id";
 }
 
 - (void)setDictionaryToCoreDataEntity:(NSDictionary *)json {
+    if (json.count == 0)
+        return;
+    
     // pull out the attributes that exist in the database
     NSEntityDescription *entity = self.entity;
     NSDictionary *attributes = entity.attributesByName;
-    
     
     // Update all the key / values for the object
     [json enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {

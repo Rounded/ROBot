@@ -10,6 +10,8 @@
 #import "NSManagedObject+ROSerializer.h"
 #import "ROBotManager.h"
 
+
+
 @implementation NSManagedObject (CRUD)
 
 + (NSString *)indexURL {
@@ -52,31 +54,36 @@
     
     [[session dataTaskWithRequest:mutableURLRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
-        BOOL success = false;
-        
-        if ([self validateResponseForData:data andResponse:response andError:error]) {
-            NSError *jsonError = nil;
-            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&jsonError];
+        if (error) {
+            // Cache to upload later
+            [self cacheOffline:CREATE];
+        } else {
+            BOOL success = false;
             
-            if (jsonError != nil) {
-                if ([ROBotManager sharedInstance].verboseLogging == TRUE) {
-                    NSLog(@"Could not parse JSON: %@", jsonError.localizedDescription);
+            if ([self validateResponseForData:data andResponse:response andError:error]) {
+                NSError *jsonError = nil;
+                NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&jsonError];
+                
+                if (jsonError != nil) {
+                    if ([ROBotManager sharedInstance].verboseLogging == TRUE) {
+                        NSLog(@"Could not parse JSON: %@", jsonError.localizedDescription);
+                    }
+                } else {
+                    success = [self saveToDatabase:json];
                 }
-            } else {
-                success = [self saveToDatabase:json];
             }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (success && complete) {
+                    // if successfully saved to the database and the success callback isn't nil
+                    complete();
+                } else if (failure) {
+                    // if the failure callback isn't nil, set the roboterror
+                    ROBotError *error = [[ROBotError alloc] initWithResponse:response andResponseData:data];
+                    failure(error);
+                }
+            });
         }
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (success && complete) {
-                // if successfully saved to the database and the success callback isn't nil
-                complete();
-            } else if (failure) {
-                // if the failure callback isn't nil, set the roboterror
-                ROBotError *error = [[ROBotError alloc] initWithResponse:response andResponseData:data];
-                failure(error);
-            }
-        });
         
     }] resume];
 }
@@ -336,8 +343,27 @@
     if ([httpResponse statusCode]==200 || [httpResponse statusCode]==201 || [httpResponse statusCode]==304) {
         return TRUE;
     }
-    
     return FALSE;
 }
+
+
+
+- (void)cacheOffline:(CRUD)crudType {
+
+    [self saveContext];
+    NSString *cacheSlug = [ROBotManager cacheType:crudType];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    // get the array of saved ids from the defaults based on the cache type
+    NSMutableArray *ids = [[defaults stringArrayForKey:cacheSlug] mutableCopy];
+    if (!ids) {
+        ids = [NSMutableArray new];
+    }
+    // add the new id to the array
+    [ids addObject:self.objectID.URIRepresentation.absoluteString];
+    [defaults setObject:ids forKey:cacheSlug];
+    [defaults synchronize];
+}
+
 
 @end

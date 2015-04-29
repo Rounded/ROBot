@@ -7,6 +7,9 @@
 //
 
 #import "ROViewController.h"
+#import "User.h"
+#import "ROBot.h"
+#import "ROAppDelegate.h"
 
 @interface ROViewController ()
 
@@ -18,6 +21,10 @@
 {
     [super viewDidLoad];
     // Yooo I hope this pans out.
+    
+    ROAppDelegate *appDelegate = (ROAppDelegate *)[[UIApplication sharedApplication] delegate];
+
+    
 }
 
 - (void)didReceiveMemoryWarning

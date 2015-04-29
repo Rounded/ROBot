@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1BE84EBA3506E262A8C6D5FD /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3053404FF302535E45BDC2A4 /* libPods.a */; };
+		447FAE191AF1708400A8E1D6 /* test.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 447FAE171AF1708400A8E1D6 /* test.xcdatamodeld */; };
+		447FAE221AF1728900A8E1D6 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 447FAE211AF1728900A8E1D6 /* User.m */; };
 		54BFBDE2519A352D997C95C8 /* libPods-RoundedRobot.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 587492F229E45F7F55EBC31D /* libPods-RoundedRobot.a */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
@@ -37,6 +40,10 @@
 /* Begin PBXFileReference section */
 		05CE60C237835FA1429764E3 /* RoundedRobot.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = RoundedRobot.podspec; path = ../RoundedRobot.podspec; sourceTree = "<group>"; };
 		193EA94F9B5679A17F7C7BC3 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		3053404FF302535E45BDC2A4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		447FAE181AF1708400A8E1D6 /* test.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = test.xcdatamodel; sourceTree = "<group>"; };
+		447FAE201AF1728900A8E1D6 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		447FAE211AF1728900A8E1D6 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		587492F229E45F7F55EBC31D /* libPods-RoundedRobot.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RoundedRobot.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DD64D63C957101FA7175CE7 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* RoundedRobot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RoundedRobot.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -74,6 +81,7 @@
 				6003F592195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F58E195388D20070C39A /* Foundation.framework in Frameworks */,
 				54BFBDE2519A352D997C95C8 /* libPods-RoundedRobot.a in Frameworks */,
+				1BE84EBA3506E262A8C6D5FD /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,6 +129,7 @@
 				6003F5AF195388D20070C39A /* XCTest.framework */,
 				587492F229E45F7F55EBC31D /* libPods-RoundedRobot.a */,
 				7C1621C6C5CCD430A1B4D05D /* libPods-Tests.a */,
+				3053404FF302535E45BDC2A4 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -128,12 +137,15 @@
 		6003F593195388D20070C39A /* RoundedRobot */ = {
 			isa = PBXGroup;
 			children = (
+				447FAE201AF1728900A8E1D6 /* User.h */,
+				447FAE211AF1728900A8E1D6 /* User.m */,
 				6003F59C195388D20070C39A /* ROAppDelegate.h */,
 				6003F59D195388D20070C39A /* ROAppDelegate.m */,
 				6003F5A5195388D20070C39A /* ROViewController.h */,
 				6003F5A6195388D20070C39A /* ROViewController.m */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
+				447FAE171AF1708400A8E1D6 /* test.xcdatamodeld */,
 			);
 			path = RoundedRobot;
 			sourceTree = "<group>";
@@ -353,7 +365,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				447FAE221AF1728900A8E1D6 /* User.m in Sources */,
 				6003F59E195388D20070C39A /* ROAppDelegate.m in Sources */,
+				447FAE191AF1708400A8E1D6 /* test.xcdatamodeld in Sources */,
 				6003F5A7195388D20070C39A /* ROViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 			);
@@ -570,6 +584,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		447FAE171AF1708400A8E1D6 /* test.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				447FAE181AF1708400A8E1D6 /* test.xcdatamodel */,
+			);
+			currentVersion = 447FAE181AF1708400A8E1D6 /* test.xcdatamodel */;
+			path = test.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 6003F582195388D10070C39A /* Project object */;
 }

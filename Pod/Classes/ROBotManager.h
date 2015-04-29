@@ -9,10 +9,20 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+typedef NS_ENUM(NSInteger, CRUD) {
+    CREATE,
+    READ,
+    UPDATE,
+    DELETE
+};
+
 @interface ROBotManager : NSObject
 
 + (instancetype)sharedInstance;
 + (void)initializeWithBaseURL:(NSString *)baseURL;
++ (void)initializeWithBaseURL:(NSString *)baseURL andPersistentStoreCoordinator:(NSPersistentStoreCoordinator *)coordinator;
+
++ (NSString *) cacheType:(CRUD)crudType;
 
 @property (nonatomic, retain) NSString *baseURL;
 @property (nonatomic, retain) NSString *accessToken;
