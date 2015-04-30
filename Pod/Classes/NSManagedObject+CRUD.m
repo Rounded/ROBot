@@ -345,13 +345,6 @@
 #pragma mark — Helpers
 
 + (BOOL)validateResponseForData:(NSData *)data andResponse:(NSURLResponse *)response andError:(NSError *)error {
-    if ([ROBotManager sharedInstance].verboseLogging == TRUE) {
-        NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        NSLog(@"%@",responseString);
-        NSLog(@"%@",response);
-        NSLog(@"%@",error);
-    }
-    
     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
     if ([httpResponse statusCode]==200 || [httpResponse statusCode]==201 || [httpResponse statusCode]==304) {
         return TRUE;
