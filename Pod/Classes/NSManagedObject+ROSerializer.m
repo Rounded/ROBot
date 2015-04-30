@@ -181,11 +181,11 @@ static NSString *pk = @"id";
 
 
 + (NSManagedObject *)newTemporaryObject {
+    // FIX: Should attempt to get the actual main context, not just creating a new one!
     NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
     context.persistentStoreCoordinator = [[ROBotManager sharedInstance] persistentStoreCoordinator];
     NSEntityDescription *entity = [NSEntityDescription entityForName:NSStringFromClass([self class]) inManagedObjectContext:context];
     return [[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:nil];
 }
-
 
 @end
