@@ -257,8 +257,10 @@
 
         } else {
             if (failure) {
-                ROBotError *error = [[ROBotError alloc] initWithResponse:response andResponseData:data];
-                failure(error);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    ROBotError *error = [[ROBotError alloc] initWithResponse:response andResponseData:data];
+                    failure(error);
+                });
             }
         }
     }] resume];
@@ -330,8 +332,10 @@
             }
         } else {
             if (failure) {
-                ROBotError *error = [[ROBotError alloc] initWithResponse:response andResponseData:data];
-                failure(error);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    ROBotError *error = [[ROBotError alloc] initWithResponse:response andResponseData:data];
+                    failure(error);
+                });
             }
         }
 
