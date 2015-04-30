@@ -14,7 +14,7 @@
 + (void)setMapping:(NSDictionary *)mapping;
 + (NSString *)primaryKey;
 + (void)setPrimaryKey:(NSString *)primaryKey;
-- (void)setDictionaryToCoreDataEntity:(NSDictionary *)json;
+- (BOOL)setDictionaryToCoreDataEntity:(NSDictionary *)json;
 - (BOOL)saveContext;
 + (BOOL)saveContext:(NSManagedObjectContext *)context;
 - (BOOL)saveToDatabase:(NSDictionary *)json;

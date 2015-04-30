@@ -23,4 +23,12 @@
     return @"/users";
 }
 
+- (NSString *)updateURL {
+    return [NSString stringWithFormat:@"/users/%@", self.id];
+}
+
+- (NSString *)deleteURL {
+    return [NSString stringWithFormat:@"/users/%@", self.id];
+}
+
 @end

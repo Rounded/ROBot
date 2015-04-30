@@ -22,17 +22,15 @@
     [ROBotManager initializeWithBaseURL:@"http://rounded-pong.herokuapp.com" andPersistentStoreCoordinator:self.persistentStoreCoordinator];
     [ROBotManager sharedInstance].verboseLogging = YES;
     
-    User *user = [NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:self.managedObjectContext];
-    user.name = @"test123456";
     
-    [user create:nil failure:nil];
+//    [user create:nil failure:nil];
     
-    [User index:^{
-        
-    }
-        failure:^(ROBotError *error) {
-            
-        }];
+//    [User index:^{
+//        
+//    }
+//        failure:^(ROBotError *error) {
+//            
+//        }];
     
     return YES;
 }

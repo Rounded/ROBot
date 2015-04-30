@@ -54,36 +54,31 @@
     
     [[session dataTaskWithRequest:mutableURLRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
-        if (error) {
-            // Cache to upload later
-            [self cacheOffline:CREATE];
-        } else {
-            BOOL success = false;
+        BOOL success = false;
+        
+        if ([self validateResponseForData:data andResponse:response andError:error withCrudType:CREATE]) {
+            NSError *jsonError = nil;
+            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&jsonError];
             
-            if ([self validateResponseForData:data andResponse:response andError:error]) {
-                NSError *jsonError = nil;
-                NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&jsonError];
-                
-                if (jsonError != nil) {
-                    if ([ROBotManager sharedInstance].verboseLogging == TRUE) {
-                        NSLog(@"Could not parse JSON: %@", jsonError.localizedDescription);
-                    }
-                } else {
-                    success = [self saveToDatabase:json];
+            if (jsonError != nil) {
+                if ([ROBotManager sharedInstance].verboseLogging == TRUE) {
+                    NSLog(@"Could not parse JSON: %@", jsonError.localizedDescription);
                 }
+            } else {
+                success = [self saveToDatabase:json];
             }
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (success && complete) {
-                    // if successfully saved to the database and the success callback isn't nil
-                    complete();
-                } else if (failure) {
-                    // if the failure callback isn't nil, set the roboterror
-                    ROBotError *error = [[ROBotError alloc] initWithResponse:response andResponseData:data];
-                    failure(error);
-                }
-            });
         }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (success && complete) {
+                // if successfully saved to the database and the success callback isn't nil
+                complete();
+            } else if (failure) {
+                // if the failure callback isn't nil, set the roboterror
+                ROBotError *error = [[ROBotError alloc] initWithResponse:response andResponseData:data];
+                failure(error);
+            }
+        });
         
     }] resume];
 }
@@ -101,7 +96,7 @@
         
         BOOL success = false;
         
-        if ([self validateResponseForData:data andResponse:response andError:error]) {
+        if ([self validateResponseForData:data andResponse:response andError:error withCrudType:READ]) {
             NSError *jsonError = nil;
             NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&jsonError];
             
@@ -143,7 +138,7 @@
         
         BOOL success = false;
         
-        if ([self validateResponseForData:data andResponse:response andError:error]) {
+        if ([self validateResponseForData:data andResponse:response andError:error withCrudType:UPDATE]) {
             NSError *jsonError = nil;
             NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&jsonError];
             
@@ -183,7 +178,7 @@
     
     [[session dataTaskWithRequest:mutableURLRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
-        if ([self validateResponseForData:data andResponse:response andError:error]) {
+        if ([self validateResponseForData:data andResponse:response andError:error withCrudType:DELETE]) {
             [self.managedObjectContext deleteObject:self];
             [self saveContext];
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -331,7 +326,7 @@
 
 #pragma mark — Helpers
 
-- (BOOL)validateResponseForData:(NSData *)data andResponse:(NSURLResponse *)response andError:(NSError *)error {
+- (BOOL)validateResponseForData:(NSData *)data andResponse:(NSURLResponse *)response andError:(NSError *)error withCrudType:(CRUD)crudType{
     if ([ROBotManager sharedInstance].verboseLogging == TRUE) {
         NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         NSLog(@"%@",responseString);
@@ -340,6 +335,12 @@
     }
     
     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+    // Check if offline
+    if (!httpResponse) {
+        // Cache the response if offline
+        [self cacheOffline:crudType];
+        return false;
+    }
     if ([httpResponse statusCode]==200 || [httpResponse statusCode]==201 || [httpResponse statusCode]==304) {
         return TRUE;
     }
@@ -349,6 +350,11 @@
 
 
 - (void)cacheOffline:(CRUD)crudType {
+    
+    // Don't cache read calls
+    if (crudType == READ) {
+        return;
+    }
 
     [self saveContext];
     NSString *cacheSlug = [ROBotManager cacheType:crudType];

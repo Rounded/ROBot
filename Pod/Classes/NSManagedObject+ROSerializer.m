@@ -30,9 +30,9 @@ static NSString *pk = @"id";
     pk = primaryKey;
 }
 
-- (void)setDictionaryToCoreDataEntity:(NSDictionary *)json {
+- (BOOL)setDictionaryToCoreDataEntity:(NSDictionary *)json {
     if (json.count == 0)
-        return;
+        return false;
     
     // pull out the attributes that exist in the database
     NSEntityDescription *entity = self.entity;
@@ -63,30 +63,33 @@ static NSString *pk = @"id";
             
             if (json[relationshipDescription.name] == (id)[NSNull null]) {
                 // if the object we receive is null, don't setup the relationship
-                return;
-            }
-            
-            // If the json has the relationship already
-            if (json[relationshipDescription.name]) {
-                if (relationshipDescription.isToMany) {
-                    // If the relationship is toMany, make sure that the corresponding json object is an array
-                    assert([json[relationshipDescription.name] isKindOfClass:[NSArray class]]);
-                    
-                    NSMutableSet *relationshipObjects = [NSMutableSet new];
-                    for (NSDictionary *childObject in json[relationshipDescription.name]) {
-                        [relationshipObjects addObject:[self createOrUpdateObject:childObject forEntityName:entity.name]];
+
+            } else {
+                
+                // If the json has the relationship already
+                if (json[relationshipDescription.name]) {
+                    if (relationshipDescription.isToMany) {
+                        // If the relationship is toMany, make sure that the corresponding json object is an array
+                        assert([json[relationshipDescription.name] isKindOfClass:[NSArray class]]);
+                        
+                        NSMutableSet *relationshipObjects = [NSMutableSet new];
+                        for (NSDictionary *childObject in json[relationshipDescription.name]) {
+                            [relationshipObjects addObject:[self createOrUpdateObject:childObject forEntityName:entity.name]];
+                        }
+                        // Set the to-many relationship
+                        [self setValue:relationshipObjects forKey:relationshipDescription.name];
+                    } else {
+                        // If the relationship isn't toMany, make sure that the corresponding json object is a dictionary
+                        assert([json[relationshipDescription.name] isKindOfClass:[NSDictionary class]]);
+                        // Set the relationship
+                        [self setValue:[self createOrUpdateObject:json[relationshipDescription.name] forEntityName:entity.name] forKey:relationshipDescription.name];
                     }
-                    // Set the to-many relationship
-                    [self setValue:relationshipObjects forKey:relationshipDescription.name];
-                } else {
-                    // If the relationship isn't toMany, make sure that the corresponding json object is a dictionary
-                    assert([json[relationshipDescription.name] isKindOfClass:[NSDictionary class]]);
-                    // Set the relationship
-                    [self setValue:[self createOrUpdateObject:json[relationshipDescription.name] forEntityName:entity.name] forKey:relationshipDescription.name];
                 }
             }
+            
         }
     }
+    return true;
 }
 
 - (NSManagedObject *)createOrUpdateObject:(NSDictionary *)childObject forEntityName:(NSString *)entityName {
@@ -165,8 +168,11 @@ static NSString *pk = @"id";
 }
 
 - (BOOL)saveToDatabase:(NSDictionary *)json {
-    [self setDictionaryToCoreDataEntity:json];
-    return [self saveContext];
+    if ([self setDictionaryToCoreDataEntity:json]) {
+        return [self saveContext];
+    } else {
+        return false;
+    }
 }
 
 - (NSDictionary *)asDictionary {

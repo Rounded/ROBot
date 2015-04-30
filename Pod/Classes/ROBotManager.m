@@ -32,7 +32,7 @@ static ROBotManager *ROBotManagerInstance = nil;
         
         reach.unreachableBlock = ^(ROReachability*reach)
         {
-            NSLog(@"UNREACHABLE!");
+
         };
         
         // Start the notifier, which will cause the reachability object to retain itself!
@@ -106,7 +106,36 @@ static ROBotManager *ROBotManagerInstance = nil;
             }
         }
     }
+    
+    NSArray *update_ids = [defaults stringArrayForKey:[ROBotManager cacheType:UPDATE]];
+    if (update_ids) {
+        for (NSString *id in update_ids) {
+            NSManagedObjectID *moId = [self.persistentStoreCoordinator managedObjectIDForURIRepresentation:[NSURL URLWithString:id]];
+            NSManagedObject *object = [context objectWithID:moId];
+            [object update:nil failure:nil];
+            
+            if (self.verboseLogging) {
+                NSLog(@"updating object: %@", object);
+            }
+        }
+    }
+    
+    NSArray *delete_ids = [defaults stringArrayForKey:[ROBotManager cacheType:DELETE]];
+    if (delete_ids) {
+        for (NSString *id in delete_ids) {
+            NSManagedObjectID *moId = [self.persistentStoreCoordinator managedObjectIDForURIRepresentation:[NSURL URLWithString:id]];
+            NSManagedObject *object = [context objectWithID:moId];
+            [object create:nil failure:nil];
+            
+            if (self.verboseLogging) {
+                NSLog(@"deleting object: %@", object);
+            }
+        }
+    }
+    
     [defaults removeObjectForKey:[ROBotManager cacheType:CREATE]];
+    [defaults removeObjectForKey:[ROBotManager cacheType:UPDATE]];
+    [defaults removeObjectForKey:[ROBotManager cacheType:DELETE]];
     [defaults synchronize];
 
 }
