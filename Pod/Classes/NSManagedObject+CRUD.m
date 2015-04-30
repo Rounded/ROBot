@@ -56,7 +56,7 @@
         
         BOOL success = false;
         
-        if ([self validateResponseForData:data andResponse:response andError:error withCrudType:CREATE]) {
+        if ([NSManagedObject validateResponseForData:data andResponse:response andError:error withCrudType:CREATE withObject:self]) {
             NSError *jsonError = nil;
             NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&jsonError];
             
@@ -96,7 +96,7 @@
         
         BOOL success = false;
         
-        if ([self validateResponseForData:data andResponse:response andError:error withCrudType:READ]) {
+        if ([NSManagedObject validateResponseForData:data andResponse:response andError:error withCrudType:READ withObject:self]) {
             NSError *jsonError = nil;
             NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&jsonError];
             
@@ -138,7 +138,7 @@
         
         BOOL success = false;
         
-        if ([self validateResponseForData:data andResponse:response andError:error withCrudType:UPDATE]) {
+        if ([NSManagedObject validateResponseForData:data andResponse:response andError:error withCrudType:UPDATE withObject:self]) {
             NSError *jsonError = nil;
             NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&jsonError];
             
@@ -178,7 +178,7 @@
     
     [[session dataTaskWithRequest:mutableURLRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
-        if ([NSManagedObject validateResponseForData:data andResponse:response andError:error withCrudType:DELETE]) {
+        if ([NSManagedObject validateResponseForData:data andResponse:response andError:error withCrudType:DELETE withObject:self]) {
             [self.managedObjectContext deleteObject:self];
             [self saveContext];
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -218,7 +218,7 @@
             NSLog(@"%@",error);
         }
 
-        if ([self validateResponseForData:data andResponse:response andError:error withCrudType:CUSTOM]) {
+        if ([NSManagedObject validateResponseForData:data andResponse:response andError:error withCrudType:CUSTOM withObject:nil]) {
 
             NSError *jsonError = nil;
             NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&jsonError];
@@ -289,7 +289,7 @@
             NSLog(@"%@",error);
         }
 
-        if ([self validateResponseForData:data andResponse:response andError:error withCrudType:CUSTOM]) {
+        if ([NSManagedObject validateResponseForData:data andResponse:response andError:error withCrudType:CUSTOM withObject:nil]) {
             NSError *jsonError = nil;
             [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&jsonError];
             
@@ -349,7 +349,7 @@
 
 
 #pragma mark — Helpers
-- (BOOL)validateResponseForData:(NSData *)data andResponse:(NSURLResponse *)response andError:(NSError *)error withCrudType:(CRUD)crudType{
++ (BOOL)validateResponseForData:(NSData *)data andResponse:(NSURLResponse *)response andError:(NSError *)error withCrudType:(CRUD)crudType withObject:(NSManagedObject *)object{
     if ([ROBotManager sharedInstance].verboseLogging == TRUE) {
         NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         NSLog(@"%@",responseString);
@@ -359,9 +359,9 @@
     
     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
     // Check if offline
-    if (!httpResponse && crudType != CUSTOM) {
+    if (!httpResponse && crudType != CUSTOM && object) {
         // Cache the response if offline
-        [self cacheOffline:crudType];
+        [object cacheOffline:crudType];
         return false;
     }
     if ([httpResponse statusCode]==200 || [httpResponse statusCode]==201 || [httpResponse statusCode]==304) {
