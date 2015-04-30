@@ -183,9 +183,8 @@ static NSString *pk = @"id";
 + (NSManagedObject *)newTemporaryObject {
     NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
     context.persistentStoreCoordinator = [[ROBotManager sharedInstance] persistentStoreCoordinator];
-    NSManagedObject *object = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class]) inManagedObjectContext:context];
-    
-    return object;
+    NSEntityDescription *entity = [NSEntityDescription entityForName:NSStringFromClass([self class]) inManagedObjectContext:context];
+    return [[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:nil];
 }
 
 
