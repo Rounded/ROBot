@@ -22,6 +22,7 @@
 - (void)update:(void (^)(void))complete failure:(void (^)(ROBotError *error))failure;
 - (void)delete:(void (^)(void))complete failure:(void (^)(ROBotError *error))failure;
 
+- (void)save:(void (^)(void))complete failure:(void (^)(ROBotError *))failure;
 + (void)index:(void (^)(void))complete failure:(void (^)(ROBotError *error))failure;
 + (void)customRequestAtURL:(NSString *)urlString andBody:(NSDictionary *)body andMethod:(NSString *)httpMethod withCompletion:(void (^)(void))complete andFailure:(void (^)(ROBotError *))failure;
 
