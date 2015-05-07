@@ -204,20 +204,19 @@ static NSString *pk = @"id";
         NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
         context.persistentStoreCoordinator = [[ROBotManager sharedInstance] persistentStoreCoordinator];
         objects = [context executeFetchRequest:fetchRequest error:&error];
-        NSManagedObject *object = objects[0];
-
+        
         if (objects.count > 0) {
             // assign the object found to the values of the scratchObject
             // object already exists in our database, so let's just update / save that one
-            if ([object setDictionaryToCoreDataEntity:json]) {
-                return [object saveContext];
+            if ([objects[0] setDictionaryToCoreDataEntity:json]) {
+                return [objects[0] saveContext];
             } else {
                 return false;
             }
         } else {
             // the scratch object doesn't exist in our database yet, so let's just save it
             if([self setDictionaryToCoreDataEntity:json]) {
-                [self saveContext];
+                return [self saveContext];
             } else {
                 return FALSE;
             }
