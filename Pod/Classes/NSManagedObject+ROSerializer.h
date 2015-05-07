@@ -19,6 +19,9 @@
 + (BOOL)saveContext:(NSManagedObjectContext *)context;
 - (BOOL)saveToDatabase:(NSDictionary *)json;
 - (NSDictionary *)asDictionary;
-+ (NSManagedObject *)newTemporaryObject;
+
++ (NSManagedObject *)newInScratchContext;
+- (instancetype)copyToScratchContext;
+- (instancetype)copyToSameContext;
 
 @end
