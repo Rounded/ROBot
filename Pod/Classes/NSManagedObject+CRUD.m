@@ -202,9 +202,25 @@
 
 - (void)save:(void (^)(void))complete failure:(void (^)(ROBotError *))failure {    
     if([self valueForKey:@"id"] == nil) {
-        [self create:complete failure:failure];
+        [self create:^{
+            if (complete) {
+                complete();
+            }
+        } failure:^(ROBotError *error) {
+            if (failure) {
+                failure(error);
+            }
+        }];
     } else {
-        [self update:complete failure:failure];
+        [self update:^{
+            if (complete) {
+                complete();
+            }
+        } failure:^(ROBotError *error) {
+            if (failure) {
+                failure(error);
+            }
+        }];
     }
 }
 
