@@ -22,6 +22,5 @@
 
 + (NSManagedObject *)newInScratchContext;
 - (instancetype)copyToScratchContext;
-- (instancetype)copyToSameContext;
 
 @end
