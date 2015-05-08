@@ -229,6 +229,12 @@ static NSString *pk = @"id";
     return [self dictionaryWithValuesForKeys:[[[self entity] attributesByName] allKeys]];
 }
 
+- (BOOL)isNew {
+    if ([self valueForKey:[[self class] primaryKey]]==nil) {
+        return TRUE;
+    }
+    return FALSE;
+}
 
 + (NSManagedObject *)newInScratchContext {
     // FIX: Should attempt to get the actual main context, not just creating a new one!

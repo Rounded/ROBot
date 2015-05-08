@@ -20,6 +20,7 @@
 - (BOOL)saveToDatabase:(NSDictionary *)json;
 - (NSDictionary *)asDictionary;
 
+- (BOOL)isNew;
 + (NSManagedObject *)newInScratchContext;
 - (instancetype)copyToScratchContext;
 
