@@ -67,7 +67,7 @@ static NSString *pk = @"id";
             } else {
                 
                 // If the json has the relationship already
-                if (json[relationshipDescription.name]) {
+                if (json[relationshipDescription.name] && json[relationshipDescription.name] != [NSNull null]) {
                     if (relationshipDescription.isToMany) {
                         // If the relationship is toMany, make sure that the corresponding json object is an array
                         assert([json[relationshipDescription.name] isKindOfClass:[NSArray class]]);
