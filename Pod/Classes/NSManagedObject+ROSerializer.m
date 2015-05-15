@@ -56,7 +56,13 @@ static NSString *pk = @"id";
     
     
     // Handle relationships
-    NSArray *entities = self.managedObjectContext.persistentStoreCoordinator.managedObjectModel.entities;
+    NSArray *entities;
+    if (self.managedObjectContext) {
+        entities = self.managedObjectContext.persistentStoreCoordinator.managedObjectModel.entities;
+    } else {
+        // In case of a scratch object
+        entities = [ROBotManager sharedInstance].persistentStoreCoordinator.managedObjectModel.entities;
+    }
     for (NSEntityDescription *entity in entities) {
         NSArray *relationships = [self.entity relationshipsWithDestinationEntity:entity];
         for (NSRelationshipDescription *relationshipDescription in relationships) {
@@ -108,7 +114,12 @@ static NSString *pk = @"id";
         [object setDictionaryToCoreDataEntity:childObject];
     } else {
         // The object doesn't exist in the database, so we need to create it
-        object = [NSEntityDescription insertNewObjectForEntityForName:entityName inManagedObjectContext:self.managedObjectContext];
+        if (self.managedObjectContext) {
+            object = [NSEntityDescription insertNewObjectForEntityForName:entityName inManagedObjectContext:self.managedObjectContext];
+        } else {
+            // Handle the case where the parent is a scratch object
+            object = [NSClassFromString(entityName) newInScratchContext];
+        }
         [object setDictionaryToCoreDataEntity:childObject];
     }
     return object;
