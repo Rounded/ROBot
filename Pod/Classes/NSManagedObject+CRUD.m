@@ -200,6 +200,30 @@
 
 #pragma mark - CRUD Add-on Convenience Methods
 
+- (void)save:(void (^)(void))complete failure:(void (^)(ROBotError *))failure {    
+    if([self valueForKey:@"id"] == nil) {
+        [self create:^{
+            if (complete) {
+                complete();
+            }
+        } failure:^(ROBotError *error) {
+            if (failure) {
+                failure(error);
+            }
+        }];
+    } else {
+        [self update:^{
+            if (complete) {
+                complete();
+            }
+        } failure:^(ROBotError *error) {
+            if (failure) {
+                failure(error);
+            }
+        }];
+    }
+}
+
 + (void)index:(void (^)(void))complete failure:(void (^)(ROBotError *))failure {
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [ROBotManager sharedInstance].baseURL, [[self class] indexURL]]];
     NSMutableURLRequest *mutableURLRequest = [[NSMutableURLRequest alloc] initWithURL:url];

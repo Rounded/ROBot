@@ -53,8 +53,6 @@ static NSString *pk = @"id";
         }
     }];
     
-    
-    
     // Handle relationships
     NSArray *entities;
     if (self.managedObjectContext) {
@@ -98,18 +96,37 @@ static NSString *pk = @"id";
     return true;
 }
 
-- (NSManagedObject *)createOrUpdateObject:(NSDictionary *)childObject forEntityName:(NSString *)entityName {
-    
-    NSManagedObject *object;
-    
-    // Check the database to see if the object in the JSON response exists already (based on the primary key)
+- (NSManagedObject *)findObjectFromDictionary:(NSDictionary *)dictionary forEntityName:(NSString *)entityName {
     NSError *error = nil;
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:entityName];
-    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"%K = %@", [[self class] primaryKey], childObject[[[self class] primaryKey]]]];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"%K = %@", [[self class] primaryKey], dictionary[[[self class] primaryKey]]]];
     
-    NSArray *objects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    if (objects.count > 0) {
-        object = [objects objectAtIndex:0];
+    NSArray *objects;
+    
+    if (!self.managedObjectContext) {
+        NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
+        context.persistentStoreCoordinator = [[ROBotManager sharedInstance] persistentStoreCoordinator];
+        objects = [context executeFetchRequest:fetchRequest error:&error];
+        if (objects.count > 0) {
+            NSManagedObject *object = objects[0];
+            NSLog(@"%@",[((NSManagedObject *)object) valueForKey:@"id"]);
+            return object;
+        }
+    } else {
+        objects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+        if (objects.count > 0) {
+            return [objects objectAtIndex:0];
+        }
+    }
+    
+    return nil;
+}
+
+- (NSManagedObject *)createOrUpdateObject:(NSDictionary *)childObject forEntityName:(NSString *)entityName {
+    
+    NSManagedObject *object = [self findObjectFromDictionary:childObject forEntityName:entityName];
+    
+    if (object != nil) {
         // The object already exists in the database, so let's just update it
         [object setDictionaryToCoreDataEntity:childObject];
     } else {
@@ -179,25 +196,101 @@ static NSString *pk = @"id";
 }
 
 - (BOOL)saveToDatabase:(NSDictionary *)json {
-    if ([self setDictionaryToCoreDataEntity:json]) {
-        return [self saveContext];
+    if (self.managedObjectContext) {
+        if ([self setDictionaryToCoreDataEntity:json]) {
+            return [self saveContext];
+        } else {
+            return false;
+        }
     } else {
-        return false;
+        
+        // Holy fuck we should refactor this later!
+        
+        // object doesnt have a managedobjectcontext, so it's likely a scratch object
+        // check to see if the object already exists in our database by checking primaryKey
+        NSError *error = nil;
+        NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([self class])];
+        [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"%K = %@", [[self class] primaryKey], json[[[self class] primaryKey]]]];
+        NSArray *objects;
+        NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
+        context.persistentStoreCoordinator = [[ROBotManager sharedInstance] persistentStoreCoordinator];
+        objects = [context executeFetchRequest:fetchRequest error:&error];
+        
+        if (objects.count > 0) {
+            // assign the object found to the values of the scratchObject
+            // object already exists in our database, so let's just update / save that one
+            if ([objects[0] setDictionaryToCoreDataEntity:json]) {
+                return [objects[0] saveContext];
+            } else {
+                return false;
+            }
+        } else {
+            // the scratch object doesn't exist in our database yet, so let's just save it
+            if([self setDictionaryToCoreDataEntity:json]) {
+                return [self saveContext];
+            } else {
+                return FALSE;
+            }
+        }
     }
+    return FALSE;
 }
 
 - (NSDictionary *)asDictionary {
     return [self dictionaryWithValuesForKeys:[[[self entity] attributesByName] allKeys]];
 }
 
-
-+ (NSManagedObject *)newTemporaryObject {
-    NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
-    context.persistentStoreCoordinator = [[ROBotManager sharedInstance] persistentStoreCoordinator];
-    NSManagedObject *object = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class]) inManagedObjectContext:context];
-    
-    return object;
+- (BOOL)isNew {
+    if ([self valueForKey:[[self class] primaryKey]]==nil) {
+        return TRUE;
+    }
+    return FALSE;
 }
 
++ (NSManagedObject *)newInScratchContext {
+    // FIX: Should attempt to get the actual main context, not just creating a new one!
+    NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
+    context.persistentStoreCoordinator = [[ROBotManager sharedInstance] persistentStoreCoordinator];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:NSStringFromClass([self class]) inManagedObjectContext:context];
+    return [[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:nil];
+}
+
+- (instancetype)copyToScratchContext {
+    NSManagedObject *object = [[NSManagedObject alloc] initWithEntity:self.entity insertIntoManagedObjectContext:nil];
+
+    NSEntityDescription *entityDescription = self.objectID.entity;
+    NSArray *attributeKeys = entityDescription.attributesByName.allKeys;
+    NSDictionary *attributeKeysAndValues = [self dictionaryWithValuesForKeys:attributeKeys];
+    [object setValuesForKeysWithDictionary:attributeKeysAndValues];
+    
+    // Handle relationships
+    NSArray *entities = self.managedObjectContext.persistentStoreCoordinator.managedObjectModel.entities;
+    for (NSEntityDescription *entity in entities) {
+        NSArray *relationships = [self.entity relationshipsWithDestinationEntity:entity];
+        for (NSRelationshipDescription *relationshipDescription in relationships) {
+            if (relationshipDescription.isToMany) {
+                NSMutableSet *relationshipObjects = [NSMutableSet new];
+                for (NSManagedObject *childObject in [self valueForKey:relationshipDescription.name]) {
+                    NSEntityDescription *entityDescription = childObject.objectID.entity;
+                    NSArray *attributeKeys = entityDescription.attributesByName.allKeys;
+                    NSDictionary *attributeKeysAndValues = [childObject dictionaryWithValuesForKeys:attributeKeys];
+                    NSManagedObject *scratchChildObject = [[NSManagedObject alloc] initWithEntity:relationshipDescription.destinationEntity insertIntoManagedObjectContext:nil];
+                    [scratchChildObject setValuesForKeysWithDictionary:attributeKeysAndValues];
+                    [relationshipObjects addObject:scratchChildObject];
+                }
+                [object setValue:relationshipObjects forKey:relationshipDescription.name];
+            } else {
+                NSManagedObject *childObject = [[NSManagedObject alloc] initWithEntity:relationshipDescription.destinationEntity insertIntoManagedObjectContext:nil];
+                NSEntityDescription *entityDescription = childObject.objectID.entity;
+                NSArray *attributeKeys = entityDescription.attributesByName.allKeys;
+                NSDictionary *attributeKeysAndValues = [[self valueForKey:relationshipDescription.name] dictionaryWithValuesForKeys:attributeKeys];
+                [childObject setValuesForKeysWithDictionary:attributeKeysAndValues];
+                [object setValue:childObject forKey:relationshipDescription.name];
+            }
+        }
+    }
+        
+    return object;
+}
 
 @end

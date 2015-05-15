@@ -102,7 +102,7 @@ We're working on the following:
 1. ~~an index route that will return an array of the objects~~
 2. caching of objects when user doesn't have connection
 3. ~~Success/fail callbacks for create()/read()/update()/delete() methods~~
-
+4. Deleting orphaned objects
 
 
 Feel free to submit a pull request and add your own contributions!
