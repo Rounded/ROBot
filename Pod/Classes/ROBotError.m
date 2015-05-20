@@ -37,4 +37,20 @@
     return self;
 }
 
+- (id)initWithResponse:(NSURLResponse *)response andCustomMessage:(NSString *)customMessage {
+    self = [super init];
+    if (self) {
+        
+        if (response) {
+            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+            self.statusCode = [httpResponse statusCode];
+        }
+        
+        if (customMessage) {
+            self.responseStringConcatenated = customMessage;
+        }
+    }
+    return self;
+}
+
 @end

@@ -15,5 +15,6 @@
 @property (strong, nonatomic) NSString *responseStringConcatenated;
 
 - (id)initWithResponse:(NSURLResponse *)response andResponseData:(NSData *)responseData;
+- (id)initWithResponse:(NSURLResponse *)response andCustomMessage:(NSString *)customMessage;
 
 @end
