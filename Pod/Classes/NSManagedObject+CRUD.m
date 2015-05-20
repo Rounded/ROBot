@@ -331,25 +331,30 @@
                     [jsonArray addObject:[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&jsonError]];
                 }
                 
+                NSManagedObjectContext *context = [NSManagedObjectContext new];
+                context.persistentStoreCoordinator = [[ROBotManager sharedInstance] persistentStoreCoordinator];
+                
                 [jsonArray enumerateObjectsUsingBlock:^(NSDictionary *jsonObject, NSUInteger idx, BOOL *stop) {
-                    NSManagedObjectContext *context = [NSManagedObjectContext new];
-                    context.persistentStoreCoordinator = [[ROBotManager sharedInstance] persistentStoreCoordinator];
+                    
                     
                     // Check the database to see if the object in the JSON response exists already (based on the primary key)
                     NSError *error = nil;
                     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([self class])];
-                    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"%K = %@", @"id", jsonObject[@"id"]]];
+                    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"%K = %@", [[self class] primaryKey], jsonObject[[[self class] primaryKey]]]];
                     
                     NSArray *objects = [context executeFetchRequest:fetchRequest error:&error];
                     if (objects.count > 0) {
                         // The object already exists in the database, so let's just update it
-                        [[objects objectAtIndex:0] saveToDatabase:jsonObject];
+                        [[objects objectAtIndex:0] setDictionaryToCoreDataEntity:jsonObject];
                     } else {
                         // The object doesn't exist in the database, so we need to create it
                         NSManagedObject *newObject = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class]) inManagedObjectContext:context];
-                        [newObject saveToDatabase:jsonObject];
+                        [newObject setDictionaryToCoreDataEntity:jsonObject];
                     }
                 }];
+                
+                // Save the context after all the objects have been created
+                [NSManagedObject saveContext:context];
                 if (complete) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         complete();
