@@ -30,6 +30,11 @@ static NSString *pk = @"id";
     pk = primaryKey;
 }
 
++ (NSArray *)serializableRelationships {
+    NSLog(@"Warning - You didn't set any serializable relationships");
+    return [NSArray new];
+}
+
 - (BOOL)setDictionaryToCoreDataEntity:(NSDictionary *)json {
     if (json.count == 0)
         return false;
@@ -237,7 +242,27 @@ static NSString *pk = @"id";
 }
 
 - (NSDictionary *)asDictionary {
-    return [self dictionaryWithValuesForKeys:[[[self entity] attributesByName] allKeys]];
+    NSDictionary *attribDict = [self dictionaryWithValuesForKeys:[[[self entity] attributesByName] allKeys]];
+    NSMutableDictionary *objectDict = [NSMutableDictionary dictionaryWithDictionary:attribDict];
+    
+    NSDictionary *relationshipDict = [self dictionaryWithValuesForKeys:[[[self entity] relationshipsByName] allKeys]];
+    [[[self class] serializableRelationships] enumerateObjectsUsingBlock:^(id key, NSUInteger idx, BOOL *stop) {
+        id obj = relationshipDict[key];
+        // if the relationship is one to one, serialize the object
+        if ([obj isKindOfClass:[NSManagedObject class]]) {
+            objectDict[key] = [((NSManagedObject *)obj) asDictionary];
+        } else if ([obj isKindOfClass:[NSArray class]] || [obj isKindOfClass:[NSSet class]]) {
+            // If the relationship is one to many, serialize the array
+            NSMutableArray *childObjects = [NSMutableArray new];
+            NSSet *toManyRel = obj;
+            [toManyRel enumerateObjectsUsingBlock:^(NSManagedObject *childObject, BOOL *stop) {
+                [childObjects addObject:[childObject asDictionary]];
+            }];
+            
+            objectDict[key] = childObjects;
+        }
+    }];
+    return objectDict;
 }
 
 - (BOOL)isNew {
