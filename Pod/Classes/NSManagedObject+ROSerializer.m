@@ -39,6 +39,12 @@ static NSString *pk = @"id";
     if (json.count == 0)
         return false;
     
+    NSManagedObjectContext *context = [NSManagedObjectContext new];
+    if (!self.managedObjectContext) {
+        context.persistentStoreCoordinator = [[ROBotManager sharedInstance] persistentStoreCoordinator];
+        [context insertObject:self];
+    }
+
     // pull out the attributes that exist in the database
     NSEntityDescription *entity = self.entity;
     NSDictionary *attributes = entity.attributesByName;
@@ -62,9 +68,6 @@ static NSString *pk = @"id";
     NSArray *entities;
     if (self.managedObjectContext) {
         entities = self.managedObjectContext.persistentStoreCoordinator.managedObjectModel.entities;
-    } else {
-        // In case of a scratch object
-        entities = [ROBotManager sharedInstance].persistentStoreCoordinator.managedObjectModel.entities;
     }
     for (NSEntityDescription *entity in entities) {
         NSArray *relationships = [self.entity relationshipsWithDestinationEntity:entity];
