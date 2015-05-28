@@ -109,7 +109,7 @@ static NSString *pk = @"id";
         objects = [context executeFetchRequest:fetchRequest error:&error];
         if (objects.count > 0) {
             NSManagedObject *object = objects[0];
-            NSLog(@"%@",[((NSManagedObject *)object) valueForKey:@"id"]);
+            NSLog(@"%@",[((NSManagedObject *)object) valueForKey:[[self class] primaryKey]]);
             return object;
         }
     } else {
