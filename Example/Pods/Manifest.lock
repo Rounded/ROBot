@@ -1,11 +1,7 @@
 PODS:
-  - MagicalRecord (2.2):
-    - MagicalRecord/Core (= 2.2)
-  - MagicalRecord/Core (2.2)
-  - RoundedRobot (0.2.0)
+  - RoundedRobot (0.2.4)
 
 DEPENDENCIES:
-  - MagicalRecord
   - RoundedRobot (from `../`)
 
 EXTERNAL SOURCES:
@@ -13,7 +9,6 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  MagicalRecord: f8a56bb87ab6552f20c4bb8681a1958a197ea3cd
-  RoundedRobot: 8288f0dfbb9d285475152a0af1f29583e0ea5e72
+  RoundedRobot: 6cfed7b29df2228ec024103408fee6e2a8721420
 
-COCOAPODS: 0.36.4
+COCOAPODS: 0.36.0

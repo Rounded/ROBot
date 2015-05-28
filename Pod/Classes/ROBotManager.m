@@ -85,6 +85,7 @@ static ROBotManager *ROBotManagerInstance = nil;
         default:
             break;
     }
+    return @"";
 }
 
 - (void)uploadCachedData {
