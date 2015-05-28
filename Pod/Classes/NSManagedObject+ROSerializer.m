@@ -105,6 +105,27 @@ static NSString *pk = @"id";
 }
 
 - (NSManagedObject *)findObjectFromDictionary:(NSDictionary *)dictionary forEntityName:(NSString *)entityName {
+
+    // find the NSEntityDescription by entityName
+    __block NSEntityDescription *entity;
+    [[[[ROBotManager sharedInstance].persistentStoreCoordinator managedObjectModel] entitiesByName] enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        if ([key isEqualToString:entityName]) {
+            entity = obj;
+        }
+    }];
+    
+    // check to see if the entity has the primary key as an attribute (it *should* but might not in edge cases)
+    BOOL entityContainsDictionaryPrimaryKey = [[entity.attributesByName allKeys] containsObject:[[self class] primaryKey]];
+    // check to see if the dictionary contains the primary key
+    BOOL dictionaryContainsClassPrimaryKey = [[dictionary allKeys] containsObject:[[self class] primaryKey]];
+    
+    if(dictionaryContainsClassPrimaryKey == FALSE || entityContainsDictionaryPrimaryKey == FALSE) {
+        // if the dictionary doesn't include the Entity primaryKey
+        // or the class doesn't have the default primaryKey ("id") as listed in the dictionary (this is an edge case)
+        // then we skip it the find, and we clear out all the relationships and just replace the objects
+        return nil;
+    }
+    
     NSError *error = nil;
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:entityName];
     [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"%K = %@", [[self class] primaryKey], dictionary[[[self class] primaryKey]]]];
@@ -117,7 +138,6 @@ static NSString *pk = @"id";
         objects = [context executeFetchRequest:fetchRequest error:&error];
         if (objects.count > 0) {
             NSManagedObject *object = objects[0];
-            NSLog(@"%@",[((NSManagedObject *)object) valueForKey:[[self class] primaryKey]]);
             return object;
         }
     } else {
