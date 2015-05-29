@@ -74,6 +74,9 @@ static NSString *pk = @"id";
     NSArray *entities;
     if (self.managedObjectContext) {
         entities = self.managedObjectContext.persistentStoreCoordinator.managedObjectModel.entities;
+    } else {
+        // In case of a scratch object
+        entities = [ROBotManager sharedInstance].persistentStoreCoordinator.managedObjectModel.entities;
     }
     for (NSEntityDescription *entity in entities) {
         NSArray *relationships = [self.entity relationshipsWithDestinationEntity:entity];
