@@ -36,13 +36,19 @@ static NSString *pk = @"id";
 }
 
 - (BOOL)setDictionaryToCoreDataEntity:(NSDictionary *)json {
+    return [self setDictionaryToCoreDataEntity:json inScratchContext:FALSE];
+}
+
+- (BOOL)setDictionaryToCoreDataEntity:(NSDictionary *)json inScratchContext:(BOOL)inScratchContext {
     if (json.count == 0)
         return false;
     
-    NSManagedObjectContext *context = [NSManagedObjectContext new];
-    if (!self.managedObjectContext) {
-        context.persistentStoreCoordinator = [[ROBotManager sharedInstance] persistentStoreCoordinator];
-        [context insertObject:self];
+    if (!inScratchContext) {
+        NSManagedObjectContext *context = [NSManagedObjectContext new];
+        if (!self.managedObjectContext) {
+            context.persistentStoreCoordinator = [[ROBotManager sharedInstance] persistentStoreCoordinator];
+            [context insertObject:self];
+        }
     }
 
     // pull out the attributes that exist in the database
@@ -231,9 +237,6 @@ static NSString *pk = @"id";
             return false;
         }
     } else {
-        
-        // Holy fuck we should refactor this later!
-        
         // object doesnt have a managedobjectcontext, so it's likely a scratch object
         // check to see if the object already exists in our database by checking primaryKey
         NSError *error = nil;

@@ -16,6 +16,7 @@
 + (void)setPrimaryKey:(NSString *)primaryKey;
 + (NSArray *)serializableRelationships;
 - (BOOL)setDictionaryToCoreDataEntity:(NSDictionary *)json;
+- (BOOL)setDictionaryToCoreDataEntity:(NSDictionary *)json inScratchContext:(BOOL)inScratchContext;
 - (BOOL)saveContext;
 + (BOOL)saveContext:(NSManagedObjectContext *)context;
 - (BOOL)saveToDatabase:(NSDictionary *)json;
