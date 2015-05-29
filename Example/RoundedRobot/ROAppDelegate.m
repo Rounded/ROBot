@@ -25,12 +25,12 @@
     
 //    [user create:nil failure:nil];
     
-//    [User index:^{
-//        
-//    }
-//        failure:^(ROBotError *error) {
-//            
-//        }];
+    [User index:^{
+        
+    }
+        failure:^(ROBotError *error) {
+            
+        }];
     
     return YES;
 }
