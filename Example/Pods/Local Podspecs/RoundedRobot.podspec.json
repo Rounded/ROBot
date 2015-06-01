@@ -1,7 +1,7 @@
 {
   "name": "RoundedRobot",
-  "version": "0.2.4",
-  "summary": "The worlds simplest networking / core-data library.",
+  "version": "0.2.9",
+  "summary": "The world's simplest networking / core-data library.",
   "description": "                       ROBot solves two problems.\n                       * Making REST API calls easy\n                       * Automatic sync'ing of REST API calls to your database\n",
   "homepage": "https://github.com/Rounded/ROBot",
   "license": "MIT",
@@ -10,7 +10,7 @@
   },
   "source": {
     "git": "https://github.com/Rounded/ROBot.git",
-    "tag": "0.2.4"
+    "tag": "0.2.9"
   },
   "social_media_url": "https://twitter.com/roundedco",
   "platforms": {

@@ -10,5 +10,5 @@
 #define COCOAPODS_POD_AVAILABLE_RoundedRobot
 #define COCOAPODS_VERSION_MAJOR_RoundedRobot 0
 #define COCOAPODS_VERSION_MINOR_RoundedRobot 2
-#define COCOAPODS_VERSION_PATCH_RoundedRobot 4
+#define COCOAPODS_VERSION_PATCH_RoundedRobot 9
 

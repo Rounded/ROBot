@@ -7,10 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1BE84EBA3506E262A8C6D5FD /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3053404FF302535E45BDC2A4 /* libPods.a */; };
 		447FAE191AF1708400A8E1D6 /* test.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 447FAE171AF1708400A8E1D6 /* test.xcdatamodeld */; };
 		447FAE221AF1728900A8E1D6 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 447FAE211AF1728900A8E1D6 /* User.m */; };
-		54BFBDE2519A352D997C95C8 /* libPods-RoundedRobot.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 587492F229E45F7F55EBC31D /* libPods-RoundedRobot.a */; };
+		44DE8D3A1B18DB8100C78425 /* libPods-RoundedRobot.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 44DE8D391B18DB8100C78425 /* libPods-RoundedRobot.a */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -44,6 +43,7 @@
 		447FAE181AF1708400A8E1D6 /* test.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = test.xcdatamodel; sourceTree = "<group>"; };
 		447FAE201AF1728900A8E1D6 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		447FAE211AF1728900A8E1D6 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		44DE8D391B18DB8100C78425 /* libPods-RoundedRobot.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-RoundedRobot.a"; path = "Pods/../build/Debug-iphoneos/libPods-RoundedRobot.a"; sourceTree = "<group>"; };
 		587492F229E45F7F55EBC31D /* libPods-RoundedRobot.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RoundedRobot.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DD64D63C957101FA7175CE7 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* RoundedRobot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RoundedRobot.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -77,11 +77,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44DE8D3A1B18DB8100C78425 /* libPods-RoundedRobot.a in Frameworks */,
 				6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */,
 				6003F592195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F58E195388D20070C39A /* Foundation.framework in Frameworks */,
-				54BFBDE2519A352D997C95C8 /* libPods-RoundedRobot.a in Frameworks */,
-				1BE84EBA3506E262A8C6D5FD /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -123,6 +122,7 @@
 		6003F58C195388D20070C39A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				44DE8D391B18DB8100C78425 /* libPods-RoundedRobot.a */,
 				6003F58D195388D20070C39A /* Foundation.framework */,
 				6003F58F195388D20070C39A /* CoreGraphics.framework */,
 				6003F591195388D20070C39A /* UIKit.framework */,
@@ -492,6 +492,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RoundedRobot/RoundedRobot-Prefix.pch";
 				INFOPLIST_FILE = "RoundedRobot/RoundedRobot-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -506,6 +510,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RoundedRobot/RoundedRobot-Prefix.pch";
 				INFOPLIST_FILE = "RoundedRobot/RoundedRobot-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

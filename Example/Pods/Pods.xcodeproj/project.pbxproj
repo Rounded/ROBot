@@ -7,358 +7,394 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		059CDFFECF832AEA27D40133 /* ROBotError.m in Sources */ = {isa = PBXBuildFile; fileRef = B510FF1CAF632F657FBF70D8 /* ROBotError.m */; };
-		1E5BD897B7B3B316651ED39F /* NSManagedObject+CRUD.h in Headers */ = {isa = PBXBuildFile; fileRef = 57636721959E882D4B8C02A1 /* NSManagedObject+CRUD.h */; };
-		1F7D321C5B6A5DD5842287D1 /* NSManagedObject+CRUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 33A1F2DAF8681A747F01A1B1 /* NSManagedObject+CRUD.m */; };
-		2BF9C92A0644FB03334BBAB2 /* NSManagedObject+CRUD.h in Headers */ = {isa = PBXBuildFile; fileRef = 57636721959E882D4B8C02A1 /* NSManagedObject+CRUD.h */; };
-		317617789179B40F8C3C401F /* Pods-Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 197AA805C6C85D4D6BCDA083 /* Pods-Tests-dummy.m */; };
-		3F239270A363C848EEC218E5 /* ROBot.h in Headers */ = {isa = PBXBuildFile; fileRef = DC52CE21EF88DD45418BBA59 /* ROBot.h */; };
-		4399AB3514AACE576CDF6DA7 /* NSManagedObject+ROSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 272DA0C62064142CF6930751 /* NSManagedObject+ROSerializer.m */; };
-		448394E6E45B8938CBF27146 /* ROReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 08411C148489A632D6993F8C /* ROReachability.h */; };
-		4994E993334564E31F01574F /* NSManagedObject+ROSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 36674B29ED9F1CAA1CFAB7AE /* NSManagedObject+ROSerializer.h */; };
-		645EE26FF41741A1F6F399C8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C079AC8B93A95B0B00DC1C86 /* Foundation.framework */; };
-		7CBA2B7CA4F1B52B407614E7 /* NSManagedObject+CRUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 33A1F2DAF8681A747F01A1B1 /* NSManagedObject+CRUD.m */; };
-		7DB037F1AE66BFF7535FFED7 /* ROBotManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 6EC9A9D2CCE5FE01F52CAB61 /* ROBotManager.h */; };
-		8566BA677E9F1A77446A427B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C079AC8B93A95B0B00DC1C86 /* Foundation.framework */; };
-		8A3EE5E89E580E785DE3861A /* ROBotManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 6EC9A9D2CCE5FE01F52CAB61 /* ROBotManager.h */; };
-		A890BE70875FCC4E0188692A /* ROBotError.h in Headers */ = {isa = PBXBuildFile; fileRef = 860062294FE10ECD6EF1F0E9 /* ROBotError.h */; };
-		AD76F0128A2DFFDF7B1F7167 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C079AC8B93A95B0B00DC1C86 /* Foundation.framework */; };
-		AF7A8FB03C2EFB72E9C0B098 /* ROBotManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 946A3A3A450D5C4E70C9C61C /* ROBotManager.m */; };
-		B505F31D5C526F060CDFA9C7 /* ROReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 2170FDE4B8B17A6B840D0FFE /* ROReachability.m */; };
-		CA00550064B0AE11649908C3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C079AC8B93A95B0B00DC1C86 /* Foundation.framework */; };
-		D4430E9C6EDA091059FBF806 /* NSManagedObject+ROSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 36674B29ED9F1CAA1CFAB7AE /* NSManagedObject+ROSerializer.h */; };
-		D672A14C3947FCEDDC405726 /* Pods-RoundedRobot-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE00206A3EEACAA4511624A /* Pods-RoundedRobot-dummy.m */; };
-		D678B463E05A8299266FC3F2 /* Pods-Tests-RoundedRobot-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D1156E46A0685EA5FC0F0F1 /* Pods-Tests-RoundedRobot-dummy.m */; };
-		D8489175EF9BA040868367EC /* ROBotError.h in Headers */ = {isa = PBXBuildFile; fileRef = 860062294FE10ECD6EF1F0E9 /* ROBotError.h */; };
-		D990A02265ED83851766FE7E /* ROBot.h in Headers */ = {isa = PBXBuildFile; fileRef = DC52CE21EF88DD45418BBA59 /* ROBot.h */; };
-		E2A77B5A2794655D873689A0 /* ROBotError.m in Sources */ = {isa = PBXBuildFile; fileRef = B510FF1CAF632F657FBF70D8 /* ROBotError.m */; };
-		E4FF7076613F56203E6A1700 /* NSManagedObject+ROSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 272DA0C62064142CF6930751 /* NSManagedObject+ROSerializer.m */; };
-		EB3BD658482A6D49E538D66C /* ROBotManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 946A3A3A450D5C4E70C9C61C /* ROBotManager.m */; };
-		EF4BF556634AA4821CA7D65D /* ROReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 08411C148489A632D6993F8C /* ROReachability.h */; };
-		F5656DCE109ECE890F3C3548 /* Pods-RoundedRobot-RoundedRobot-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F0BAC3DA23C9A35867F4007A /* Pods-RoundedRobot-RoundedRobot-dummy.m */; };
-		FBC92D0C75450504FD1AFE24 /* ROReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 2170FDE4B8B17A6B840D0FFE /* ROReachability.m */; };
+		0CAD54A14EFE422695B80C4E /* ROBotManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A1269D8D164079C86EA68E13 /* ROBotManager.h */; };
+		10CC5723CF2C2FBEBC0B78EE /* NSManagedObject+ROSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E1C0FE38D4C37317D2CCEE3 /* NSManagedObject+ROSerializer.h */; };
+		19E0426D83579B577ACEBC72 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45753DB3696E277BF4A01F2C /* Foundation.framework */; };
+		1E1760A275F46F15ED0B1970 /* Pods-RoundedRobot-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E6A924B268736E41F649D7 /* Pods-RoundedRobot-dummy.m */; };
+		28CE49AFDFE0114FC2DC403E /* ROBotError.h in Headers */ = {isa = PBXBuildFile; fileRef = D638CB7C754AA53C0994B934 /* ROBotError.h */; };
+		3B1251E3CD2F23890597EF09 /* Pods-RoundedRobot-RoundedRobot-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C2AF115D2AA3E102536DE7 /* Pods-RoundedRobot-RoundedRobot-dummy.m */; };
+		3B19D93530EC7334B84D88EF /* ROReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 2406643641ACCD6B8E880EBE /* ROReachability.h */; };
+		456C145666B8F9ABF4FFCEC5 /* ROBotError.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B18D3975A05F6F5FE05134 /* ROBotError.m */; };
+		5C9679F5C4376D11AC001FFE /* NSManagedObject+ROSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 986A9DEBAB8B26875D0FBA9E /* NSManagedObject+ROSerializer.m */; };
+		5D41D36DF04C2A193B7DC563 /* NSManagedObject+CRUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 64B4358FFDE028409B4AEA1C /* NSManagedObject+CRUD.m */; };
+		65E9D8577EBF27CF72BAB0E0 /* NSManagedObject+CRUD.h in Headers */ = {isa = PBXBuildFile; fileRef = 9137335519C5BEF8AB3BE7F7 /* NSManagedObject+CRUD.h */; };
+		6B16ECAE4512A9B7E2CFA162 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45753DB3696E277BF4A01F2C /* Foundation.framework */; };
+		6C9C6F3616A3E7F8560D2292 /* NSManagedObject+CRUD.h in Headers */ = {isa = PBXBuildFile; fileRef = 9137335519C5BEF8AB3BE7F7 /* NSManagedObject+CRUD.h */; };
+		75726251D94F44C0E7B576D5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45753DB3696E277BF4A01F2C /* Foundation.framework */; };
+		7BDD93F99DD052D37833D5B8 /* NSManagedObject+ROSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 986A9DEBAB8B26875D0FBA9E /* NSManagedObject+ROSerializer.m */; };
+		9F136CB1B4CFBF6F05F94952 /* Pods-Tests-RoundedRobot-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3F524DC305F033CBC95766 /* Pods-Tests-RoundedRobot-dummy.m */; };
+		9FEABD216049328F737C0DF1 /* ROReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7558A9CE9B29F0EC97EE26 /* ROReachability.m */; };
+		A8EDAC0A6B182E1488665AFB /* ROBotError.h in Headers */ = {isa = PBXBuildFile; fileRef = D638CB7C754AA53C0994B934 /* ROBotError.h */; };
+		AA290E11A054090307D47A95 /* ROBot.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C31F55E0D778C5BC9A894AE /* ROBot.h */; };
+		B5493D237132B906975CFC22 /* NSManagedObject+ROSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E1C0FE38D4C37317D2CCEE3 /* NSManagedObject+ROSerializer.h */; };
+		BA541BCBED059E192D1D64C6 /* ROBotManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A1269D8D164079C86EA68E13 /* ROBotManager.h */; };
+		D943EEBAFB0F49C6E0181F69 /* ROBotManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D048ABD01B294E0AD12A2A2F /* ROBotManager.m */; };
+		DE03665E03CE51C9CDCB0E0D /* NSManagedObject+CRUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 64B4358FFDE028409B4AEA1C /* NSManagedObject+CRUD.m */; };
+		DF5EFAACB3B24F2A826013EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45753DB3696E277BF4A01F2C /* Foundation.framework */; };
+		E2C35F6AD2E607CB2EC82BF7 /* ROBotError.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B18D3975A05F6F5FE05134 /* ROBotError.m */; };
+		E77C7718F5DA50E5600E243C /* ROBot.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C31F55E0D778C5BC9A894AE /* ROBot.h */; };
+		E8BBA9AAA9C489770666BDD0 /* ROReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 2406643641ACCD6B8E880EBE /* ROReachability.h */; };
+		F038DF3E4FAF7980E891CF54 /* ROReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7558A9CE9B29F0EC97EE26 /* ROReachability.m */; };
+		F0D628D9835A3A67AB508FF5 /* ROBotManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D048ABD01B294E0AD12A2A2F /* ROBotManager.m */; };
+		F67645A649B7F390494AC71C /* Pods-Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC515559BE56CB0B650C373 /* Pods-Tests-dummy.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		46DA5C44692DCA42ED94F019 /* PBXContainerItemProxy */ = {
+		873F2839F3D651E1D5C97CA1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 225A3ECB03984FCBF463F79D /* Project object */;
+			containerPortal = DB895683D6566196BB374335 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 8B2F622C7D782E6BB34EECCE;
-			remoteInfo = "Pods-Tests-RoundedRobot-ROBot";
-		};
-		A68193BE50B536B91C99DFEF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 225A3ECB03984FCBF463F79D /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4900ED36CCCF48BC356F69AC;
+			remoteGlobalIDString = 82E2D4433197C648A852B9A9;
 			remoteInfo = "Pods-RoundedRobot-RoundedRobot-ROBot";
 		};
-		A8861136ED71B33847AB0337 /* PBXContainerItemProxy */ = {
+		937F705D27D06CC2EC4B8FA3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 225A3ECB03984FCBF463F79D /* Project object */;
+			containerPortal = DB895683D6566196BB374335 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = CDE65D662F375D42964C8B32;
+			remoteGlobalIDString = 43824F429099369EBFC20764;
+			remoteInfo = "Pods-Tests-RoundedRobot-ROBot";
+		};
+		A25D45B4B9D6EE621BAF3475 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DB895683D6566196BB374335 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 02C4061F809A9EADF297B893;
 			remoteInfo = "Pods-RoundedRobot-RoundedRobot";
 		};
-		C6CC99244145587B466B8201 /* PBXContainerItemProxy */ = {
+		DDCCF82D3A40FD79B04C182C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 225A3ECB03984FCBF463F79D /* Project object */;
+			containerPortal = DB895683D6566196BB374335 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = FB063CBC921972F1EB7D2D70;
+			remoteGlobalIDString = 35E23244B74025EDC2481492;
 			remoteInfo = "Pods-Tests-RoundedRobot";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		03C8336A13E8CA4FE12D7BB3 /* Pods-RoundedRobot-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-RoundedRobot-resources.sh"; sourceTree = "<group>"; };
-		08411C148489A632D6993F8C /* ROReachability.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ROReachability.h; sourceTree = "<group>"; };
-		141A855657E1FC478ED8C3AD /* Pods-Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Tests-resources.sh"; sourceTree = "<group>"; };
-		18A3B401152DEA387EABA4B9 /* Pods-Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Tests-acknowledgements.plist"; sourceTree = "<group>"; };
-		197AA805C6C85D4D6BCDA083 /* Pods-Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Tests-dummy.m"; sourceTree = "<group>"; };
-		2167F1324F785090C56FBCB5 /* Pods-RoundedRobot.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RoundedRobot.release.xcconfig"; sourceTree = "<group>"; };
-		2170FDE4B8B17A6B840D0FFE /* ROReachability.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ROReachability.m; sourceTree = "<group>"; };
-		272DA0C62064142CF6930751 /* NSManagedObject+ROSerializer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+ROSerializer.m"; sourceTree = "<group>"; };
-		315DFDF59A75970F6D6BFAF9 /* Pods-Tests-environment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Tests-environment.h"; sourceTree = "<group>"; };
-		33A1F2DAF8681A747F01A1B1 /* NSManagedObject+CRUD.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+CRUD.m"; sourceTree = "<group>"; };
-		345127C8F8312C5AF84DD2BD /* libPods-RoundedRobot-RoundedRobot.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RoundedRobot-RoundedRobot.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		359C05EAED6F8C99A6E9C498 /* libPods-RoundedRobot.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RoundedRobot.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		36674B29ED9F1CAA1CFAB7AE /* NSManagedObject+ROSerializer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+ROSerializer.h"; sourceTree = "<group>"; };
-		37A6ED124603030381DFC0BF /* Pods-RoundedRobot-environment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-RoundedRobot-environment.h"; sourceTree = "<group>"; };
-		3EC5E1163B9D93BB25EA5DB5 /* libPods-Tests-RoundedRobot.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests-RoundedRobot.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4129B1342D806D494E12204B /* Pods-RoundedRobot-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-RoundedRobot-acknowledgements.markdown"; sourceTree = "<group>"; };
-		44CA89B500430CC7F51EE523 /* Pods-Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		4C241B3D669D0C669D0794AE /* Pods-RoundedRobot-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-RoundedRobot-acknowledgements.plist"; sourceTree = "<group>"; };
-		4D1156E46A0685EA5FC0F0F1 /* Pods-Tests-RoundedRobot-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "Pods-Tests-RoundedRobot-dummy.m"; path = "../Pods-Tests-RoundedRobot/Pods-Tests-RoundedRobot-dummy.m"; sourceTree = "<group>"; };
-		52939B88ACF766B080A4B072 /* Pods-RoundedRobot-RoundedRobot.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RoundedRobot-RoundedRobot.xcconfig"; sourceTree = "<group>"; };
-		57636721959E882D4B8C02A1 /* NSManagedObject+CRUD.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+CRUD.h"; sourceTree = "<group>"; };
-		630DFE5FCEF66A03816ACF62 /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6C16AE66297F865C6C48EB52 /* Pods-Tests-RoundedRobot-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "Pods-Tests-RoundedRobot-prefix.pch"; path = "../Pods-Tests-RoundedRobot/Pods-Tests-RoundedRobot-prefix.pch"; sourceTree = "<group>"; };
-		6EC9A9D2CCE5FE01F52CAB61 /* ROBotManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ROBotManager.h; sourceTree = "<group>"; };
-		717BFE6C0A2D71F28883DB31 /* Pods-Tests-RoundedRobot-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests-RoundedRobot-Private.xcconfig"; path = "../Pods-Tests-RoundedRobot/Pods-Tests-RoundedRobot-Private.xcconfig"; sourceTree = "<group>"; };
-		7510F54DFB0679A9B625E7A1 /* Pods-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		75688292EF083337A59BEA59 /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		8098EF3E363B1AE17D56C504 /* ROBot.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ROBot.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
-		860062294FE10ECD6EF1F0E9 /* ROBotError.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ROBotError.h; sourceTree = "<group>"; };
-		946A3A3A450D5C4E70C9C61C /* ROBotManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ROBotManager.m; sourceTree = "<group>"; };
-		B510FF1CAF632F657FBF70D8 /* ROBotError.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ROBotError.m; sourceTree = "<group>"; };
-		C079AC8B93A95B0B00DC1C86 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		C4787BC3071CDAA61E33E955 /* Pods-Tests-RoundedRobot.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests-RoundedRobot.xcconfig"; path = "../Pods-Tests-RoundedRobot/Pods-Tests-RoundedRobot.xcconfig"; sourceTree = "<group>"; };
-		DA174CCD9C71199A47AD5C82 /* ROBot.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ROBot.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
-		DC016B290DA0D70F48D1545C /* Pods-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Tests.release.xcconfig"; sourceTree = "<group>"; };
-		DC52CE21EF88DD45418BBA59 /* ROBot.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ROBot.h; sourceTree = "<group>"; };
-		E4F94203F5E09027861A6A1E /* Pods-RoundedRobot.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RoundedRobot.debug.xcconfig"; sourceTree = "<group>"; };
-		E86F8B14A7A279E72E46C767 /* Pods-RoundedRobot-RoundedRobot-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-RoundedRobot-RoundedRobot-prefix.pch"; sourceTree = "<group>"; };
-		ECE00206A3EEACAA4511624A /* Pods-RoundedRobot-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-RoundedRobot-dummy.m"; sourceTree = "<group>"; };
-		F0BAC3DA23C9A35867F4007A /* Pods-RoundedRobot-RoundedRobot-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-RoundedRobot-RoundedRobot-dummy.m"; sourceTree = "<group>"; };
-		FB515F5CA36FE4D14D82A163 /* Pods-RoundedRobot-RoundedRobot-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RoundedRobot-RoundedRobot-Private.xcconfig"; sourceTree = "<group>"; };
+		00E5846DA2DB6700EAB93DB4 /* Pods-Tests-RoundedRobot-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests-RoundedRobot-Private.xcconfig"; path = "../Pods-Tests-RoundedRobot/Pods-Tests-RoundedRobot-Private.xcconfig"; sourceTree = "<group>"; };
+		03638397A87484EB8D9DAD4D /* libPods-RoundedRobot.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RoundedRobot.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		120AE5071A700015708E4A75 /* libPods-RoundedRobot-RoundedRobot.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RoundedRobot-RoundedRobot.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B56D762A437099D46D7DFDD /* Pods-Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Tests-acknowledgements.plist"; sourceTree = "<group>"; };
+		2406643641ACCD6B8E880EBE /* ROReachability.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ROReachability.h; sourceTree = "<group>"; };
+		2C31F55E0D778C5BC9A894AE /* ROBot.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ROBot.h; sourceTree = "<group>"; };
+		31E6A924B268736E41F649D7 /* Pods-RoundedRobot-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-RoundedRobot-dummy.m"; sourceTree = "<group>"; };
+		36C9266C67E26D52FEAC294A /* Pods-Tests-RoundedRobot-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "Pods-Tests-RoundedRobot-prefix.pch"; path = "../Pods-Tests-RoundedRobot/Pods-Tests-RoundedRobot-prefix.pch"; sourceTree = "<group>"; };
+		38D9CCE8F04DA30B9385F6E0 /* Pods-Tests-RoundedRobot.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests-RoundedRobot.xcconfig"; path = "../Pods-Tests-RoundedRobot/Pods-Tests-RoundedRobot.xcconfig"; sourceTree = "<group>"; };
+		3E1C0FE38D4C37317D2CCEE3 /* NSManagedObject+ROSerializer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+ROSerializer.h"; sourceTree = "<group>"; };
+		43C35B46E36D6463A4F83B82 /* Pods-RoundedRobot.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RoundedRobot.debug.xcconfig"; sourceTree = "<group>"; };
+		442E07CC9E8072F2DD3D90DC /* ROBot.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ROBot.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		44FF06F03446EE2DCF37A48F /* Pods-RoundedRobot-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-RoundedRobot-resources.sh"; sourceTree = "<group>"; };
+		45753DB3696E277BF4A01F2C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		4817009E7B54E02C26742C62 /* Pods-RoundedRobot-RoundedRobot-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RoundedRobot-RoundedRobot-Private.xcconfig"; sourceTree = "<group>"; };
+		4F7558A9CE9B29F0EC97EE26 /* ROReachability.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ROReachability.m; sourceTree = "<group>"; };
+		572DF67D9AE853A68DBE7448 /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		64B4358FFDE028409B4AEA1C /* NSManagedObject+CRUD.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+CRUD.m"; sourceTree = "<group>"; };
+		74260B01E9D567EDD8DD60DE /* Pods-RoundedRobot-environment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-RoundedRobot-environment.h"; sourceTree = "<group>"; };
+		75AEB3FDE282A044DCABE0AA /* Pods-Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Tests-resources.sh"; sourceTree = "<group>"; };
+		7DCDD12A13190ECB6C6256B6 /* Pods-RoundedRobot-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-RoundedRobot-acknowledgements.markdown"; sourceTree = "<group>"; };
+		9137335519C5BEF8AB3BE7F7 /* NSManagedObject+CRUD.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+CRUD.h"; sourceTree = "<group>"; };
+		92EBB581BFD36EFB82778987 /* Pods-RoundedRobot-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-RoundedRobot-acknowledgements.plist"; sourceTree = "<group>"; };
+		986A9DEBAB8B26875D0FBA9E /* NSManagedObject+ROSerializer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+ROSerializer.m"; sourceTree = "<group>"; };
+		A0A7C7C7902E825A70B29FC1 /* Pods-RoundedRobot-RoundedRobot-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-RoundedRobot-RoundedRobot-prefix.pch"; sourceTree = "<group>"; };
+		A1269D8D164079C86EA68E13 /* ROBotManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ROBotManager.h; sourceTree = "<group>"; };
+		A3E4615D200831F662C69EB5 /* Pods-RoundedRobot.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RoundedRobot.release.xcconfig"; sourceTree = "<group>"; };
+		ABC515559BE56CB0B650C373 /* Pods-Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Tests-dummy.m"; sourceTree = "<group>"; };
+		C7C2AF115D2AA3E102536DE7 /* Pods-RoundedRobot-RoundedRobot-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-RoundedRobot-RoundedRobot-dummy.m"; sourceTree = "<group>"; };
+		C9601E8CCE18AAEB835CE3E6 /* Pods-RoundedRobot-RoundedRobot.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RoundedRobot-RoundedRobot.xcconfig"; sourceTree = "<group>"; };
+		CE0EEDA43D442E331C0DDC47 /* Pods-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Tests.release.xcconfig"; sourceTree = "<group>"; };
+		D048ABD01B294E0AD12A2A2F /* ROBotManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ROBotManager.m; sourceTree = "<group>"; };
+		D638CB7C754AA53C0994B934 /* ROBotError.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ROBotError.h; sourceTree = "<group>"; };
+		D8B18D3975A05F6F5FE05134 /* ROBotError.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ROBotError.m; sourceTree = "<group>"; };
+		DD3F524DC305F033CBC95766 /* Pods-Tests-RoundedRobot-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "Pods-Tests-RoundedRobot-dummy.m"; path = "../Pods-Tests-RoundedRobot/Pods-Tests-RoundedRobot-dummy.m"; sourceTree = "<group>"; };
+		E71E188DEE0FA29876A0E1DF /* libPods-Tests-RoundedRobot.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests-RoundedRobot.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE626820F7A482ADB3951DD1 /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		F49CA35A3180BDEC586E6184 /* Pods-Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		F55F0A22B5B514A09E2C0EBB /* ROBot.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ROBot.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		F825D780005BE68300F05D79 /* Pods-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		FECF1DDA61E5C5634326A034 /* Pods-Tests-environment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Tests-environment.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		31346AD152BD61776250F69F /* Frameworks */ = {
+		1E1283012F6F5072FC9FD60B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD76F0128A2DFFDF7B1F7167 /* Foundation.framework in Frameworks */,
+				75726251D94F44C0E7B576D5 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		490FD5DDBED2AB5A995E1E53 /* Frameworks */ = {
+		6253052EFD4C66EA81BAA6D4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		58A0C5E8F72B76A252920F57 /* Frameworks */ = {
+		69A769857E37D6FAD6F905B5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CA00550064B0AE11649908C3 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D451E14ADF66529B90E03257 /* Frameworks */ = {
+		9209424DD10E03F9C8087BC5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				645EE26FF41741A1F6F399C8 /* Foundation.framework in Frameworks */,
+				6B16ECAE4512A9B7E2CFA162 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DD2651881F003ADCC3A7D61D /* Frameworks */ = {
+		E040F9DAD3C59FE3D2B1B400 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8566BA677E9F1A77446A427B /* Foundation.framework in Frameworks */,
+				DF5EFAACB3B24F2A826013EA /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EACC994DFACD3BA58F71F14E /* Frameworks */ = {
+		F0F4E977EE16CBEBA5831097 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19E0426D83579B577ACEBC72 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		041C8619A7E5B3379058C9C1 /* Pod */ = {
+		2205EDA643A30C651B39E6D7 /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				95A3EFB75C4F95CE4D6EBF1C /* Classes */,
-			);
-			path = Pod;
-			sourceTree = "<group>";
-		};
-		062106EC72B51C62E009E7D4 /* Development Pods */ = {
-			isa = PBXGroup;
-			children = (
-				AEE0F808B3DC17097A86E7BD /* RoundedRobot */,
+				F091BB56463C715C4567C9EE /* RoundedRobot */,
 			);
 			name = "Development Pods";
 			sourceTree = "<group>";
 		};
-		25D93A6ED91E5E03FDC7588A /* iOS */ = {
+		37A4410F1A129F1DA71615E9 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				C079AC8B93A95B0B00DC1C86 /* Foundation.framework */,
-			);
-			name = iOS;
-			sourceTree = "<group>";
-		};
-		2FE828F342B232D6D55931A2 /* Pods-RoundedRobot */ = {
-			isa = PBXGroup;
-			children = (
-				4129B1342D806D494E12204B /* Pods-RoundedRobot-acknowledgements.markdown */,
-				4C241B3D669D0C669D0794AE /* Pods-RoundedRobot-acknowledgements.plist */,
-				ECE00206A3EEACAA4511624A /* Pods-RoundedRobot-dummy.m */,
-				37A6ED124603030381DFC0BF /* Pods-RoundedRobot-environment.h */,
-				03C8336A13E8CA4FE12D7BB3 /* Pods-RoundedRobot-resources.sh */,
-				E4F94203F5E09027861A6A1E /* Pods-RoundedRobot.debug.xcconfig */,
-				2167F1324F785090C56FBCB5 /* Pods-RoundedRobot.release.xcconfig */,
-			);
-			name = "Pods-RoundedRobot";
-			path = "Target Support Files/Pods-RoundedRobot";
-			sourceTree = "<group>";
-		};
-		532D207EE7D2FA486304EC30 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				25D93A6ED91E5E03FDC7588A /* iOS */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		6DB6010EF2676686050086B2 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				52939B88ACF766B080A4B072 /* Pods-RoundedRobot-RoundedRobot.xcconfig */,
-				FB515F5CA36FE4D14D82A163 /* Pods-RoundedRobot-RoundedRobot-Private.xcconfig */,
-				F0BAC3DA23C9A35867F4007A /* Pods-RoundedRobot-RoundedRobot-dummy.m */,
-				E86F8B14A7A279E72E46C767 /* Pods-RoundedRobot-RoundedRobot-prefix.pch */,
-				C4787BC3071CDAA61E33E955 /* Pods-Tests-RoundedRobot.xcconfig */,
-				717BFE6C0A2D71F28883DB31 /* Pods-Tests-RoundedRobot-Private.xcconfig */,
-				4D1156E46A0685EA5FC0F0F1 /* Pods-Tests-RoundedRobot-dummy.m */,
-				6C16AE66297F865C6C48EB52 /* Pods-Tests-RoundedRobot-prefix.pch */,
+				C9601E8CCE18AAEB835CE3E6 /* Pods-RoundedRobot-RoundedRobot.xcconfig */,
+				4817009E7B54E02C26742C62 /* Pods-RoundedRobot-RoundedRobot-Private.xcconfig */,
+				C7C2AF115D2AA3E102536DE7 /* Pods-RoundedRobot-RoundedRobot-dummy.m */,
+				A0A7C7C7902E825A70B29FC1 /* Pods-RoundedRobot-RoundedRobot-prefix.pch */,
+				38D9CCE8F04DA30B9385F6E0 /* Pods-Tests-RoundedRobot.xcconfig */,
+				00E5846DA2DB6700EAB93DB4 /* Pods-Tests-RoundedRobot-Private.xcconfig */,
+				DD3F524DC305F033CBC95766 /* Pods-Tests-RoundedRobot-dummy.m */,
+				36C9266C67E26D52FEAC294A /* Pods-Tests-RoundedRobot-prefix.pch */,
 			);
 			name = "Support Files";
 			path = "Example/Pods/Target Support Files/Pods-RoundedRobot-RoundedRobot";
 			sourceTree = "<group>";
 		};
-		95A3EFB75C4F95CE4D6EBF1C /* Classes */ = {
+		3BC8A97C149699F78626317C /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				57636721959E882D4B8C02A1 /* NSManagedObject+CRUD.h */,
-				33A1F2DAF8681A747F01A1B1 /* NSManagedObject+CRUD.m */,
-				36674B29ED9F1CAA1CFAB7AE /* NSManagedObject+ROSerializer.h */,
-				272DA0C62064142CF6930751 /* NSManagedObject+ROSerializer.m */,
-				DC52CE21EF88DD45418BBA59 /* ROBot.h */,
-				860062294FE10ECD6EF1F0E9 /* ROBotError.h */,
-				B510FF1CAF632F657FBF70D8 /* ROBotError.m */,
-				6EC9A9D2CCE5FE01F52CAB61 /* ROBotManager.h */,
-				946A3A3A450D5C4E70C9C61C /* ROBotManager.m */,
-				08411C148489A632D6993F8C /* ROReachability.h */,
-				2170FDE4B8B17A6B840D0FFE /* ROReachability.m */,
+				45753DB3696E277BF4A01F2C /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		60FBB8F06E883D8271E07279 /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				69E2AFE2B114E0D4DE2F13DA /* Classes */,
+			);
+			path = Pod;
+			sourceTree = "<group>";
+		};
+		69E2AFE2B114E0D4DE2F13DA /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				9137335519C5BEF8AB3BE7F7 /* NSManagedObject+CRUD.h */,
+				64B4358FFDE028409B4AEA1C /* NSManagedObject+CRUD.m */,
+				3E1C0FE38D4C37317D2CCEE3 /* NSManagedObject+ROSerializer.h */,
+				986A9DEBAB8B26875D0FBA9E /* NSManagedObject+ROSerializer.m */,
+				2C31F55E0D778C5BC9A894AE /* ROBot.h */,
+				D638CB7C754AA53C0994B934 /* ROBotError.h */,
+				D8B18D3975A05F6F5FE05134 /* ROBotError.m */,
+				A1269D8D164079C86EA68E13 /* ROBotManager.h */,
+				D048ABD01B294E0AD12A2A2F /* ROBotManager.m */,
+				2406643641ACCD6B8E880EBE /* ROReachability.h */,
+				4F7558A9CE9B29F0EC97EE26 /* ROReachability.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
 		};
-		AEE0F808B3DC17097A86E7BD /* RoundedRobot */ = {
+		7859FCB069EBB49A187AAE03 /* Pods-RoundedRobot */ = {
 			isa = PBXGroup;
 			children = (
-				041C8619A7E5B3379058C9C1 /* Pod */,
-				6DB6010EF2676686050086B2 /* Support Files */,
+				7DCDD12A13190ECB6C6256B6 /* Pods-RoundedRobot-acknowledgements.markdown */,
+				92EBB581BFD36EFB82778987 /* Pods-RoundedRobot-acknowledgements.plist */,
+				31E6A924B268736E41F649D7 /* Pods-RoundedRobot-dummy.m */,
+				74260B01E9D567EDD8DD60DE /* Pods-RoundedRobot-environment.h */,
+				44FF06F03446EE2DCF37A48F /* Pods-RoundedRobot-resources.sh */,
+				43C35B46E36D6463A4F83B82 /* Pods-RoundedRobot.debug.xcconfig */,
+				A3E4615D200831F662C69EB5 /* Pods-RoundedRobot.release.xcconfig */,
 			);
-			name = RoundedRobot;
-			path = ../..;
+			name = "Pods-RoundedRobot";
+			path = "Target Support Files/Pods-RoundedRobot";
 			sourceTree = "<group>";
 		};
-		B66AD0484E78CA4217A346BB /* Products */ = {
+		83FE178A813D26E741028800 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				DA174CCD9C71199A47AD5C82 /* ROBot.bundle */,
-				8098EF3E363B1AE17D56C504 /* ROBot.bundle */,
-				359C05EAED6F8C99A6E9C498 /* libPods-RoundedRobot.a */,
-				345127C8F8312C5AF84DD2BD /* libPods-RoundedRobot-RoundedRobot.a */,
-				630DFE5FCEF66A03816ACF62 /* libPods-Tests.a */,
-				3EC5E1163B9D93BB25EA5DB5 /* libPods-Tests-RoundedRobot.a */,
+				7859FCB069EBB49A187AAE03 /* Pods-RoundedRobot */,
+				9767396624525205CAE997DD /* Pods-Tests */,
 			);
-			name = Products;
+			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		C503F2ECC96EB1E8525EB75B /* Pods-Tests */ = {
+		9767396624525205CAE997DD /* Pods-Tests */ = {
 			isa = PBXGroup;
 			children = (
-				44CA89B500430CC7F51EE523 /* Pods-Tests-acknowledgements.markdown */,
-				18A3B401152DEA387EABA4B9 /* Pods-Tests-acknowledgements.plist */,
-				197AA805C6C85D4D6BCDA083 /* Pods-Tests-dummy.m */,
-				315DFDF59A75970F6D6BFAF9 /* Pods-Tests-environment.h */,
-				141A855657E1FC478ED8C3AD /* Pods-Tests-resources.sh */,
-				7510F54DFB0679A9B625E7A1 /* Pods-Tests.debug.xcconfig */,
-				DC016B290DA0D70F48D1545C /* Pods-Tests.release.xcconfig */,
+				F49CA35A3180BDEC586E6184 /* Pods-Tests-acknowledgements.markdown */,
+				1B56D762A437099D46D7DFDD /* Pods-Tests-acknowledgements.plist */,
+				ABC515559BE56CB0B650C373 /* Pods-Tests-dummy.m */,
+				FECF1DDA61E5C5634326A034 /* Pods-Tests-environment.h */,
+				75AEB3FDE282A044DCABE0AA /* Pods-Tests-resources.sh */,
+				F825D780005BE68300F05D79 /* Pods-Tests.debug.xcconfig */,
+				CE0EEDA43D442E331C0DDC47 /* Pods-Tests.release.xcconfig */,
 			);
 			name = "Pods-Tests";
 			path = "Target Support Files/Pods-Tests";
 			sourceTree = "<group>";
 		};
-		CC0BB96A21EEFA1A2F47EAFF = {
+		A2E40F54B085479F87FD6659 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				75688292EF083337A59BEA59 /* Podfile */,
-				062106EC72B51C62E009E7D4 /* Development Pods */,
-				532D207EE7D2FA486304EC30 /* Frameworks */,
-				B66AD0484E78CA4217A346BB /* Products */,
-				DE1E071E5FD2BF16E063D640 /* Targets Support Files */,
+				3BC8A97C149699F78626317C /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A5350924D1098F2A60D15B57 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				442E07CC9E8072F2DD3D90DC /* ROBot.bundle */,
+				F55F0A22B5B514A09E2C0EBB /* ROBot.bundle */,
+				03638397A87484EB8D9DAD4D /* libPods-RoundedRobot.a */,
+				120AE5071A700015708E4A75 /* libPods-RoundedRobot-RoundedRobot.a */,
+				572DF67D9AE853A68DBE7448 /* libPods-Tests.a */,
+				E71E188DEE0FA29876A0E1DF /* libPods-Tests-RoundedRobot.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C7FA8C40FC9BF793B852A110 = {
+			isa = PBXGroup;
+			children = (
+				EE626820F7A482ADB3951DD1 /* Podfile */,
+				2205EDA643A30C651B39E6D7 /* Development Pods */,
+				A2E40F54B085479F87FD6659 /* Frameworks */,
+				A5350924D1098F2A60D15B57 /* Products */,
+				83FE178A813D26E741028800 /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
-		DE1E071E5FD2BF16E063D640 /* Targets Support Files */ = {
+		F091BB56463C715C4567C9EE /* RoundedRobot */ = {
 			isa = PBXGroup;
 			children = (
-				2FE828F342B232D6D55931A2 /* Pods-RoundedRobot */,
-				C503F2ECC96EB1E8525EB75B /* Pods-Tests */,
+				60FBB8F06E883D8271E07279 /* Pod */,
+				37A4410F1A129F1DA71615E9 /* Support Files */,
 			);
-			name = "Targets Support Files";
+			name = RoundedRobot;
+			path = ../..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		67F5D8B4AC4DF1F3ACC0A8AA /* Headers */ = {
+		511FA0831A5C912F9ED94A55 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2BF9C92A0644FB03334BBAB2 /* NSManagedObject+CRUD.h in Headers */,
-				4994E993334564E31F01574F /* NSManagedObject+ROSerializer.h in Headers */,
-				D990A02265ED83851766FE7E /* ROBot.h in Headers */,
-				A890BE70875FCC4E0188692A /* ROBotError.h in Headers */,
-				8A3EE5E89E580E785DE3861A /* ROBotManager.h in Headers */,
-				448394E6E45B8938CBF27146 /* ROReachability.h in Headers */,
+				6C9C6F3616A3E7F8560D2292 /* NSManagedObject+CRUD.h in Headers */,
+				B5493D237132B906975CFC22 /* NSManagedObject+ROSerializer.h in Headers */,
+				E77C7718F5DA50E5600E243C /* ROBot.h in Headers */,
+				28CE49AFDFE0114FC2DC403E /* ROBotError.h in Headers */,
+				BA541BCBED059E192D1D64C6 /* ROBotManager.h in Headers */,
+				E8BBA9AAA9C489770666BDD0 /* ROReachability.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F0CBD4FD0D70D5308B38922C /* Headers */ = {
+		D65AC9778437300CB9DF4C6A /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1E5BD897B7B3B316651ED39F /* NSManagedObject+CRUD.h in Headers */,
-				D4430E9C6EDA091059FBF806 /* NSManagedObject+ROSerializer.h in Headers */,
-				3F239270A363C848EEC218E5 /* ROBot.h in Headers */,
-				D8489175EF9BA040868367EC /* ROBotError.h in Headers */,
-				7DB037F1AE66BFF7535FFED7 /* ROBotManager.h in Headers */,
-				EF4BF556634AA4821CA7D65D /* ROReachability.h in Headers */,
+				65E9D8577EBF27CF72BAB0E0 /* NSManagedObject+CRUD.h in Headers */,
+				10CC5723CF2C2FBEBC0B78EE /* NSManagedObject+ROSerializer.h in Headers */,
+				AA290E11A054090307D47A95 /* ROBot.h in Headers */,
+				A8EDAC0A6B182E1488665AFB /* ROBotError.h in Headers */,
+				0CAD54A14EFE422695B80C4E /* ROBotManager.h in Headers */,
+				3B19D93530EC7334B84D88EF /* ROReachability.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		4900ED36CCCF48BC356F69AC /* Pods-RoundedRobot-RoundedRobot-ROBot */ = {
+		02C4061F809A9EADF297B893 /* Pods-RoundedRobot-RoundedRobot */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C882025333AF11A30B324315 /* Build configuration list for PBXNativeTarget "Pods-RoundedRobot-RoundedRobot-ROBot" */;
+			buildConfigurationList = 296EDFF6CB4727BA895178F8 /* Build configuration list for PBXNativeTarget "Pods-RoundedRobot-RoundedRobot" */;
 			buildPhases = (
-				356855C5F60DDD9E738FF2F9 /* Sources */,
-				EACC994DFACD3BA58F71F14E /* Frameworks */,
-				1DDB557E94B377BC830D14AE /* Resources */,
+				CF9CD6D81537B0786D41D2E7 /* Sources */,
+				E040F9DAD3C59FE3D2B1B400 /* Frameworks */,
+				D65AC9778437300CB9DF4C6A /* Headers */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				659E1F6907027F0D69402371 /* PBXTargetDependency */,
 			);
-			name = "Pods-RoundedRobot-RoundedRobot-ROBot";
-			productName = "Pods-RoundedRobot-RoundedRobot-ROBot";
-			productReference = 8098EF3E363B1AE17D56C504 /* ROBot.bundle */;
-			productType = "com.apple.product-type.bundle";
+			name = "Pods-RoundedRobot-RoundedRobot";
+			productName = "Pods-RoundedRobot-RoundedRobot";
+			productReference = 120AE5071A700015708E4A75 /* libPods-RoundedRobot-RoundedRobot.a */;
+			productType = "com.apple.product-type.library.static";
 		};
-		8B2F622C7D782E6BB34EECCE /* Pods-Tests-RoundedRobot-ROBot */ = {
+		0EFC4FF397FFFCECA1349AB7 /* Pods-RoundedRobot */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7C2E279532CA5C8F9D974182 /* Build configuration list for PBXNativeTarget "Pods-Tests-RoundedRobot-ROBot" */;
+			buildConfigurationList = ADB9BA349185702B1369D004 /* Build configuration list for PBXNativeTarget "Pods-RoundedRobot" */;
 			buildPhases = (
-				2BBA63B909CD76721A8565A3 /* Sources */,
-				490FD5DDBED2AB5A995E1E53 /* Frameworks */,
-				17ECC57064A773D4AD9AD74F /* Resources */,
+				D8E6AE839BA12B8ADD4C9659 /* Sources */,
+				1E1283012F6F5072FC9FD60B /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1919F49F4B3C04FCF04257CD /* PBXTargetDependency */,
+			);
+			name = "Pods-RoundedRobot";
+			productName = "Pods-RoundedRobot";
+			productReference = 03638397A87484EB8D9DAD4D /* libPods-RoundedRobot.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		35E23244B74025EDC2481492 /* Pods-Tests-RoundedRobot */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A88F1FEAD8F358B09E9AED47 /* Build configuration list for PBXNativeTarget "Pods-Tests-RoundedRobot" */;
+			buildPhases = (
+				E14DB1D34BBDA825EBCCDC95 /* Sources */,
+				F0F4E977EE16CBEBA5831097 /* Frameworks */,
+				511FA0831A5C912F9ED94A55 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E1A47B652232A0F09CDA1C04 /* PBXTargetDependency */,
+			);
+			name = "Pods-Tests-RoundedRobot";
+			productName = "Pods-Tests-RoundedRobot";
+			productReference = E71E188DEE0FA29876A0E1DF /* libPods-Tests-RoundedRobot.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		43824F429099369EBFC20764 /* Pods-Tests-RoundedRobot-ROBot */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ADFCD6AAADF192D5793459D8 /* Build configuration list for PBXNativeTarget "Pods-Tests-RoundedRobot-ROBot" */;
+			buildPhases = (
+				D8AAB1E1250B28CD4DF35F15 /* Sources */,
+				69A769857E37D6FAD6F905B5 /* Frameworks */,
+				D79386F95A4CAB8400F79472 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -366,118 +402,82 @@
 			);
 			name = "Pods-Tests-RoundedRobot-ROBot";
 			productName = "Pods-Tests-RoundedRobot-ROBot";
-			productReference = DA174CCD9C71199A47AD5C82 /* ROBot.bundle */;
+			productReference = 442E07CC9E8072F2DD3D90DC /* ROBot.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
-		B76297AB3AFEC27CBBCB5B76 /* Pods-Tests */ = {
+		49DC108C4DBE78FA27ECA513 /* Pods-Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2EDF6F5D5885E2D4EFFBA208 /* Build configuration list for PBXNativeTarget "Pods-Tests" */;
+			buildConfigurationList = 0A8BFBAD5EA7F9AEB802A36B /* Build configuration list for PBXNativeTarget "Pods-Tests" */;
 			buildPhases = (
-				04924214F24FE226BD73F92D /* Sources */,
-				D451E14ADF66529B90E03257 /* Frameworks */,
+				57456FB05BCC2FC3D8B6804C /* Sources */,
+				9209424DD10E03F9C8087BC5 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				CD6582A16077CA0AE20DFBEE /* PBXTargetDependency */,
+				B8F95DD3FA9A7B3CD6215C06 /* PBXTargetDependency */,
 			);
 			name = "Pods-Tests";
 			productName = "Pods-Tests";
-			productReference = 630DFE5FCEF66A03816ACF62 /* libPods-Tests.a */;
+			productReference = 572DF67D9AE853A68DBE7448 /* libPods-Tests.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		CDE65D662F375D42964C8B32 /* Pods-RoundedRobot-RoundedRobot */ = {
+		82E2D4433197C648A852B9A9 /* Pods-RoundedRobot-RoundedRobot-ROBot */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6F489496A2D38E08962BE45F /* Build configuration list for PBXNativeTarget "Pods-RoundedRobot-RoundedRobot" */;
+			buildConfigurationList = 102F06739A1D224A415016CF /* Build configuration list for PBXNativeTarget "Pods-RoundedRobot-RoundedRobot-ROBot" */;
 			buildPhases = (
-				4553D0C3E2A0949538F8A792 /* Sources */,
-				31346AD152BD61776250F69F /* Frameworks */,
-				67F5D8B4AC4DF1F3ACC0A8AA /* Headers */,
+				BEF25703B8280F47B0B63BB2 /* Sources */,
+				6253052EFD4C66EA81BAA6D4 /* Frameworks */,
+				E6B14D0BB1FF9E58B3FC322F /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				900E62840C1D10972441429B /* PBXTargetDependency */,
 			);
-			name = "Pods-RoundedRobot-RoundedRobot";
-			productName = "Pods-RoundedRobot-RoundedRobot";
-			productReference = 345127C8F8312C5AF84DD2BD /* libPods-RoundedRobot-RoundedRobot.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		F9AA1DE01D799953ADBD1BDF /* Pods-RoundedRobot */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = DE1B1BFCD5E195A3CD347454 /* Build configuration list for PBXNativeTarget "Pods-RoundedRobot" */;
-			buildPhases = (
-				7077B7E7E3834BFB7AD38E33 /* Sources */,
-				58A0C5E8F72B76A252920F57 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				480C88891335430005DEE08C /* PBXTargetDependency */,
-			);
-			name = "Pods-RoundedRobot";
-			productName = "Pods-RoundedRobot";
-			productReference = 359C05EAED6F8C99A6E9C498 /* libPods-RoundedRobot.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		FB063CBC921972F1EB7D2D70 /* Pods-Tests-RoundedRobot */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 8A396799E4613D06225BE0CD /* Build configuration list for PBXNativeTarget "Pods-Tests-RoundedRobot" */;
-			buildPhases = (
-				14CD6297F3B2542B30D7AC7C /* Sources */,
-				DD2651881F003ADCC3A7D61D /* Frameworks */,
-				F0CBD4FD0D70D5308B38922C /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				A16F5B0450413EDD02F10EA1 /* PBXTargetDependency */,
-			);
-			name = "Pods-Tests-RoundedRobot";
-			productName = "Pods-Tests-RoundedRobot";
-			productReference = 3EC5E1163B9D93BB25EA5DB5 /* libPods-Tests-RoundedRobot.a */;
-			productType = "com.apple.product-type.library.static";
+			name = "Pods-RoundedRobot-RoundedRobot-ROBot";
+			productName = "Pods-RoundedRobot-RoundedRobot-ROBot";
+			productReference = F55F0A22B5B514A09E2C0EBB /* ROBot.bundle */;
+			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		225A3ECB03984FCBF463F79D /* Project object */ = {
+		DB895683D6566196BB374335 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0640;
 			};
-			buildConfigurationList = B913AD88035EC0512ABED3E1 /* Build configuration list for PBXProject "Pods" */;
+			buildConfigurationList = 44B6FAC0850CAA59F62B773E /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = CC0BB96A21EEFA1A2F47EAFF;
-			productRefGroup = B66AD0484E78CA4217A346BB /* Products */;
+			mainGroup = C7FA8C40FC9BF793B852A110;
+			productRefGroup = A5350924D1098F2A60D15B57 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F9AA1DE01D799953ADBD1BDF /* Pods-RoundedRobot */,
-				CDE65D662F375D42964C8B32 /* Pods-RoundedRobot-RoundedRobot */,
-				4900ED36CCCF48BC356F69AC /* Pods-RoundedRobot-RoundedRobot-ROBot */,
-				B76297AB3AFEC27CBBCB5B76 /* Pods-Tests */,
-				FB063CBC921972F1EB7D2D70 /* Pods-Tests-RoundedRobot */,
-				8B2F622C7D782E6BB34EECCE /* Pods-Tests-RoundedRobot-ROBot */,
+				0EFC4FF397FFFCECA1349AB7 /* Pods-RoundedRobot */,
+				02C4061F809A9EADF297B893 /* Pods-RoundedRobot-RoundedRobot */,
+				82E2D4433197C648A852B9A9 /* Pods-RoundedRobot-RoundedRobot-ROBot */,
+				49DC108C4DBE78FA27ECA513 /* Pods-Tests */,
+				35E23244B74025EDC2481492 /* Pods-Tests-RoundedRobot */,
+				43824F429099369EBFC20764 /* Pods-Tests-RoundedRobot-ROBot */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		17ECC57064A773D4AD9AD74F /* Resources */ = {
+		D79386F95A4CAB8400F79472 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		1DDB557E94B377BC830D14AE /* Resources */ = {
+		E6B14D0BB1FF9E58B3FC322F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -487,105 +487,95 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		04924214F24FE226BD73F92D /* Sources */ = {
+		57456FB05BCC2FC3D8B6804C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				317617789179B40F8C3C401F /* Pods-Tests-dummy.m in Sources */,
+				F67645A649B7F390494AC71C /* Pods-Tests-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		14CD6297F3B2542B30D7AC7C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1F7D321C5B6A5DD5842287D1 /* NSManagedObject+CRUD.m in Sources */,
-				4399AB3514AACE576CDF6DA7 /* NSManagedObject+ROSerializer.m in Sources */,
-				D678B463E05A8299266FC3F2 /* Pods-Tests-RoundedRobot-dummy.m in Sources */,
-				E2A77B5A2794655D873689A0 /* ROBotError.m in Sources */,
-				AF7A8FB03C2EFB72E9C0B098 /* ROBotManager.m in Sources */,
-				FBC92D0C75450504FD1AFE24 /* ROReachability.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2BBA63B909CD76721A8565A3 /* Sources */ = {
+		BEF25703B8280F47B0B63BB2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		356855C5F60DDD9E738FF2F9 /* Sources */ = {
+		CF9CD6D81537B0786D41D2E7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DE03665E03CE51C9CDCB0E0D /* NSManagedObject+CRUD.m in Sources */,
+				5C9679F5C4376D11AC001FFE /* NSManagedObject+ROSerializer.m in Sources */,
+				3B1251E3CD2F23890597EF09 /* Pods-RoundedRobot-RoundedRobot-dummy.m in Sources */,
+				E2C35F6AD2E607CB2EC82BF7 /* ROBotError.m in Sources */,
+				F0D628D9835A3A67AB508FF5 /* ROBotManager.m in Sources */,
+				9FEABD216049328F737C0DF1 /* ROReachability.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D8AAB1E1250B28CD4DF35F15 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4553D0C3E2A0949538F8A792 /* Sources */ = {
+		D8E6AE839BA12B8ADD4C9659 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7CBA2B7CA4F1B52B407614E7 /* NSManagedObject+CRUD.m in Sources */,
-				E4FF7076613F56203E6A1700 /* NSManagedObject+ROSerializer.m in Sources */,
-				F5656DCE109ECE890F3C3548 /* Pods-RoundedRobot-RoundedRobot-dummy.m in Sources */,
-				059CDFFECF832AEA27D40133 /* ROBotError.m in Sources */,
-				EB3BD658482A6D49E538D66C /* ROBotManager.m in Sources */,
-				B505F31D5C526F060CDFA9C7 /* ROReachability.m in Sources */,
+				1E1760A275F46F15ED0B1970 /* Pods-RoundedRobot-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7077B7E7E3834BFB7AD38E33 /* Sources */ = {
+		E14DB1D34BBDA825EBCCDC95 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D672A14C3947FCEDDC405726 /* Pods-RoundedRobot-dummy.m in Sources */,
+				5D41D36DF04C2A193B7DC563 /* NSManagedObject+CRUD.m in Sources */,
+				7BDD93F99DD052D37833D5B8 /* NSManagedObject+ROSerializer.m in Sources */,
+				9F136CB1B4CFBF6F05F94952 /* Pods-Tests-RoundedRobot-dummy.m in Sources */,
+				456C145666B8F9ABF4FFCEC5 /* ROBotError.m in Sources */,
+				D943EEBAFB0F49C6E0181F69 /* ROBotManager.m in Sources */,
+				F038DF3E4FAF7980E891CF54 /* ROReachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		480C88891335430005DEE08C /* PBXTargetDependency */ = {
+		1919F49F4B3C04FCF04257CD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Pods-RoundedRobot-RoundedRobot";
-			target = CDE65D662F375D42964C8B32 /* Pods-RoundedRobot-RoundedRobot */;
-			targetProxy = A8861136ED71B33847AB0337 /* PBXContainerItemProxy */;
+			target = 02C4061F809A9EADF297B893 /* Pods-RoundedRobot-RoundedRobot */;
+			targetProxy = A25D45B4B9D6EE621BAF3475 /* PBXContainerItemProxy */;
 		};
-		900E62840C1D10972441429B /* PBXTargetDependency */ = {
+		659E1F6907027F0D69402371 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Pods-RoundedRobot-RoundedRobot-ROBot";
-			target = 4900ED36CCCF48BC356F69AC /* Pods-RoundedRobot-RoundedRobot-ROBot */;
-			targetProxy = A68193BE50B536B91C99DFEF /* PBXContainerItemProxy */;
+			target = 82E2D4433197C648A852B9A9 /* Pods-RoundedRobot-RoundedRobot-ROBot */;
+			targetProxy = 873F2839F3D651E1D5C97CA1 /* PBXContainerItemProxy */;
 		};
-		A16F5B0450413EDD02F10EA1 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Pods-Tests-RoundedRobot-ROBot";
-			target = 8B2F622C7D782E6BB34EECCE /* Pods-Tests-RoundedRobot-ROBot */;
-			targetProxy = 46DA5C44692DCA42ED94F019 /* PBXContainerItemProxy */;
-		};
-		CD6582A16077CA0AE20DFBEE /* PBXTargetDependency */ = {
+		B8F95DD3FA9A7B3CD6215C06 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Pods-Tests-RoundedRobot";
-			target = FB063CBC921972F1EB7D2D70 /* Pods-Tests-RoundedRobot */;
-			targetProxy = C6CC99244145587B466B8201 /* PBXContainerItemProxy */;
+			target = 35E23244B74025EDC2481492 /* Pods-Tests-RoundedRobot */;
+			targetProxy = DDCCF82D3A40FD79B04C182C /* PBXContainerItemProxy */;
+		};
+		E1A47B652232A0F09CDA1C04 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-Tests-RoundedRobot-ROBot";
+			target = 43824F429099369EBFC20764 /* Pods-Tests-RoundedRobot-ROBot */;
+			targetProxy = 937F705D27D06CC2EC4B8FA3 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		059773A334532B3E999D754B /* Debug */ = {
+		0FF969C6A44166B56ACFFB22 /* Release */ = {
 			isa = XCBuildConfiguration;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				PRODUCT_NAME = ROBot;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = Debug;
-		};
-		316FBAE38F765CC5745EEF09 /* Release */ = {
-			isa = XCBuildConfiguration;
+			baseConfigurationReference = 00E5846DA2DB6700EAB93DB4 /* Pods-Tests-RoundedRobot-Private.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				PRODUCT_NAME = ROBot;
@@ -595,9 +585,103 @@
 			};
 			name = Release;
 		};
-		3815E8A802FDCFD963E9901C /* Release */ = {
+		2D7A52C1B94480AD693B9CCD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 717BFE6C0A2D71F28883DB31 /* Pods-Tests-RoundedRobot-Private.xcconfig */;
+			baseConfigurationReference = 00E5846DA2DB6700EAB93DB4 /* Pods-Tests-RoundedRobot-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				PRODUCT_NAME = ROBot;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		491ECD546DE142179E59E6D7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4ACBAE9E93A54E4FB9C5D533 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CE0EEDA43D442E331C0DDC47 /* Pods-Tests.release.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		57B3635A2FC3AC254003D4A0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4817009E7B54E02C26742C62 /* Pods-RoundedRobot-RoundedRobot-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-RoundedRobot-RoundedRobot/Pods-RoundedRobot-RoundedRobot-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		6681525CFFA9BABE7A46FE33 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A3E4615D200831F662C69EB5 /* Pods-RoundedRobot.release.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		6A6D43B390A27C9E0921D983 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 00E5846DA2DB6700EAB93DB4 /* Pods-Tests-RoundedRobot-Private.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/Pods-Tests-RoundedRobot/Pods-Tests-RoundedRobot-prefix.pch";
@@ -611,39 +695,19 @@
 			};
 			name = Release;
 		};
-		3EE1D7E2BB796AA840280A8D /* Debug */ = {
+		9BF4216F3154AB16071925E0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7510F54DFB0679A9B625E7A1 /* Pods-Tests.debug.xcconfig */;
+			baseConfigurationReference = 4817009E7B54E02C26742C62 /* Pods-RoundedRobot-RoundedRobot-Private.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = ROBot;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
 			};
 			name = Debug;
 		};
-		3F8904277E6373B41A1195C8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC016B290DA0D70F48D1545C /* Pods-Tests.release.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		5A725E43B0FAB778DE418809 /* Debug */ = {
+		B6608FC9CC2C9798798B1673 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -682,129 +746,9 @@
 			};
 			name = Debug;
 		};
-		656B67F680250781E14855C1 /* Release */ = {
+		BBBD6E575DA5D6498C510FF1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2167F1324F785090C56FBCB5 /* Pods-RoundedRobot.release.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		6C6E0DD5C646A62B5AF737C8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				PRODUCT_NAME = ROBot;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = Debug;
-		};
-		780BFA7387CD4E7C3E3A558A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E4F94203F5E09027861A6A1E /* Pods-RoundedRobot.debug.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		8E470CCD29D5962826D63AAD /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = FB515F5CA36FE4D14D82A163 /* Pods-RoundedRobot-RoundedRobot-Private.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Pods-RoundedRobot-RoundedRobot/Pods-RoundedRobot-RoundedRobot-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		92BEA09B19304D00AD65818D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				PRODUCT_NAME = ROBot;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = Release;
-		};
-		9362BD281A87CAB3968CF811 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = FB515F5CA36FE4D14D82A163 /* Pods-RoundedRobot-RoundedRobot-Private.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Pods-RoundedRobot-RoundedRobot/Pods-RoundedRobot-RoundedRobot-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		B5525C99137EA9747647771A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				STRIP_INSTALLED_PRODUCT = NO;
-				SYMROOT = "${SRCROOT}/../build";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		FEEB36363C03A08D163B3332 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 717BFE6C0A2D71F28883DB31 /* Pods-Tests-RoundedRobot-Private.xcconfig */;
+			baseConfigurationReference = 00E5846DA2DB6700EAB93DB4 /* Pods-Tests-RoundedRobot-Private.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/Pods-Tests-RoundedRobot/Pods-Tests-RoundedRobot-prefix.pch";
@@ -818,73 +762,133 @@
 			};
 			name = Debug;
 		};
+		C3FD35C54005E3BA0238F9B7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4817009E7B54E02C26742C62 /* Pods-RoundedRobot-RoundedRobot-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-RoundedRobot-RoundedRobot/Pods-RoundedRobot-RoundedRobot-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		C59CB4C10787E9B8B93879C5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 43C35B46E36D6463A4F83B82 /* Pods-RoundedRobot.debug.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		DDEEBB4BB10A74E965E5A18E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4817009E7B54E02C26742C62 /* Pods-RoundedRobot-RoundedRobot-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				PRODUCT_NAME = ROBot;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+		F8146DF74F97DEF8F231159F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F825D780005BE68300F05D79 /* Pods-Tests.debug.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2EDF6F5D5885E2D4EFFBA208 /* Build configuration list for PBXNativeTarget "Pods-Tests" */ = {
+		0A8BFBAD5EA7F9AEB802A36B /* Build configuration list for PBXNativeTarget "Pods-Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3EE1D7E2BB796AA840280A8D /* Debug */,
-				3F8904277E6373B41A1195C8 /* Release */,
+				F8146DF74F97DEF8F231159F /* Debug */,
+				4ACBAE9E93A54E4FB9C5D533 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6F489496A2D38E08962BE45F /* Build configuration list for PBXNativeTarget "Pods-RoundedRobot-RoundedRobot" */ = {
+		102F06739A1D224A415016CF /* Build configuration list for PBXNativeTarget "Pods-RoundedRobot-RoundedRobot-ROBot" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8E470CCD29D5962826D63AAD /* Debug */,
-				9362BD281A87CAB3968CF811 /* Release */,
+				9BF4216F3154AB16071925E0 /* Debug */,
+				DDEEBB4BB10A74E965E5A18E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7C2E279532CA5C8F9D974182 /* Build configuration list for PBXNativeTarget "Pods-Tests-RoundedRobot-ROBot" */ = {
+		296EDFF6CB4727BA895178F8 /* Build configuration list for PBXNativeTarget "Pods-RoundedRobot-RoundedRobot" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				6C6E0DD5C646A62B5AF737C8 /* Debug */,
-				92BEA09B19304D00AD65818D /* Release */,
+				57B3635A2FC3AC254003D4A0 /* Debug */,
+				C3FD35C54005E3BA0238F9B7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8A396799E4613D06225BE0CD /* Build configuration list for PBXNativeTarget "Pods-Tests-RoundedRobot" */ = {
+		44B6FAC0850CAA59F62B773E /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				FEEB36363C03A08D163B3332 /* Debug */,
-				3815E8A802FDCFD963E9901C /* Release */,
+				B6608FC9CC2C9798798B1673 /* Debug */,
+				491ECD546DE142179E59E6D7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B913AD88035EC0512ABED3E1 /* Build configuration list for PBXProject "Pods" */ = {
+		A88F1FEAD8F358B09E9AED47 /* Build configuration list for PBXNativeTarget "Pods-Tests-RoundedRobot" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				5A725E43B0FAB778DE418809 /* Debug */,
-				B5525C99137EA9747647771A /* Release */,
+				BBBD6E575DA5D6498C510FF1 /* Debug */,
+				6A6D43B390A27C9E0921D983 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C882025333AF11A30B324315 /* Build configuration list for PBXNativeTarget "Pods-RoundedRobot-RoundedRobot-ROBot" */ = {
+		ADB9BA349185702B1369D004 /* Build configuration list for PBXNativeTarget "Pods-RoundedRobot" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				059773A334532B3E999D754B /* Debug */,
-				316FBAE38F765CC5745EEF09 /* Release */,
+				C59CB4C10787E9B8B93879C5 /* Debug */,
+				6681525CFFA9BABE7A46FE33 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DE1B1BFCD5E195A3CD347454 /* Build configuration list for PBXNativeTarget "Pods-RoundedRobot" */ = {
+		ADFCD6AAADF192D5793459D8 /* Build configuration list for PBXNativeTarget "Pods-Tests-RoundedRobot-ROBot" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				780BFA7387CD4E7C3E3A558A /* Debug */,
-				656B67F680250781E14855C1 /* Release */,
+				2D7A52C1B94480AD693B9CCD /* Debug */,
+				0FF969C6A44166B56ACFFB22 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 225A3ECB03984FCBF463F79D /* Project object */;
+	rootObject = DB895683D6566196BB374335 /* Project object */;
 }

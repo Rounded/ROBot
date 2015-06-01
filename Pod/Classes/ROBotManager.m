@@ -68,6 +68,11 @@ static ROBotManager *ROBotManagerInstance = nil;
     return _persistentStoreCoordinator;
 }
 
+- (NSManagedObjectContext *)mainContext {
+    NSAssert(_mainContext, @"You did not set the main context. This must be set to use a scratch context object");
+    return _mainContext;
+}
+
 + (NSString *) cacheType:(CRUD)crudType {
     switch (crudType) {
         case CREATE:

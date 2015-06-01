@@ -21,6 +21,7 @@
     
     [ROBotManager initializeWithBaseURL:@"http://rounded-pong.herokuapp.com" andPersistentStoreCoordinator:self.persistentStoreCoordinator];
     [ROBotManager sharedInstance].verboseLogging = YES;
+    [ROBotManager sharedInstance].mainContext = self.managedObjectContext;
     
     
 //    [user create:nil failure:nil];
@@ -31,6 +32,9 @@
         failure:^(ROBotError *error) {
             
         }];
+    
+    User *user = [User newInScratchContext];
+    [user saveContext];
     
     return YES;
 }
@@ -122,7 +126,7 @@
     if (!coordinator) {
         return nil;
     }
-    _managedObjectContext = [[NSManagedObjectContext alloc] init];
+    _managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
     [_managedObjectContext setPersistentStoreCoordinator:coordinator];
     return _managedObjectContext;
 }

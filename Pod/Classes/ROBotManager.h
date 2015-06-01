@@ -29,5 +29,6 @@ typedef NS_ENUM(NSInteger, CRUD) {
 @property (nonatomic, retain) NSString *accessToken;
 @property (nonatomic) BOOL verboseLogging;
 @property (nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+@property (nonatomic) NSManagedObjectContext *mainContext;
 
 @end

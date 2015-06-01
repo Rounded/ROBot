@@ -184,52 +184,65 @@ static NSString *pk = @"id";
     if (self.managedObjectContext) {
         context = self.managedObjectContext;
     } else {
-        context = [NSManagedObjectContext new];
-        context.persistentStoreCoordinator = [[ROBotManager sharedInstance] persistentStoreCoordinator];
+        context = [NSManagedObject newChildContext];
         [context insertObject:self];
     }
-    NSError *error = nil;
     
-    if (context.hasChanges && ![context save:&error]) {
-        if ([ROBotManager sharedInstance].verboseLogging == TRUE) {
-            NSLog(@"Could not save context: %@", error.localizedDescription);
-        }
-        return FALSE;
-    }
+    [NSManagedObject saveContext:context];
+    return true;
     
-    if (context.parentContext) {
-        if (context.parentContext.hasChanges && ![context.parentContext save:&error]) {
-            if ([ROBotManager sharedInstance].verboseLogging == TRUE) {
-                NSLog(@"Could not save context: %@", error.localizedDescription);
-            }
-            return FALSE;
-        }
-    }
-    
-    return TRUE;
+//    NSError *error = nil;
+//    
+//    if (context.hasChanges && ![context save:&error]) {
+//        if ([ROBotManager sharedInstance].verboseLogging == TRUE) {
+//            NSLog(@"Could not save context: %@", error.localizedDescription);
+//        }
+//        return FALSE;
+//    }
+//    
+//
+//    
+//    
+//    if (context.parentContext) {
+//        if (context.parentContext.hasChanges && ![context.parentContext save:&error]) {
+//            if ([ROBotManager sharedInstance].verboseLogging == TRUE) {
+//                NSLog(@"Could not save context: %@", error.localizedDescription);
+//            }
+//            return FALSE;
+//        }
+//    }
+//    
+//    return TRUE;
 }
 
 + (BOOL)saveContext:(NSManagedObjectContext *)context {
     
-    NSError *error = nil;
+    __block BOOL returnFlag = TRUE;
     
-    if (context.hasChanges && ![context save:&error]) {
-        if ([ROBotManager sharedInstance].verboseLogging == TRUE) {
-            NSLog(@"Could not save context: %@", error.localizedDescription);
-        }
-        return FALSE;
-    }
-    
-    if (context.parentContext) {
-        if (context.parentContext.hasChanges && ![context.parentContext save:&error]) {
+    [context performBlockAndWait:^{
+        NSError *error = nil;
+        if (context.hasChanges && ![context save:&error]) {
             if ([ROBotManager sharedInstance].verboseLogging == TRUE) {
                 NSLog(@"Could not save context: %@", error.localizedDescription);
             }
-            return FALSE;
+            returnFlag = FALSE;
         }
+    }];
+    
+    
+    if (context.parentContext) {
+//        [context.parentContext performBlockAndWait:^{
+            NSError *error = nil;
+            if (context.parentContext.hasChanges && ![context.parentContext save:&error]) {
+                if ([ROBotManager sharedInstance].verboseLogging == TRUE) {
+                    NSLog(@"Could not save context: %@", error.localizedDescription);
+                }
+                returnFlag = FALSE;
+            }
+//        }];
     }
     
-    return TRUE;
+    return returnFlag;
 }
 
 - (BOOL)saveToDatabase:(NSDictionary *)json {
@@ -303,10 +316,17 @@ static NSString *pk = @"id";
 
 + (NSManagedObject *)newInScratchContext {
     // FIX: Should attempt to get the actual main context, not just creating a new one!
-    NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
-    context.persistentStoreCoordinator = [[ROBotManager sharedInstance] persistentStoreCoordinator];
+    
+//    context.persistentStoreCoordinator = [[ROBotManager sharedInstance] persistentStoreCoordinator];
+    NSManagedObjectContext *context = [NSManagedObject newChildContext];
     NSEntityDescription *entity = [NSEntityDescription entityForName:NSStringFromClass([self class]) inManagedObjectContext:context];
-    return [[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:nil];
+    return [[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:context];
+}
+
++ (NSManagedObjectContext *)newChildContext {
+    NSManagedObjectContext *context = [[NSManagedObjectContext alloc] initWithConcurrencyType:[ROBotManager sharedInstance].mainContext.concurrencyType];
+    [context setParentContext:[ROBotManager sharedInstance].mainContext];
+    return context;
 }
 
 - (instancetype)copyToScratchContext {
