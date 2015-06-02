@@ -26,8 +26,11 @@ typedef NS_ENUM(NSInteger, CRUD) {
 
 + (NSString *) cacheType:(CRUD)crudType;
 
+- (void)addHeaderValue:(NSString *)headerValue forHeaderField:(NSString *)headerField;
+
 @property (nonatomic, retain) NSString *baseURL;
 @property (nonatomic, retain) NSString *accessToken;
+@property (nonatomic, retain) NSMutableArray *headers;
 @property (nonatomic) BOOL verboseLogging;
 @property (nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic) NSManagedObjectContext *mainContext;

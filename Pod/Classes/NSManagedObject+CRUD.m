@@ -51,6 +51,9 @@
     [mutableURLRequest addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [mutableURLRequest addValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [mutableURLRequest setValue:[NSString stringWithFormat:@"Bearer %@", [ROBotManager sharedInstance].accessToken] forHTTPHeaderField:@"Authorization"];
+    [[ROBotManager sharedInstance].headers enumerateObjectsUsingBlock:^(NSDictionary *headerDictionary, NSUInteger idx, BOOL *stop) {
+        [mutableURLRequest setValue:[headerDictionary valueForKey:@"headerValue"] forHTTPHeaderField:[headerDictionary valueForKey:@"headerField"]];
+    }];
     
     [[session dataTaskWithRequest:mutableURLRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
@@ -91,6 +94,9 @@
     [mutableURLRequest addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [mutableURLRequest addValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [mutableURLRequest setValue:[NSString stringWithFormat:@"Bearer %@", [ROBotManager sharedInstance].accessToken] forHTTPHeaderField:@"Authorization"];
+    [[ROBotManager sharedInstance].headers enumerateObjectsUsingBlock:^(NSDictionary *headerDictionary, NSUInteger idx, BOOL *stop) {
+        [mutableURLRequest setValue:[headerDictionary valueForKey:@"headerValue"] forHTTPHeaderField:[headerDictionary valueForKey:@"headerField"]];
+    }];
     
     [[session dataTaskWithRequest:mutableURLRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
@@ -133,6 +139,9 @@
     [mutableURLRequest addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [mutableURLRequest addValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [mutableURLRequest setValue:[NSString stringWithFormat:@"Bearer %@", [ROBotManager sharedInstance].accessToken] forHTTPHeaderField:@"Authorization"];
+    [[ROBotManager sharedInstance].headers enumerateObjectsUsingBlock:^(NSDictionary *headerDictionary, NSUInteger idx, BOOL *stop) {
+        [mutableURLRequest setValue:[headerDictionary valueForKey:@"headerValue"] forHTTPHeaderField:[headerDictionary valueForKey:@"headerField"]];
+    }];
     
     [[session dataTaskWithRequest:mutableURLRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
@@ -175,6 +184,9 @@
     [mutableURLRequest addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [mutableURLRequest addValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [mutableURLRequest setValue:[NSString stringWithFormat:@"Bearer %@", [ROBotManager sharedInstance].accessToken] forHTTPHeaderField:@"Authorization"];
+    [[ROBotManager sharedInstance].headers enumerateObjectsUsingBlock:^(NSDictionary *headerDictionary, NSUInteger idx, BOOL *stop) {
+        [mutableURLRequest setValue:[headerDictionary valueForKey:@"headerValue"] forHTTPHeaderField:[headerDictionary valueForKey:@"headerField"]];
+    }];
     
     [[session dataTaskWithRequest:mutableURLRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
@@ -232,6 +244,9 @@
     [mutableURLRequest addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [mutableURLRequest addValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [mutableURLRequest setValue:[NSString stringWithFormat:@"Bearer %@", [ROBotManager sharedInstance].accessToken] forHTTPHeaderField:@"Authorization"];
+    [[ROBotManager sharedInstance].headers enumerateObjectsUsingBlock:^(NSDictionary *headerDictionary, NSUInteger idx, BOOL *stop) {
+        [mutableURLRequest setValue:[headerDictionary valueForKey:@"headerValue"] forHTTPHeaderField:[headerDictionary valueForKey:@"headerField"]];
+    }];
     
     [[session dataTaskWithRequest:mutableURLRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
@@ -302,6 +317,9 @@
     [mutableURLRequest addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [mutableURLRequest addValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [mutableURLRequest setValue:[NSString stringWithFormat:@"Bearer %@", [ROBotManager sharedInstance].accessToken] forHTTPHeaderField:@"Authorization"];
+    [[ROBotManager sharedInstance].headers enumerateObjectsUsingBlock:^(NSDictionary *headerDictionary, NSUInteger idx, BOOL *stop) {
+        [mutableURLRequest setValue:[headerDictionary valueForKey:@"headerValue"] forHTTPHeaderField:[headerDictionary valueForKey:@"headerField"]];
+    }];
     
     [[session dataTaskWithRequest:mutableURLRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         

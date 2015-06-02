@@ -56,6 +56,18 @@ static ROBotManager *ROBotManagerInstance = nil;
     return _baseURL;
 }
 
+- (void)addHeaderValue:(NSString *)headerValue forHeaderField:(NSString *)headerField {
+    NSDictionary *header = @{ @"headerField": headerField, @"headerValue": headerValue };
+    [self.headers addObject:header];
+}
+
+- (NSMutableArray *)headers {
+    if (!_headers) {
+        _headers = [NSMutableArray new];
+    }
+    return _headers;
+}
+
 - (BOOL)verboseLogging {
     if (!_verboseLogging) {
         _verboseLogging = FALSE;
