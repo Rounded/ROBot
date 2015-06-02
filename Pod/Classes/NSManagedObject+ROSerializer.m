@@ -206,8 +206,17 @@ static NSString *pk = @"id";
         }
     }];
     
+    
     if (context.parentContext) {
-        [self saveContext:context.parentContext];
+//        [context.parentContext performBlockAndWait:^{
+            NSError *error = nil;
+            if (context.parentContext.hasChanges && ![context.parentContext save:&error]) {
+                if ([ROBotManager sharedInstance].verboseLogging == TRUE) {
+                    NSLog(@"Could not save context: %@", error.localizedDescription);
+                }
+                returnFlag = FALSE;
+            }
+//        }];
     }
     
     return returnFlag;
@@ -298,7 +307,7 @@ static NSString *pk = @"id";
 }
 
 - (instancetype)copyToScratchContext {
-    NSManagedObject *object = [[NSManagedObject alloc] initWithEntity:self.entity insertIntoManagedObjectContext:nil];
+    NSManagedObject *object = [[NSManagedObject alloc] initWithEntity:self.entity insertIntoManagedObjectContext:[NSManagedObject newChildContext]];
 
     NSEntityDescription *entityDescription = self.objectID.entity;
     NSArray *attributeKeys = entityDescription.attributesByName.allKeys;
@@ -306,7 +315,7 @@ static NSString *pk = @"id";
     [object setValuesForKeysWithDictionary:attributeKeysAndValues];
     
     // Handle relationships
-    NSArray *entities = self.managedObjectContext.persistentStoreCoordinator.managedObjectModel.entities;
+    NSArray *entities = object.managedObjectContext.persistentStoreCoordinator.managedObjectModel.entities;
     for (NSEntityDescription *entity in entities) {
         NSArray *relationships = [self.entity relationshipsWithDestinationEntity:entity];
         for (NSRelationshipDescription *relationshipDescription in relationships) {
@@ -316,13 +325,13 @@ static NSString *pk = @"id";
                     NSEntityDescription *entityDescription = childObject.objectID.entity;
                     NSArray *attributeKeys = entityDescription.attributesByName.allKeys;
                     NSDictionary *attributeKeysAndValues = [childObject dictionaryWithValuesForKeys:attributeKeys];
-                    NSManagedObject *scratchChildObject = [[NSManagedObject alloc] initWithEntity:relationshipDescription.destinationEntity insertIntoManagedObjectContext:nil];
+                    NSManagedObject *scratchChildObject = [[NSManagedObject alloc] initWithEntity:relationshipDescription.destinationEntity insertIntoManagedObjectContext:object.managedObjectContext];
                     [scratchChildObject setValuesForKeysWithDictionary:attributeKeysAndValues];
                     [relationshipObjects addObject:scratchChildObject];
                 }
                 [object setValue:relationshipObjects forKey:relationshipDescription.name];
             } else {
-                NSManagedObject *childObject = [[NSManagedObject alloc] initWithEntity:relationshipDescription.destinationEntity insertIntoManagedObjectContext:nil];
+                NSManagedObject *childObject = [[NSManagedObject alloc] initWithEntity:relationshipDescription.destinationEntity insertIntoManagedObjectContext:object.managedObjectContext];
                 NSEntityDescription *entityDescription = childObject.objectID.entity;
                 NSArray *attributeKeys = entityDescription.attributesByName.allKeys;
                 NSDictionary *attributeKeysAndValues = [[self valueForKey:relationshipDescription.name] dictionaryWithValuesForKeys:attributeKeys];
