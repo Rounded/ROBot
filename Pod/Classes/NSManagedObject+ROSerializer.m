@@ -142,7 +142,7 @@ static NSString *pk = @"id";
     NSArray *objects;
     
     if (!self.managedObjectContext) {
-        NSManagedObjectContext *context = [NSManagedObject newChildContext];
+        NSManagedObjectContext *context = [ROBot newChildContext];
         context.persistentStoreCoordinator = [[ROBotManager sharedInstance] persistentStoreCoordinator];
         objects = [context executeFetchRequest:fetchRequest error:&error];
         if (objects.count > 0) {
@@ -301,7 +301,7 @@ static NSString *pk = @"id";
 }
 
 - (instancetype)copyToScratchContext {
-    NSManagedObject *object = [[NSManagedObject alloc] initWithEntity:self.entity insertIntoManagedObjectContext:[NSManagedObject newChildContext]];
+    NSManagedObject *object = [[NSManagedObject alloc] initWithEntity:self.entity insertIntoManagedObjectContext:[ROBot newChildContext]];
 
     NSEntityDescription *entityDescription = self.objectID.entity;
     NSArray *attributeKeys = entityDescription.attributesByName.allKeys;
