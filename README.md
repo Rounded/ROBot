@@ -86,6 +86,15 @@ To specify a mapping, do the following:
 
 Note that a partial mapping can be used. In the case above, the email will still map to email.
 
+
+## Headers
+
+To add custom headers to requests, do the following:
+
+        [[ROBotManager sharedInstance] addHeaderValue:@"Hunting" forHeaderField:@"SL-Sport"];
+
+You can add as many default headers as you would like.
+
 ## Logging
 
 By default, logging is disabled. To enable logging for all your `ROBotManagedObjects`, use 
