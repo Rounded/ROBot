@@ -23,8 +23,7 @@
 - (NSDictionary *)asDictionary;
 
 - (BOOL)isNew;
-+ (NSManagedObject *)newInScratchContext;
-+ (NSManagedObjectContext *)newChildContext;
++ (NSManagedObject *)newInScratchContext:(NSManagedObjectContext *)context;
 - (instancetype)copyToScratchContext;
 
 @end

@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "35E23244B74025EDC2481492"
+               BlueprintIdentifier = "4B4617948997012C65F1B0BE"
                BuildableName = "libPods-Tests-RoundedRobot.a"
                BlueprintName = "Pods-Tests-RoundedRobot"
                ReferencedContainer = "container:Pods.xcodeproj">

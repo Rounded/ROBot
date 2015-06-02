@@ -1,5 +1,5 @@
 PODS:
-  - RoundedRobot (0.2.9)
+  - RoundedRobot (0.3.0)
 
 DEPENDENCIES:
   - RoundedRobot (from `../`)
@@ -9,6 +9,6 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  RoundedRobot: db471fec7b90e16bf8b4c2d71c4efe3c5055262b
+  RoundedRobot: f849f666a0c248a0600c046400cda8fcf2306078
 
 COCOAPODS: 0.37.2

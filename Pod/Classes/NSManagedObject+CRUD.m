@@ -253,7 +253,7 @@
                 }
             } else {
                 // Create the context outside the enumeration block
-                NSManagedObjectContext *context = [NSManagedObject newChildContext];
+                NSManagedObjectContext *context = [ROBot newChildContext];
                 [jsonArray enumerateObjectsUsingBlock:^(NSDictionary *jsonObject, NSUInteger idx, BOOL *stop) {
                     
                     // Check the database to see if the object in the JSON response exists already (based on the primary key)
@@ -330,7 +330,7 @@
                     [jsonArray addObject:[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&jsonError]];
                 }
                 
-                NSManagedObjectContext *context = [NSManagedObject newChildContext];
+                NSManagedObjectContext *context = [ROBot newChildContext];
                 
                 [jsonArray enumerateObjectsUsingBlock:^(NSDictionary *jsonObject, NSUInteger idx, BOOL *stop) {
                     

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import "ROBot.h"
 
 typedef NS_ENUM(NSInteger, CRUD) {
     CREATE,
