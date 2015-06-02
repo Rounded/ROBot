@@ -142,7 +142,7 @@ static NSString *pk = @"id";
     NSArray *objects;
     
     if (!self.managedObjectContext) {
-        NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
+        NSManagedObjectContext *context = [NSManagedObject newChildContext];
         context.persistentStoreCoordinator = [[ROBotManager sharedInstance] persistentStoreCoordinator];
         objects = [context executeFetchRequest:fetchRequest error:&error];
         if (objects.count > 0) {
