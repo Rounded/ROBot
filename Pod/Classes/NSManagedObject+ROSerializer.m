@@ -190,29 +190,6 @@ static NSString *pk = @"id";
     
     [NSManagedObject saveContext:context];
     return true;
-    
-//    NSError *error = nil;
-//    
-//    if (context.hasChanges && ![context save:&error]) {
-//        if ([ROBotManager sharedInstance].verboseLogging == TRUE) {
-//            NSLog(@"Could not save context: %@", error.localizedDescription);
-//        }
-//        return FALSE;
-//    }
-//    
-//
-//    
-//    
-//    if (context.parentContext) {
-//        if (context.parentContext.hasChanges && ![context.parentContext save:&error]) {
-//            if ([ROBotManager sharedInstance].verboseLogging == TRUE) {
-//                NSLog(@"Could not save context: %@", error.localizedDescription);
-//            }
-//            return FALSE;
-//        }
-//    }
-//    
-//    return TRUE;
 }
 
 + (BOOL)saveContext:(NSManagedObjectContext *)context {
@@ -229,17 +206,8 @@ static NSString *pk = @"id";
         }
     }];
     
-    
     if (context.parentContext) {
-//        [context.parentContext performBlockAndWait:^{
-            NSError *error = nil;
-            if (context.parentContext.hasChanges && ![context.parentContext save:&error]) {
-                if ([ROBotManager sharedInstance].verboseLogging == TRUE) {
-                    NSLog(@"Could not save context: %@", error.localizedDescription);
-                }
-                returnFlag = FALSE;
-            }
-//        }];
+        [self saveContext:context.parentContext];
     }
     
     return returnFlag;
