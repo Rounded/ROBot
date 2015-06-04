@@ -54,9 +54,22 @@ static NSString *pk = @"id";
     // pull out the attributes that exist in the database
     NSEntityDescription *entity = self.entity;
     NSDictionary *attributes = entity.attributesByName;
+    NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingAllTypes error:nil];
     
     // Update all the key / values for the object
     [json enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
+        
+        // If it's a date and the object coming down is a string, convert it to a NSDate
+        if ([[attributes[key] attributeValueClassName] isEqualToString:@"NSDate"] && [obj isKindOfClass:[NSString class]]) {
+            // use detector to figure out what format its in and convert it
+            // will convert to NULL if it can't convert (which is good since it was a string, which will cause it to error below)
+            __block id newDateObj = NULL;
+            [detector enumerateMatchesInString:obj options:kNilOptions range:NSMakeRange(0, [obj length]) usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
+                newDateObj = result.date;
+            }];
+            obj = newDateObj;
+        }
+        
         // If the object exists in the mapping, use the mapping
         if ([NSManagedObject mapping] && [[NSManagedObject mapping] objectForKey:key]) {
             [self setValue:obj forKey:[[NSManagedObject mapping] objectForKey:key]];
