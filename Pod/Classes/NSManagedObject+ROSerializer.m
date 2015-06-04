@@ -318,6 +318,26 @@ static NSString *pk = @"id";
     return FALSE;
 }
 
+- (id) inContext:(NSManagedObjectContext *)otherContext
+{
+    NSError *error = nil;
+    
+    if ([[self objectID] isTemporaryID])
+    {
+        BOOL success = [[self managedObjectContext] obtainPermanentIDsForObjects:@[self] error:&error];
+        if (!success)
+        {
+            return nil;
+        }
+    }
+    
+    error = nil;
+    
+    NSManagedObject *inContext = [otherContext existingObjectWithID:[self objectID] error:&error];
+    
+    return inContext;
+}
+
 + (NSManagedObject *)newInScratchContext:(NSManagedObjectContext *)context {
     // FIX: Should attempt to get the actual main context, not just creating a new one!
     

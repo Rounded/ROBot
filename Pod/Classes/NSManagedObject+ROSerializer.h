@@ -25,5 +25,6 @@
 - (BOOL)isNew;
 + (NSManagedObject *)newInScratchContext:(NSManagedObjectContext *)context;
 - (instancetype)copyToScratchContext;
+- (id) inContext:(NSManagedObjectContext *)otherContext;
 
 @end
