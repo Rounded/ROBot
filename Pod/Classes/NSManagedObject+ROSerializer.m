@@ -55,6 +55,8 @@ static NSString *pk = @"id";
     NSEntityDescription *entity = self.entity;
     NSDictionary *attributes = entity.attributesByName;
     NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingAllTypes error:nil];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
     
     // Update all the key / values for the object
     [json enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
@@ -67,6 +69,10 @@ static NSString *pk = @"id";
             [detector enumerateMatchesInString:obj options:kNilOptions range:NSMakeRange(0, [obj length]) usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
                 newDateObj = result.date;
             }];
+            if (newDateObj == nil) {
+                // couldn't use the match, maybe its a Rails 4.0 format
+                newDateObj = [dateFormatter dateFromString:obj];
+            }
             obj = newDateObj;
         }
         
