@@ -280,8 +280,16 @@ static NSString *pk = @"id";
 }
 
 - (NSDictionary *)asDictionary {
+    NSDateFormatter *dateFormmater = [[NSDateFormatter alloc] init];
+    [dateFormmater setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
     NSDictionary *attribDict = [self dictionaryWithValuesForKeys:[[[self entity] attributesByName] allKeys]];
     NSMutableDictionary *objectDict = [NSMutableDictionary dictionaryWithDictionary:attribDict];
+    [objectDict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        if ([obj isKindOfClass:[NSDate class]]) {
+            [objectDict setValue:[dateFormmater stringFromDate:obj] forKey:key];
+        }
+        
+    }];
     
     NSDictionary *relationshipDict = [self dictionaryWithValuesForKeys:[[[self entity] relationshipsByName] allKeys]];
     [[[self class] serializableRelationships] enumerateObjectsUsingBlock:^(id key, NSUInteger idx, BOOL *stop) {
