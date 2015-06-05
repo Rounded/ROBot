@@ -29,7 +29,15 @@
             NSError *error = nil;
             NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:self.responseData options:NSJSONReadingMutableLeaves error:&error];
             if (!error) {
-                self.responseStringConcatenated = [jsonArray componentsJoinedByString:@", "];
+                @try {
+                    self.responseStringConcatenated = [jsonArray componentsJoinedByString:@", "];
+                }
+                @catch (NSException *exception) {
+                    self.responseStringConcatenated = @"Sorry, there has been an error.";
+                }
+                @finally {
+                    
+                }
             }
         }
 
