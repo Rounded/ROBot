@@ -28,7 +28,7 @@
             
             NSError *error = nil;
             NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:self.responseData options:NSJSONReadingMutableLeaves error:&error];
-            if (!error) {
+            if (!error && [jsonArray respondsToSelector:@selector(componentsJoinedByString:)]) {
                 self.responseStringConcatenated = [jsonArray componentsJoinedByString:@", "];
             }
         }
