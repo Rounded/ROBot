@@ -31,7 +31,6 @@ static NSString *pk = @"id";
 }
 
 + (NSArray *)serializableRelationships {
-    NSLog(@"Warning - You didn't set any serializable relationships");
     return [NSArray new];
 }
 
@@ -316,6 +315,26 @@ static NSString *pk = @"id";
         return TRUE;
     }
     return FALSE;
+}
+
+- (id) inContext:(NSManagedObjectContext *)otherContext
+{
+    NSError *error = nil;
+    
+    if ([[self objectID] isTemporaryID])
+    {
+        BOOL success = [[self managedObjectContext] obtainPermanentIDsForObjects:@[self] error:&error];
+        if (!success)
+        {
+            return nil;
+        }
+    }
+    
+    error = nil;
+    
+    NSManagedObject *inContext = [otherContext existingObjectWithID:[self objectID] error:&error];
+    
+    return inContext;
 }
 
 + (NSManagedObject *)newInScratchContext:(NSManagedObjectContext *)context {
