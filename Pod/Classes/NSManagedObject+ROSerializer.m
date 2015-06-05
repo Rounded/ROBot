@@ -31,7 +31,6 @@ static NSString *pk = @"id";
 }
 
 + (NSArray *)serializableRelationships {
-    NSLog(@"Warning - You didn't set any serializable relationships");
     return [NSArray new];
 }
 
