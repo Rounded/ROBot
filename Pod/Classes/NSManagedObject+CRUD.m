@@ -259,6 +259,9 @@
     [mutableURLRequest addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [mutableURLRequest addValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [mutableURLRequest setValue:[NSString stringWithFormat:@"Bearer %@", [ROBotManager sharedInstance].accessToken] forHTTPHeaderField:@"Authorization"];
+    
+    NSString *etag = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"etag%@", [[self class] indexURL]]];
+    [mutableURLRequest addValue:etag forHTTPHeaderField:@"If-None-Match"];
     [[ROBotManager sharedInstance].headers enumerateObjectsUsingBlock:^(NSDictionary *headerDictionary, NSUInteger idx, BOOL *stop) {
         [mutableURLRequest setValue:[headerDictionary valueForKey:@"headerValue"] forHTTPHeaderField:[headerDictionary valueForKey:@"headerField"]];
     }];
@@ -271,9 +274,20 @@
             NSLog(@"%@",response);
             NSLog(@"%@",error);
         }
+        
+        // If the server returned a 304, leave the method
+        if (((NSHTTPURLResponse *)response).statusCode == 304) {
+            return;
+        }
 
         if ([NSManagedObject validateResponseForData:data andResponse:response andError:error withCrudType:CUSTOM withObject:nil]) {
 
+            // If the response is valid, save the etag
+            NSDictionary* headers = [(NSHTTPURLResponse *)response allHeaderFields];
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            [defaults setObject:[headers valueForKey:@"Etag"] forKey:[NSString stringWithFormat:@"etag%@", [[self class] indexURL]]];
+            [defaults synchronize];
+            
             NSError *jsonError = nil;
             NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&jsonError];
             
