@@ -8,6 +8,7 @@
 
 #import "NSManagedObject+ROSerializer.h"
 #import "ROBotManager.h"
+#import <objc/runtime.h>
 
 @implementation NSManagedObject (ROSerializer)
 
@@ -113,10 +114,18 @@ static NSString *pk = @"id";
                         
                         NSMutableSet *relationshipObjects = [NSMutableSet new];
                         for (NSDictionary *childObject in json[relationshipDescription.name]) {
-                            [relationshipObjects addObject:[self createOrUpdateObject:childObject forEntityName:entity.name]];
+                            NSManagedObject *object = [self createOrUpdateObject:childObject forEntityName:entity.name];
+                            [relationshipObjects addObject:object];
+                            // if the relationship is many-to-many, add "self" to the set of current objects in the inverse relationship
+                            if (relationshipDescription.inverseRelationship.toMany) {
+                                NSMutableSet *currentObjectsInRelationship = [[object valueForKeyPath:relationshipDescription.inverseRelationship.name] mutableCopy];
+                                [currentObjectsInRelationship addObject:self];
+                                [object setValue:currentObjectsInRelationship forKey:relationshipDescription.inverseRelationship.name];
+                            } else {
+                                // Set the to-many relationship
+                                [self setValue:relationshipObjects forKey:relationshipDescription.name];
+                            }
                         }
-                        // Set the to-many relationship
-                        [self setValue:relationshipObjects forKey:relationshipDescription.name];
                     } else {
                         // If the relationship isn't toMany, make sure that the corresponding json object is a dictionary
                         assert([json[relationshipDescription.name] isKindOfClass:[NSDictionary class]]);
@@ -278,12 +287,59 @@ static NSString *pk = @"id";
     return FALSE;
 }
 
+//+ (NSDictionary *)dictionaryWithPropertiesOfObject:(id)obj {
+//    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+//    
+//    unsigned count;
+//    objc_property_t *properties = class_copyPropertyList([obj class], &count);
+//    
+//    for (int i = 0; i < count; i++) {
+//        NSString *key = [NSString stringWithUTF8String:property_getName(properties[i])];
+//        [dict setObject:[obj valueForKey:key] forKey:key];
+//    }
+//    
+//    free(properties);
+//    
+//    return [NSDictionary dictionaryWithDictionary:dict];
+//}
+
 - (NSDictionary *)asDictionary {
     NSDateFormatter *dateFormmater = [[NSDateFormatter alloc] init];
     [dateFormmater setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
     NSDictionary *attribDict = [self dictionaryWithValuesForKeys:[[[self entity] attributesByName] allKeys]];
     NSMutableDictionary *objectDict = [NSMutableDictionary dictionaryWithDictionary:attribDict];
     [objectDict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+
+//        // handle NSData to JSON
+//        // need to refactor this since we only go two levels deep with checking if nsdata contains nsarray
+//        // should just recursively check to see if there is an nsarray of nsobjects and convert them to nsdictionaries
+//        if ([obj isKindOfClass:[NSData class]]) {
+//            NSData *jsonData;
+//            if([[NSKeyedUnarchiver unarchiveObjectWithData:obj] isKindOfClass:[NSArray class]]) {
+//                NSMutableArray *jsonObject = [NSMutableArray new];
+//                [[NSKeyedUnarchiver unarchiveObjectWithData:obj] enumerateObjectsUsingBlock:^(id subObj, NSUInteger idx, BOOL *stop) {
+//                    NSLog(@"%@", subObj);
+//                    if([subObj isKindOfClass:[NSArray class]]) {
+//                        NSMutableArray *subJsonObject = [NSMutableArray new];
+//                        [[NSKeyedUnarchiver unarchiveObjectWithData:subObj] enumerateObjectsUsingBlock:^(id subSubObj, NSUInteger idx, BOOL *stop) {
+//                            [subJsonObject addObject:[NSManagedObject dictionaryWithPropertiesOfObject:subSubObj]];
+//                        }];
+//                        [jsonObject addObject:subJsonObject];
+//                    } else {
+//                        [jsonObject addObject:[NSManagedObject dictionaryWithPropertiesOfObject:subObj]];
+//                    }
+//                }];
+//                jsonData = [NSJSONSerialization dataWithJSONObject:jsonObject options:NSJSONWritingPrettyPrinted error:nil];
+//            } else {
+//                NSDictionary *jsonObject = [NSManagedObject dictionaryWithPropertiesOfObject:[NSKeyedUnarchiver unarchiveObjectWithData:obj]];
+//                jsonData = [NSJSONSerialization dataWithJSONObject:jsonObject options:NSJSONWritingPrettyPrinted error:nil];
+//            }
+//            
+//            NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+//            [objectDict setValue:jsonString forKey:key];
+//        }
+        
+        // handle NSDates to JSON
         if ([obj isKindOfClass:[NSDate class]]) {
             [objectDict setValue:[dateFormmater stringFromDate:obj] forKey:key];
         }
