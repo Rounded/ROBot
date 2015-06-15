@@ -287,22 +287,6 @@ static NSString *pk = @"id";
     return FALSE;
 }
 
-//+ (NSDictionary *)dictionaryWithPropertiesOfObject:(id)obj {
-//    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-//    
-//    unsigned count;
-//    objc_property_t *properties = class_copyPropertyList([obj class], &count);
-//    
-//    for (int i = 0; i < count; i++) {
-//        NSString *key = [NSString stringWithUTF8String:property_getName(properties[i])];
-//        [dict setObject:[obj valueForKey:key] forKey:key];
-//    }
-//    
-//    free(properties);
-//    
-//    return [NSDictionary dictionaryWithDictionary:dict];
-//}
-
 - (NSDictionary *)asDictionary {
     NSDateFormatter *dateFormmater = [[NSDateFormatter alloc] init];
     [dateFormmater setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
@@ -310,34 +294,10 @@ static NSString *pk = @"id";
     NSMutableDictionary *objectDict = [NSMutableDictionary dictionaryWithDictionary:attribDict];
     [objectDict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
 
-//        // handle NSData to JSON
-//        // need to refactor this since we only go two levels deep with checking if nsdata contains nsarray
-//        // should just recursively check to see if there is an nsarray of nsobjects and convert them to nsdictionaries
-//        if ([obj isKindOfClass:[NSData class]]) {
-//            NSData *jsonData;
-//            if([[NSKeyedUnarchiver unarchiveObjectWithData:obj] isKindOfClass:[NSArray class]]) {
-//                NSMutableArray *jsonObject = [NSMutableArray new];
-//                [[NSKeyedUnarchiver unarchiveObjectWithData:obj] enumerateObjectsUsingBlock:^(id subObj, NSUInteger idx, BOOL *stop) {
-//                    NSLog(@"%@", subObj);
-//                    if([subObj isKindOfClass:[NSArray class]]) {
-//                        NSMutableArray *subJsonObject = [NSMutableArray new];
-//                        [[NSKeyedUnarchiver unarchiveObjectWithData:subObj] enumerateObjectsUsingBlock:^(id subSubObj, NSUInteger idx, BOOL *stop) {
-//                            [subJsonObject addObject:[NSManagedObject dictionaryWithPropertiesOfObject:subSubObj]];
-//                        }];
-//                        [jsonObject addObject:subJsonObject];
-//                    } else {
-//                        [jsonObject addObject:[NSManagedObject dictionaryWithPropertiesOfObject:subObj]];
-//                    }
-//                }];
-//                jsonData = [NSJSONSerialization dataWithJSONObject:jsonObject options:NSJSONWritingPrettyPrinted error:nil];
-//            } else {
-//                NSDictionary *jsonObject = [NSManagedObject dictionaryWithPropertiesOfObject:[NSKeyedUnarchiver unarchiveObjectWithData:obj]];
-//                jsonData = [NSJSONSerialization dataWithJSONObject:jsonObject options:NSJSONWritingPrettyPrinted error:nil];
-//            }
-//            
-//            NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-//            [objectDict setValue:jsonString forKey:key];
-//        }
+        // Can't handle NSData yet...
+        if ([obj isKindOfClass:[NSData class]]) {
+            [objectDict removeObjectForKey:key];
+        }
         
         // handle NSDates to JSON
         if ([obj isKindOfClass:[NSDate class]]) {
