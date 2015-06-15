@@ -58,6 +58,13 @@
     [[session dataTaskWithRequest:mutableURLRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
         BOOL success = false;
+
+        if ([ROBotManager sharedInstance].verboseLogging == TRUE) {
+            NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            NSLog(@"Response String: %@",responseString);
+            NSLog(@"Response: %@",response);
+            NSLog(@"Error: %@",error);
+        }
         
         if ([NSManagedObject validateResponseForData:data andResponse:response andError:error withCrudType:CREATE withObject:self]) {
             NSError *jsonError = nil;
@@ -106,6 +113,13 @@
     [[session dataTaskWithRequest:mutableURLRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
         BOOL success = false;
+
+        if ([ROBotManager sharedInstance].verboseLogging == TRUE) {
+            NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            NSLog(@"Response String: %@",responseString);
+            NSLog(@"Response: %@",response);
+            NSLog(@"Error: %@",error);
+        }
         
         if ([NSManagedObject validateResponseForData:data andResponse:response andError:error withCrudType:READ withObject:self]) {
             NSError *jsonError = nil;
@@ -156,6 +170,13 @@
     [[session dataTaskWithRequest:mutableURLRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
         BOOL success = false;
+
+        if ([ROBotManager sharedInstance].verboseLogging == TRUE) {
+            NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            NSLog(@"Response String: %@",responseString);
+            NSLog(@"Response: %@",response);
+            NSLog(@"Error: %@",error);
+        }
         
         if ([NSManagedObject validateResponseForData:data andResponse:response andError:error withCrudType:UPDATE withObject:self]) {
             NSError *jsonError = nil;
@@ -204,6 +225,13 @@
     }];
     
     [[session dataTaskWithRequest:mutableURLRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        if ([ROBotManager sharedInstance].verboseLogging == TRUE) {
+            NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            NSLog(@"Response String: %@",responseString);
+            NSLog(@"Response: %@",response);
+            NSLog(@"Error: %@",error);
+        }
         
         if ([NSManagedObject validateResponseForData:data andResponse:response andError:error withCrudType:DELETE withObject:self]) {
             [self.managedObjectContext deleteObject:self];
@@ -270,9 +298,9 @@
         
         if ([ROBotManager sharedInstance].verboseLogging == TRUE) {
             NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            NSLog(@"%@",responseString);
-            NSLog(@"%@",response);
-            NSLog(@"%@",error);
+            NSLog(@"Response String: %@",responseString);
+            NSLog(@"Response: %@",response);
+            NSLog(@"Error: %@",error);
         }
         
         // If the server returned a 304, leave the method
@@ -354,9 +382,9 @@
         
         if ([ROBotManager sharedInstance].verboseLogging == TRUE) {
             NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            NSLog(@"%@",responseString);
-            NSLog(@"%@",response);
-            NSLog(@"%@",error);
+            NSLog(@"Response String: %@",responseString);
+            NSLog(@"Response: %@",response);
+            NSLog(@"Error: %@",error);
         }
 
         if ([NSManagedObject validateResponseForData:data andResponse:response andError:error withCrudType:CUSTOM withObject:nil]) {
@@ -426,9 +454,9 @@
 + (BOOL)validateResponseForData:(NSData *)data andResponse:(NSURLResponse *)response andError:(NSError *)error withCrudType:(CRUD)crudType withObject:(NSManagedObject *)object{
     if ([ROBotManager sharedInstance].verboseLogging == TRUE) {
         NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        NSLog(@"%@",responseString);
-        NSLog(@"%@",response);
-        NSLog(@"%@",error);
+        NSLog(@"Response String: %@",responseString);
+        NSLog(@"Response: %@",response);
+        NSLog(@"Error: %@",error);
     }
     
     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
