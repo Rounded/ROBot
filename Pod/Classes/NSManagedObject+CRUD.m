@@ -256,7 +256,7 @@
 #pragma mark - CRUD Add-on Convenience Methods
 
 - (void)save:(void (^)(void))complete failure:(void (^)(ROBotError *))failure {    
-    if([self valueForKey:[[self class] primaryKey]] == nil || [self valueForKey:[[self class] primaryKey]] == 0) {
+    if([self valueForKey:[[self class] primaryKey]] == nil || [[self valueForKey:[[self class] primaryKey]] isEqualToNumber:@0]) {
         [self create:^{
             if (complete) {
                 complete();
