@@ -305,6 +305,11 @@
         
         // If the server returned a 304, leave the method
         if (((NSHTTPURLResponse *)response).statusCode == 304) {
+            if (complete) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    complete();
+                });
+            }
             return;
         }
 
