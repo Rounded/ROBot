@@ -77,8 +77,8 @@ static NSString *pk = @"id";
         }
         
         // If the object exists in the mapping, use the mapping
-        if ([NSManagedObject mapping] && [[NSManagedObject mapping] objectForKey:key]) {
-            [self setValue:obj forKey:[[NSManagedObject mapping] objectForKey:key]];
+        if ([[self class] mapping] && [[[self class] mapping] objectForKey:key]) {
+            [self setValue:obj forKey:[[[self class] mapping] objectForKey:key]];
         }
         // Otherwise assign the value to the corresponding value in the db
         else {
