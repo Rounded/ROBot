@@ -54,9 +54,8 @@ static NSString *pk = @"id";
     // pull out the attributes that exist in the database
     NSEntityDescription *entity = self.entity;
     NSDictionary *attributes = entity.attributesByName;
-    NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingAllTypes error:nil];
+    NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeDate error:nil];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
     [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
     
     // Update all the key / values for the object
@@ -68,10 +67,18 @@ static NSString *pk = @"id";
             // will convert to NULL if it can't convert (which is good since it was a string, which will cause it to error below)
             __block id newDateObj = NULL;
             [detector enumerateMatchesInString:obj options:kNilOptions range:NSMakeRange(0, [obj length]) usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
-                newDateObj = result.date;
+                if ([result resultType] == NSTextCheckingTypeDate) {
+                    newDateObj = result.date;
+                }
             }];
             if (newDateObj == nil) {
                 // couldn't use the match, maybe its a Rails 4.0 format
+                [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
+                newDateObj = [dateFormatter dateFromString:obj];
+            }
+            if (newDateObj == nil) {
+                // it's still nil, let's try one other JSON format
+                [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
                 newDateObj = [dateFormatter dateFromString:obj];
             }
             obj = newDateObj;
