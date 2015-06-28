@@ -57,6 +57,7 @@ static NSString *pk = @"id";
     NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingAllTypes error:nil];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
     
     // Update all the key / values for the object
     [json enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
@@ -290,6 +291,7 @@ static NSString *pk = @"id";
 - (NSDictionary *)asDictionary {
     NSDateFormatter *dateFormmater = [[NSDateFormatter alloc] init];
     [dateFormmater setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+    [dateFormmater setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
     NSDictionary *attribDict = [self dictionaryWithValuesForKeys:[[[self entity] attributesByName] allKeys]];
     NSMutableDictionary *objectDict = [NSMutableDictionary dictionaryWithDictionary:attribDict];
     [objectDict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {

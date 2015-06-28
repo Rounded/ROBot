@@ -59,6 +59,8 @@
         
         BOOL success = false;
 
+        NSError *jsonError = nil;
+        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&jsonError];
         
         if ([NSManagedObject validateResponseForData:data andResponse:response andError:error withCrudType:CREATE withObject:self]) {
             NSError *jsonError = nil;
