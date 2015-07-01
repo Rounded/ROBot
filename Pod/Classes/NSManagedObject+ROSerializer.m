@@ -84,6 +84,11 @@ static NSString *pk = @"id";
             obj = newDateObj;
         }
         
+        // If it's a date and the object coming down is a string, convert it to a NSDate
+        if ([[attributes[key] attributeValueClassName] isEqualToString:@"NSDecimalNumber"] && [obj isKindOfClass:[NSString class]]) {
+            obj = [NSDecimalNumber decimalNumberWithString:obj];
+        }
+        
         // If the object exists in the mapping, use the mapping
         if ([[self class] mapping] && [[[self class] mapping] objectForKey:key]) {
             [self setValue:obj forKey:[[[self class] mapping] objectForKey:key]];
