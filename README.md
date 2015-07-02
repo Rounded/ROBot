@@ -105,20 +105,7 @@ to enable logging for a single `ROBotManagedObject` class, use
 
   User.verboseLogging = true
 
-## Coming soon
-We're working on the following:
-
-1. ~~an index route that will return an array of the objects~~
-2. caching of objects when user doesn't have connection
-3. ~~Success/fail callbacks for create()/read()/update()/delete() methods~~
-4. Deleting orphaned objects
-
-
-## Brian's brain dump
-Callback if the offline sync fails on a specific call
-Index route. If etag changes remove all objects. If x total objects is same maybe dont delete but what if total objects is same because server deleted one and added one. Maybe x-id-tag where that tag is a hash of all the Ids for that resource. So if the hash is the same you know the same objects should be returned.
-
-
+## Thanks!
 
 Feel free to submit a pull request and add your own contributions!
 
