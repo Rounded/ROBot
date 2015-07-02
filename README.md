@@ -39,6 +39,7 @@ Next, `#import "ROBot.h"` into the classes you plan on using ROBot in.
 
 You'll need to override the CRUD urls in your `NSManagedObject` (or corresponding category). Ex:
 
+```
   + (NSString *)indexURL
   {
       return @"/users";
@@ -63,7 +64,7 @@ You'll need to override the CRUD urls in your `NSManagedObject` (or correspondin
   {
       return [NSString stringWithFormat:@"/users/%@", self.user_id];
   }
-
+```
 
 Note that the url path are instance methods, and will populate the variables in the url string when the url methods is called.
 
