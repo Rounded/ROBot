@@ -15,7 +15,7 @@ iOS 7 or greater
 
 ## Installation
 
-RObot is available through [CocoaPods](http://cocoapods.org). To install
+ROBot is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
@@ -24,7 +24,7 @@ pod "RoundedRobot"
 
 ## How to use
 
-RObot a stand alone libraby that handles CRUD methods for `NSManagedObjects`. Calling create, read, update, delete, or index, will make the API and update the database appropriately.
+ROBot a stand alone libraby that handles CRUD methods for `NSManagedObjects`. Calling create, read, update, delete, or index, will make the API and update the database appropriately.
 
 To begin, call this line:
 
@@ -39,50 +39,87 @@ Next, `#import "ROBot.h"` into the classes you plan on using ROBot in.
 
 You'll need to override the CRUD urls in your `NSManagedObject` (or corresponding category). Ex:
 
-	+ (NSString *)indexURL
-	{
-    	return @"/users";
-	}
+  + (NSString *)indexURL
+  {
+      return @"/users";
+  }
 
-	- (NSString *)createURL
-	{
-    	return @"/users";
-	}
+  - (NSString *)createURL
+  {
+      return @"/users";
+  }
 
-	- (NSString *)readURL
-	{
-    	return [NSString stringWithFormat:@"/users/%@", self.user_id];
-	}
+  - (NSString *)readURL
+  {
+      return [NSString stringWithFormat:@"/users/%@", self.user_id];
+  }
 
-	- (NSString *)updateURL
-	{
-    	return [NSString stringWithFormat:@"/users/%@", self.user_id];
-	}
+  - (NSString *)updateURL
+  {
+      return [NSString stringWithFormat:@"/users/%@", self.user_id];
+  }
+
+  - (NSString *)deleteURL
+  {
+      return [NSString stringWithFormat:@"/users/%@", self.user_id];
+  }
 
 
 Note that the url path are instance methods, and will populate the variables in the url string when the url methods is called.
 
 You can then call CRUD methods on the instances of the model, and the changes will be made to your database and API. 
 
+### Index
 Get all Users:
-	
-	[User index:^{} failure:^(ROBotError *error) {}];
+```
+[User index:^{
+  // Finished index call
+} failure:^(ROBotError *error) {
+  // Finished with error
+}];
+```
 
-Create Example:
+### Create
+```
+User *user = // create new entity
+user.first_name = @"Heather";
+user.last_name = @"Sneps";
+[user create:nil failure:nil];
+```
 
-    WRUser *user = [NSEntityDescription insertNewObjectForEntityForName:@"WRUser" inManagedObjectContext:[NSManagedObjectContext MR_defaultContext]];
-    user.fname = @"Heather";
-    user.lname = @"Sneps";
-    [user create:^{} failure:^(ROBotError *error) {}]
+### Read
+```
+User *user = ... // get user
+[user read:nil failure:nil];
+```
+
+### Update
+```
+User *user = ... // get user
+[user update:nil failure:nil];
+```
+
+### Delete
+```
+User *user = ... // get user
+[user delete:nil failure:nil];
+```
+
+### Save
+For the lazy people who don't want to figure out if it needs to be created or updated...
+```
+User *user = ... // get user
+[user save:nil failure:nil];
+```
 
 
 ## Customization
 
-You can specify a custom mapping from the API response to the database object. If you don't specify a mapping, RObot will map the results from the API directly to the corresponding fields in your database.
+You can specify a custom mapping from the API response to the database object. If you don't specify a mapping, ROBot will map the results from the API directly to the corresponding fields in your database.
 
 To specify a mapping, do the following:
 
-  	[User setMapping:@[@"last_name": @"lname", @"first_name": @"fname"]];
+    [User setMapping:@[@"last_name": @"lname", @"first_name": @"fname"]];
 
 Note that a partial mapping can be used. In the case above, the email will still map to email.
 
@@ -99,7 +136,7 @@ You can add as many default headers as you would like.
 
 By default, logging is disabled. To enable logging for all your `ROBotManagedObjects`, use 
 
-  	ROBotManagedObject.verboseLogging = true
+    ROBotManagedObject.verboseLogging = true
 
 to enable logging for a single `ROBotManagedObject` class, use
 
@@ -118,4 +155,4 @@ Feel free to submit a pull request and add your own contributions!
 
 ## License
 
-RObot is available under the MIT license. See the LICENSE file for more info.
+ROBot is available under the MIT license. See the LICENSE file for more info.
