@@ -128,7 +128,7 @@ Note that a partial mapping can be used. In the case above, the email will still
 
 To add custom headers to requests, do the following:
 
-        [[ROBotManager sharedInstance] addHeaderValue:@"Hunting" forHeaderField:@"SL-Sport"];
+    [[ROBotManager sharedInstance] addHeaderValue:@"Hunting" forHeaderField:@"SL-Sport"];
 
 You can add as many default headers as you would like.
 
@@ -148,7 +148,7 @@ Feel free to submit a pull request and add your own contributions!
 
 
 
-## Author
+## Authors
 
 - Heather Snepenger, hs@roundedco.com (WAAH WAAAH)
 - Brian Weinreich, bw@roundedco.com (Mr. Amazing)
