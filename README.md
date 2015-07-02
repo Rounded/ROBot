@@ -84,7 +84,7 @@ You can then call CRUD methods on the instances of the model, and the changes wi
 User *user = // create new entity
 user.first_name = @"Heather";
 user.last_name = @"Sneps";
-[user create:nil failure:nil];
+[user create:^{} failure:^{}];
 ```
 
 ### Read
