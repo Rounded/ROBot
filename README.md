@@ -113,8 +113,8 @@ Feel free to submit a pull request and add your own contributions!
 
 ## Author
 
-Heather Snepenger, hs@roundedco.com (WAAH WAAAH)
-Brian Weinreich, bw@roundedco.com (Mr. Amazing)
+- Heather Snepenger, hs@roundedco.com (WAAH WAAAH)
+- Brian Weinreich, bw@roundedco.com (Mr. Amazing)
 
 ## License
 
