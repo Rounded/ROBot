@@ -37,7 +37,7 @@ If you plan on using the index methods or caching, you'll also need to set your 
 
 Next, `#import "ROBot.h"` into the classes you plan on using ROBot in.
 
-You'll need to override the CRUD urls in your `NSManagedObject` (or corresponding catorgory). Ex:
+You'll need to override the CRUD urls in your `NSManagedObject` (or corresponding category). Ex:
 
 	+ (NSString *)indexURL
 	{
