@@ -341,10 +341,8 @@ static NSString *pk = @"id";
 }
 
 - (BOOL)isNew {
-    if ([self valueForKey:[[self class] primaryKey]]==nil) {
-        return TRUE;
-    }
-    return FALSE;
+    NSDictionary *vals = [self committedValuesForKeys:nil];
+    return [vals count] == 0;
 }
 
 - (id) inContext:(NSManagedObjectContext *)otherContext
