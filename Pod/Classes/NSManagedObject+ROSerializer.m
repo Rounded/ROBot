@@ -304,6 +304,7 @@ static NSString *pk = @"id";
             [objectDict setValue:[dateFormmater stringFromDate:obj] forKey:key];
         }
         
+        
     }];
     
     NSDictionary *relationshipDict = [self dictionaryWithValuesForKeys:[[[self entity] relationshipsByName] allKeys]];

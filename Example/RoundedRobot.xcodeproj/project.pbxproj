@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		442E4CDB1B46E24300144238 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 442E4CDA1B46E24300144238 /* User.m */; };
 		447FAE191AF1708400A8E1D6 /* test.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 447FAE171AF1708400A8E1D6 /* test.xcdatamodeld */; };
-		447FAE221AF1728900A8E1D6 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 447FAE211AF1728900A8E1D6 /* User.m */; };
 		44DE8D3A1B18DB8100C78425 /* libPods-RoundedRobot.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 44DE8D391B18DB8100C78425 /* libPods-RoundedRobot.a */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
@@ -40,9 +40,9 @@
 		05CE60C237835FA1429764E3 /* RoundedRobot.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = RoundedRobot.podspec; path = ../RoundedRobot.podspec; sourceTree = "<group>"; };
 		193EA94F9B5679A17F7C7BC3 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		3053404FF302535E45BDC2A4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		442E4CD91B46E24300144238 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		442E4CDA1B46E24300144238 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		447FAE181AF1708400A8E1D6 /* test.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = test.xcdatamodel; sourceTree = "<group>"; };
-		447FAE201AF1728900A8E1D6 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
-		447FAE211AF1728900A8E1D6 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		44DE8D391B18DB8100C78425 /* libPods-RoundedRobot.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-RoundedRobot.a"; path = "Pods/../build/Debug-iphoneos/libPods-RoundedRobot.a"; sourceTree = "<group>"; };
 		587492F229E45F7F55EBC31D /* libPods-RoundedRobot.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RoundedRobot.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DD64D63C957101FA7175CE7 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
@@ -137,8 +137,8 @@
 		6003F593195388D20070C39A /* RoundedRobot */ = {
 			isa = PBXGroup;
 			children = (
-				447FAE201AF1728900A8E1D6 /* User.h */,
-				447FAE211AF1728900A8E1D6 /* User.m */,
+				442E4CD91B46E24300144238 /* User.h */,
+				442E4CDA1B46E24300144238 /* User.m */,
 				6003F59C195388D20070C39A /* ROAppDelegate.h */,
 				6003F59D195388D20070C39A /* ROAppDelegate.m */,
 				6003F5A5195388D20070C39A /* ROViewController.h */,
@@ -365,7 +365,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				447FAE221AF1728900A8E1D6 /* User.m in Sources */,
+				442E4CDB1B46E24300144238 /* User.m in Sources */,
 				6003F59E195388D20070C39A /* ROAppDelegate.m in Sources */,
 				447FAE191AF1708400A8E1D6 /* test.xcdatamodeld in Sources */,
 				6003F5A7195388D20070C39A /* ROViewController.m in Sources */,
