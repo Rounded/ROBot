@@ -364,9 +364,17 @@ static NSString *pk = @"id";
     
     error = nil;
     
-    NSManagedObject *inContext = [otherContext existingObjectWithID:[self objectID] error:&error];
-    
-    return inContext;
+    // Fetch the object from the database
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([self class])];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"%K = %@", [[self class] primaryKey], [self valueForKey:[[self class] primaryKey]]]];
+    NSArray *objects;
+    objects = [otherContext executeFetchRequest:fetchRequest error:&error];
+    if (objects.count > 0) {
+        return objects[0];
+    } else {
+        // if the object hasn't been saved yet, and isn't in the database, create a new instance and return
+        return [[self class] newInScratchContext:otherContext];
+    }
 }
 
 @end

@@ -30,14 +30,20 @@
             NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:self.responseData options:NSJSONReadingMutableLeaves error:&error];
 
             if (!error) {
-                @try {
-                    self.responseStringConcatenated = [jsonArray componentsJoinedByString:@", "];
-                }
-                @catch (NSException *exception) {
-                    self.responseStringConcatenated = @"Sorry, there has been an error.";
-                }
-                @finally {
-                    
+                // Handles the case where the response error is an array
+                if ([jsonArray respondsToSelector:@selector(componentsJoinedByString:)]) {
+                    @try {
+                        self.responseStringConcatenated = [jsonArray componentsJoinedByString:@", "];
+                    }
+                    @catch (NSException *exception) {
+                        self.responseStringConcatenated = @"Sorry, there has been an error.";
+                    }
+                    @finally {
+                        
+                    }
+                    // Handle the case where the response error from the server isn't an array
+                } else if (jsonArray) {
+                    self.responseStringConcatenated = [NSString stringWithFormat:@"%@", jsonArray];
                 }
             }
         }
