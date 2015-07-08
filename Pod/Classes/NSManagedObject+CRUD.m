@@ -428,7 +428,7 @@
     if (!httpResponse && crudType != CUSTOM && object) {
         // Cache the response if offline
         [object cacheOffline:crudType];
-        return false;
+        return TRUE;
     } else if ([httpResponse statusCode]==404 && crudType == DELETE){
         // if we attempt to delete something, but we get a 404 from the server, then it might've already been deleted√
         return TRUE;
