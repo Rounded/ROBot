@@ -345,6 +345,12 @@ static NSString *pk = @"id";
     return [vals count] == 0;
 }
 
++ (NSManagedObject *)newInScratchContext:(NSManagedObjectContext *)context {
+    // FIX: Should attempt to get the actual main context, not just creating a new one!
+    NSEntityDescription *entity = [NSEntityDescription entityForName:NSStringFromClass([self class]) inManagedObjectContext:context];
+    return [[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:context];
+}
+
 - (id)inContext:(NSManagedObjectContext *)otherContext {
     NSError *error = nil;
     
