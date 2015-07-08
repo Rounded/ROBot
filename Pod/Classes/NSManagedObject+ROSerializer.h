@@ -21,10 +21,6 @@
 + (BOOL)saveContext:(NSManagedObjectContext *)context;
 - (BOOL)saveToDatabase:(NSDictionary *)json;
 - (NSDictionary *)asDictionary;
-
 - (BOOL)isNew;
-+ (NSManagedObject *)newInScratchContext:(NSManagedObjectContext *)context;
-- (instancetype)copyToScratchContext;
-- (id) inContext:(NSManagedObjectContext *)otherContext;
 
 @end

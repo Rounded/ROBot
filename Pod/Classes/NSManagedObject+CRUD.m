@@ -387,7 +387,6 @@
                 
                 [jsonArray enumerateObjectsUsingBlock:^(NSDictionary *jsonObject, NSUInteger idx, BOOL *stop) {
                     
-                    
                     // Check the database to see if the object in the JSON response exists already (based on the primary key)
                     NSError *error = nil;
                     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([self class])];
