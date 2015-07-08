@@ -54,9 +54,9 @@ static NSString *pk = @"id";
     // pull out the attributes that exist in the database
     NSEntityDescription *entity = self.entity;
     NSDictionary *attributes = entity.attributesByName;
-    NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingAllTypes error:nil];
+    NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeDate error:nil];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
     
     // Update all the key / values for the object
     [json enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
@@ -67,13 +67,26 @@ static NSString *pk = @"id";
             // will convert to NULL if it can't convert (which is good since it was a string, which will cause it to error below)
             __block id newDateObj = NULL;
             [detector enumerateMatchesInString:obj options:kNilOptions range:NSMakeRange(0, [obj length]) usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
-                newDateObj = result.date;
+                if ([result resultType] == NSTextCheckingTypeDate) {
+                    newDateObj = result.date;
+                }
             }];
             if (newDateObj == nil) {
                 // couldn't use the match, maybe its a Rails 4.0 format
+                [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
+                newDateObj = [dateFormatter dateFromString:obj];
+            }
+            if (newDateObj == nil) {
+                // it's still nil, let's try one other JSON format
+                [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
                 newDateObj = [dateFormatter dateFromString:obj];
             }
             obj = newDateObj;
+        }
+        
+        // If it's a date and the object coming down is a string, convert it to a NSDate
+        if ([[attributes[key] attributeValueClassName] isEqualToString:@"NSDecimalNumber"] && [obj isKindOfClass:[NSString class]]) {
+            obj = [NSDecimalNumber decimalNumberWithString:obj];
         }
         
         // If the object exists in the mapping, use the mapping
@@ -290,6 +303,7 @@ static NSString *pk = @"id";
 - (NSDictionary *)asDictionary {
     NSDateFormatter *dateFormmater = [[NSDateFormatter alloc] init];
     [dateFormmater setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+    [dateFormmater setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
     NSDictionary *attribDict = [self dictionaryWithValuesForKeys:[[[self entity] attributesByName] allKeys]];
     NSMutableDictionary *objectDict = [NSMutableDictionary dictionaryWithDictionary:attribDict];
     [objectDict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
@@ -328,21 +342,22 @@ static NSString *pk = @"id";
 }
 
 - (BOOL)isNew {
-    if ([self valueForKey:[[self class] primaryKey]]==nil) {
-        return TRUE;
-    }
-    return FALSE;
+    NSDictionary *vals = [self committedValuesForKeys:nil];
+    return [vals count] == 0;
 }
 
-- (id) inContext:(NSManagedObjectContext *)otherContext
-{
++ (NSManagedObject *)newInScratchContext:(NSManagedObjectContext *)context {
+    // FIX: Should attempt to get the actual main context, not just creating a new one!
+    NSEntityDescription *entity = [NSEntityDescription entityForName:NSStringFromClass([self class]) inManagedObjectContext:context];
+    return [[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:context];
+}
+
+- (id)inContext:(NSManagedObjectContext *)otherContext {
     NSError *error = nil;
     
-    if ([[self objectID] isTemporaryID])
-    {
+    if ([[self objectID] isTemporaryID]) {
         BOOL success = [[self managedObjectContext] obtainPermanentIDsForObjects:@[self] error:&error];
-        if (!success)
-        {
+        if (!success) {
             return nil;
         }
     }
@@ -352,53 +367,6 @@ static NSString *pk = @"id";
     NSManagedObject *inContext = [otherContext existingObjectWithID:[self objectID] error:&error];
     
     return inContext;
-}
-
-+ (NSManagedObject *)newInScratchContext:(NSManagedObjectContext *)context {
-    // FIX: Should attempt to get the actual main context, not just creating a new one!
-    
-//    context.persistentStoreCoordinator = [[ROBotManager sharedInstance] persistentStoreCoordinator];
-//    NSManagedObjectContext *context = [ROBot newChildContext];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:NSStringFromClass([self class]) inManagedObjectContext:context];
-    return [[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:context];
-}
-
-- (instancetype)copyToScratchContext {
-    NSManagedObject *object = [[NSManagedObject alloc] initWithEntity:self.entity insertIntoManagedObjectContext:[ROBot newChildContext]];
-
-    NSEntityDescription *entityDescription = self.objectID.entity;
-    NSArray *attributeKeys = entityDescription.attributesByName.allKeys;
-    NSDictionary *attributeKeysAndValues = [self dictionaryWithValuesForKeys:attributeKeys];
-    [object setValuesForKeysWithDictionary:attributeKeysAndValues];
-    
-    // Handle relationships
-    NSArray *entities = object.managedObjectContext.persistentStoreCoordinator.managedObjectModel.entities;
-    for (NSEntityDescription *entity in entities) {
-        NSArray *relationships = [self.entity relationshipsWithDestinationEntity:entity];
-        for (NSRelationshipDescription *relationshipDescription in relationships) {
-            if (relationshipDescription.isToMany) {
-                NSMutableSet *relationshipObjects = [NSMutableSet new];
-                for (NSManagedObject *childObject in [self valueForKey:relationshipDescription.name]) {
-                    NSEntityDescription *entityDescription = childObject.objectID.entity;
-                    NSArray *attributeKeys = entityDescription.attributesByName.allKeys;
-                    NSDictionary *attributeKeysAndValues = [childObject dictionaryWithValuesForKeys:attributeKeys];
-                    NSManagedObject *scratchChildObject = [[NSManagedObject alloc] initWithEntity:relationshipDescription.destinationEntity insertIntoManagedObjectContext:object.managedObjectContext];
-                    [scratchChildObject setValuesForKeysWithDictionary:attributeKeysAndValues];
-                    [relationshipObjects addObject:scratchChildObject];
-                }
-                [object setValue:relationshipObjects forKey:relationshipDescription.name];
-            } else {
-                NSManagedObject *childObject = [[NSManagedObject alloc] initWithEntity:relationshipDescription.destinationEntity insertIntoManagedObjectContext:object.managedObjectContext];
-                NSEntityDescription *entityDescription = childObject.objectID.entity;
-                NSArray *attributeKeys = entityDescription.attributesByName.allKeys;
-                NSDictionary *attributeKeysAndValues = [[self valueForKey:relationshipDescription.name] dictionaryWithValuesForKeys:attributeKeys];
-                [childObject setValuesForKeysWithDictionary:attributeKeysAndValues];
-                [object setValue:childObject forKey:relationshipDescription.name];
-            }
-        }
-    }
-        
-    return object;
 }
 
 @end

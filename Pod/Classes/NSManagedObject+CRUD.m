@@ -54,13 +54,16 @@
     [[ROBotManager sharedInstance].headers enumerateObjectsUsingBlock:^(NSDictionary *headerDictionary, NSUInteger idx, BOOL *stop) {
         [mutableURLRequest setValue:[headerDictionary valueForKey:@"headerValue"] forHTTPHeaderField:[headerDictionary valueForKey:@"headerField"]];
     }];
-    
+    [NSManagedObject printLogsForRequest:mutableURLRequest];
     [[session dataTaskWithRequest:mutableURLRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
         BOOL success = false;
 
+        [NSManagedObject printLogsForResponse:response data:data error:error];
         
-        if ([NSManagedObject validateResponseForData:data andResponse:response andError:error withCrudType:CREATE withObject:self]) {
+        if ([self didCacheOffline:response crudType:CREATE]) {
+            success = TRUE;
+        } else if ([NSManagedObject validateStatusCodeForResponse:response withCrudType:CREATE]) {
             NSError *jsonError = nil;
             NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&jsonError];
             
@@ -103,12 +106,14 @@
     [[ROBotManager sharedInstance].headers enumerateObjectsUsingBlock:^(NSDictionary *headerDictionary, NSUInteger idx, BOOL *stop) {
         [mutableURLRequest setValue:[headerDictionary valueForKey:@"headerValue"] forHTTPHeaderField:[headerDictionary valueForKey:@"headerField"]];
     }];
-    
+    [NSManagedObject printLogsForRequest:mutableURLRequest];
     [[session dataTaskWithRequest:mutableURLRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
         BOOL success = false;
+
+        [NSManagedObject printLogsForResponse:response data:data error:error];
         
-        if ([NSManagedObject validateResponseForData:data andResponse:response andError:error withCrudType:READ withObject:self]) {
+        if ([NSManagedObject validateStatusCodeForResponse:response withCrudType:READ]) {
             NSError *jsonError = nil;
             NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&jsonError];
             
@@ -153,12 +158,16 @@
     [[ROBotManager sharedInstance].headers enumerateObjectsUsingBlock:^(NSDictionary *headerDictionary, NSUInteger idx, BOOL *stop) {
         [mutableURLRequest setValue:[headerDictionary valueForKey:@"headerValue"] forHTTPHeaderField:[headerDictionary valueForKey:@"headerField"]];
     }];
-    
+    [NSManagedObject printLogsForRequest:mutableURLRequest];
     [[session dataTaskWithRequest:mutableURLRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
         BOOL success = false;
+
+        [NSManagedObject printLogsForResponse:response data:data error:error];
         
-        if ([NSManagedObject validateResponseForData:data andResponse:response andError:error withCrudType:UPDATE withObject:self]) {
+        if ([self didCacheOffline:response crudType:UPDATE]) {
+            success = TRUE;
+        } else if ([NSManagedObject validateStatusCodeForResponse:response withCrudType:UPDATE]) {
             NSError *jsonError = nil;
             NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&jsonError];
             
@@ -203,10 +212,12 @@
     [[ROBotManager sharedInstance].headers enumerateObjectsUsingBlock:^(NSDictionary *headerDictionary, NSUInteger idx, BOOL *stop) {
         [mutableURLRequest setValue:[headerDictionary valueForKey:@"headerValue"] forHTTPHeaderField:[headerDictionary valueForKey:@"headerField"]];
     }];
-    
+    [NSManagedObject printLogsForRequest:mutableURLRequest];
     [[session dataTaskWithRequest:mutableURLRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        
-        if ([NSManagedObject validateResponseForData:data andResponse:response andError:error withCrudType:DELETE withObject:self]) {
+
+        [NSManagedObject printLogsForResponse:response data:data error:error];
+
+        if ([NSManagedObject validateStatusCodeForResponse:response withCrudType:DELETE]) {
             [self.managedObjectContext deleteObject:self];
             [self saveContext];
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -260,14 +271,15 @@
     [mutableURLRequest addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [mutableURLRequest addValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [mutableURLRequest setValue:[NSString stringWithFormat:@"Bearer %@", [ROBotManager sharedInstance].accessToken] forHTTPHeaderField:@"Authorization"];
-    
     NSString *etag = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"etag%@", [[self class] indexURL]]];
     [mutableURLRequest addValue:etag forHTTPHeaderField:@"If-None-Match"];
     [[ROBotManager sharedInstance].headers enumerateObjectsUsingBlock:^(NSDictionary *headerDictionary, NSUInteger idx, BOOL *stop) {
         [mutableURLRequest setValue:[headerDictionary valueForKey:@"headerValue"] forHTTPHeaderField:[headerDictionary valueForKey:@"headerField"]];
     }];
-    
+    [NSManagedObject printLogsForRequest:mutableURLRequest];
     [[session dataTaskWithRequest:mutableURLRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+
+        [NSManagedObject printLogsForResponse:response data:data error:error];
         
         // If the server returned a 304, leave the method
         if (((NSHTTPURLResponse *)response).statusCode == 304) {
@@ -279,10 +291,10 @@
             return;
         }
 
-        if ([NSManagedObject validateResponseForData:data andResponse:response andError:error withCrudType:CUSTOM withObject:nil]) {
+        if ([NSManagedObject validateStatusCodeForResponse:response withCrudType:CUSTOM]) {
 
             // If the response is valid, save the etag
-            NSDictionary* headers = [(NSHTTPURLResponse *)response allHeaderFields];
+            NSDictionary *headers = [(NSHTTPURLResponse *)response allHeaderFields];
             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
             [defaults setObject:[headers valueForKey:@"Etag"] forKey:[NSString stringWithFormat:@"etag%@", [[self class] indexURL]]];
             [defaults synchronize];
@@ -348,10 +360,12 @@
     [[ROBotManager sharedInstance].headers enumerateObjectsUsingBlock:^(NSDictionary *headerDictionary, NSUInteger idx, BOOL *stop) {
         [mutableURLRequest setValue:[headerDictionary valueForKey:@"headerValue"] forHTTPHeaderField:[headerDictionary valueForKey:@"headerField"]];
     }];
-    
+    [NSManagedObject printLogsForRequest:mutableURLRequest];
     [[session dataTaskWithRequest:mutableURLRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
 
-        if ([NSManagedObject validateResponseForData:data andResponse:response andError:error withCrudType:CUSTOM withObject:nil]) {
+        [NSManagedObject printLogsForResponse:response data:data error:error];
+        
+        if ([NSManagedObject validateStatusCodeForResponse:response withCrudType:CUSTOM]) {
             NSError *jsonError = nil;
             [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&jsonError];
             
@@ -372,7 +386,6 @@
                 NSManagedObjectContext *context = [ROBot newChildContext];
                 
                 [jsonArray enumerateObjectsUsingBlock:^(NSDictionary *jsonObject, NSUInteger idx, BOOL *stop) {
-                    
                     
                     // Check the database to see if the object in the JSON response exists already (based on the primary key)
                     NSError *error = nil;
@@ -412,52 +425,61 @@
 }
 
 
-
-
 #pragma mark — Helpers
-+ (BOOL)validateResponseForData:(NSData *)data andResponse:(NSURLResponse *)response andError:(NSError *)error withCrudType:(CRUD)crudType withObject:(NSManagedObject *)object{
-    if ([ROBotManager sharedInstance].verboseLogging == TRUE) {
-        NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        NSLog(@"Response String: %@",responseString);
-        NSLog(@"Response: %@",response);
-        NSLog(@"Error: %@",error);
-    }
-    
+
++ (BOOL)validateStatusCodeForResponse:(NSURLResponse *)response withCrudType:(CRUD)crudType {
     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-    // Check if offline
-    if (!httpResponse && crudType != CUSTOM && object) {
-        // Cache the response if offline
-        [object cacheOffline:crudType];
-        return false;
-    }
-    if ([httpResponse statusCode]==200 || [httpResponse statusCode]==201 || [httpResponse statusCode]==304) {
+    if ([httpResponse statusCode]==404 && crudType == DELETE){
+        // if we attempt to delete something, but we get a 404 from the server, then it might've already been deleted
+        return TRUE;
+    } else if ([httpResponse statusCode]==200 || [httpResponse statusCode]==201 || [httpResponse statusCode]==304) {
         return TRUE;
     }
     return FALSE;
 }
 
-
-
-- (void)cacheOffline:(CRUD)crudType {
-    
-    // Don't cache read calls
-    if (crudType == READ) {
-        return;
++ (void)printLogsForResponse:(NSURLResponse *)response data:(NSData *)data error:(NSError *)error {
+    if ([ROBotManager sharedInstance].verboseLogging == TRUE) {
+        NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSLog(@"Response String: %@",responseString);
+        NSLog(@"Response: %@",response);
+        if (error != nil) {
+            NSLog(@"Error: %@",error);
+        }
     }
+}
 
-    [self saveContext];
-    NSString *cacheSlug = [ROBotManager cacheType:crudType];
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    // get the array of saved ids from the defaults based on the cache type
-    NSMutableArray *ids = [[defaults stringArrayForKey:cacheSlug] mutableCopy];
-    if (!ids) {
-        ids = [NSMutableArray new];
++ (void)printLogsForRequest:(NSMutableURLRequest *)request {
+    if ([ROBotManager sharedInstance].verboseLogging == TRUE) {
+        NSLog(@"Show some logs about the request body, url, etc...");
+//        NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+//        NSLog(@"Response String: %@",responseString);
+//        NSLog(@"Response: %@",response);
+//        NSLog(@"Error: %@",error);
     }
-    // add the new id to the array
-    [ids addObject:self.objectID.URIRepresentation.absoluteString];
-    [defaults setObject:ids forKey:cacheSlug];
-    [defaults synchronize];
+}
+
+- (BOOL)didCacheOffline:(NSURLResponse *)response crudType:(CRUD)crudType {
+    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+    
+    if (!httpResponse && self != nil) {
+        [self saveContext];
+        NSString *cacheSlug = [ROBotManager cacheType:crudType];
+        
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        // get the array of saved ids from the defaults based on the cache type
+        NSMutableArray *ids = [[defaults stringArrayForKey:cacheSlug] mutableCopy];
+        if (!ids) {
+            ids = [NSMutableArray new];
+        }
+        // add the new id to the array
+        [ids addObject:self.objectID.URIRepresentation.absoluteString];
+        [defaults setObject:ids forKey:cacheSlug];
+        [defaults synchronize];
+        
+        return TRUE;
+    }
+    return FALSE;
 }
 
 
