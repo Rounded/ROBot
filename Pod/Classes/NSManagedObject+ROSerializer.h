@@ -22,5 +22,6 @@
 - (BOOL)saveToDatabase:(NSDictionary *)json;
 - (NSDictionary *)asDictionary;
 - (BOOL)isNew;
+- (id)inContext:(NSManagedObjectContext *)otherContext;
 
 @end
