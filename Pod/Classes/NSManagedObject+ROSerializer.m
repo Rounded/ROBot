@@ -130,14 +130,14 @@ static NSString *pk = @"id";
                             NSManagedObject *object = [self createOrUpdateObject:childObject forEntityName:entity.name];
                             [relationshipObjects addObject:object];
                             // if the relationship is many-to-many, add "self" to the set of current objects in the inverse relationship
-                            if (relationshipDescription.inverseRelationship.toMany) {
-                                NSMutableSet *currentObjectsInRelationship = [[object valueForKeyPath:relationshipDescription.inverseRelationship.name] mutableCopy];
-                                [currentObjectsInRelationship addObject:self];
-                                [object setValue:currentObjectsInRelationship forKey:relationshipDescription.inverseRelationship.name];
-                            } else {
+//                            if (relationshipDescription.inverseRelationship.toMany) {
+//                                NSMutableSet *currentObjectsInRelationship = [[object valueForKeyPath:relationshipDescription.inverseRelationship.name] mutableCopy];
+//                                [currentObjectsInRelationship addObject:self];
+//                                [object setValue:currentObjectsInRelationship forKey:relationshipDescription.inverseRelationship.name];
+//                            } else {
                                 // Set the to-many relationship
                                 [self setValue:relationshipObjects forKey:relationshipDescription.name];
-                            }
+//                            }
                         }
                     } else {
                         // If the relationship isn't toMany, make sure that the corresponding json object is a dictionary
