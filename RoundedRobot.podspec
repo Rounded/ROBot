@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "RoundedRobot"
-  s.version          = "0.4.1"
+  s.version          = "0.4.4"
   s.summary          = "The world's simplest networking / core-data library."
   s.description      = <<-DESC
                        ROBot solves two problems.
@@ -24,7 +24,6 @@ Pod::Spec.new do |s|
 
   s.platform     = :ios, '6.1'
   s.requires_arc = true
-
   s.source_files = 'Pod/Classes/**/*'
   s.resource_bundles = {
     'ROBot' => ['Pod/Assets/*.png']
