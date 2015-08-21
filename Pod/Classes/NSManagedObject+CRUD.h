@@ -11,11 +11,13 @@
 
 @interface NSManagedObject (CRUD)
 
-+ (NSString *)indexURL;
 - (NSString *)createURL;
 - (NSString *)readURL;
 - (NSString *)updateURL;
 - (NSString *)deleteURL;
+
++ (NSString *)indexURL;
++ (NSPredicate *)indexDeletePredicate;
 
 - (void)create:(void (^)(void))complete failure:(void (^)(ROBotError *error))failure;
 - (void)read:(void (^)(void))complete failure:(void (^)(ROBotError *error))failure;

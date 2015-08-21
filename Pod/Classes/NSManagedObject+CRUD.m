@@ -14,11 +14,6 @@
 
 @implementation NSManagedObject (CRUD)
 
-+ (NSString *)indexURL {
-    NSAssert(false, @"You did not set your indexURL");
-    return nil;
-}
-
 - (NSString *)createURL {
     NSAssert(false, @"You did not set your createURL");
     return nil;
@@ -36,6 +31,15 @@
 
 - (NSString *)deleteURL {
     NSAssert(false, @"You did not set your deleteURL");
+    return nil;
+}
+
++ (NSString *)indexURL {
+    NSAssert(false, @"You did not set your indexURL");
+    return nil;
+}
+
++ (NSPredicate *)indexDeletePredicate {
     return nil;
 }
 
@@ -261,6 +265,11 @@
 }
 
 + (void)index:(void (^)(void))complete failure:(void (^)(ROBotError *))failure {
+    
+    //
+    // TODO: We should check to see if offline changes are pending for this object type, and make sure those are synced before we make an index request
+    //
+    
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [ROBotManager sharedInstance].baseURL, [[self class] indexURL]]];
     NSMutableURLRequest *mutableURLRequest = [[NSMutableURLRequest alloc] initWithURL:url];
     NSURLSession *session = [NSURLSession sharedSession];
@@ -275,7 +284,7 @@
     }];
     [NSManagedObject printLogsForRequest:mutableURLRequest];
     [[session dataTaskWithRequest:mutableURLRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-
+        
         [NSManagedObject printLogsForResponse:response data:data error:error];
         
         // If the server returned a 304, leave the method
@@ -287,9 +296,9 @@
             }
             return;
         }
-
-        if ([NSManagedObject validateStatusCodeForResponse:response withCrudType:CUSTOM]) {
-
+        
+        if ([NSManagedObject validateStatusCodeForResponse:response withCrudType:READ]) {
+            
             // If the response is valid, save the etag
             NSDictionary *headers = [(NSHTTPURLResponse *)response allHeaderFields];
             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -304,8 +313,26 @@
                     NSLog(@"Could not parse JSON: %@", jsonError.localizedDescription);
                 }
             } else {
+                
                 // Create the context outside the enumeration block
                 NSManagedObjectContext *context = [ROBot newChildContext];
+                
+                // Before we save the data from the index response, we need to check the deletePredicate, and delete items that match it
+                if ([[self class] indexDeletePredicate]) {
+                    NSError *error = nil;
+                    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([self class])];
+                    [fetchRequest setPredicate:[[self class] indexDeletePredicate]];
+                    NSArray *objects = [context executeFetchRequest:fetchRequest error:&error];
+                    [objects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                        [context deleteObject:obj];
+                    }];
+                    // Save the context after all the objects have been deleted
+                    NSError *contextError = nil;
+                    if ([context hasChanges] && ![context save:&contextError]) {
+                        NSLog(@"Could not delete objects from index call");
+                    }
+                }
+                
                 [jsonArray enumerateObjectsUsingBlock:^(NSDictionary *jsonObject, NSUInteger idx, BOOL *stop) {
                     
                     // Check the database to see if the object in the JSON response exists already (based on the primary key)
@@ -331,7 +358,7 @@
                     });
                 }
             }
-
+            
         } else {
             if (failure) {
                 dispatch_async(dispatch_get_main_queue(), ^{
