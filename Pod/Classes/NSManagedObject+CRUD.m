@@ -317,22 +317,7 @@
                 // Create the context outside the enumeration block
                 NSManagedObjectContext *context = [ROBot newChildContext];
                 
-                // Before we save the data from the index response, we need to check the deletePredicate, and delete items that match it
-                if ([[self class] indexDeletePredicate]) {
-                    NSError *error = nil;
-                    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([self class])];
-                    [fetchRequest setPredicate:[[self class] indexDeletePredicate]];
-                    NSArray *objects = [context executeFetchRequest:fetchRequest error:&error];
-                    [objects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                        [context deleteObject:obj];
-                    }];
-                    // Save the context after all the objects have been deleted
-                    NSError *contextError = nil;
-                    if ([context hasChanges] && ![context save:&contextError]) {
-                        NSLog(@"Could not delete objects from index call");
-                    }
-                }
-                
+                __block NSMutableArray *objectsToKeep = [NSMutableArray new];
                 [jsonArray enumerateObjectsUsingBlock:^(NSDictionary *jsonObject, NSUInteger idx, BOOL *stop) {
                     
                     // Check the database to see if the object in the JSON response exists already (based on the primary key)
@@ -344,12 +329,27 @@
                     if (objects.count > 0) {
                         // The object already exists in the database, so let's just update it
                         [[objects objectAtIndex:0] setDictionaryToCoreDataEntity:jsonObject];
+                        [objectsToKeep addObject:[objects objectAtIndex:0]];
                     } else {
                         // The object doesn't exist in the database, so we need to create it
                         NSManagedObject *newObject = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class]) inManagedObjectContext:context];
                         [newObject setDictionaryToCoreDataEntity:jsonObject];
+                        [objectsToKeep addObject:newObject];
                     }
                 }];
+                
+                // After we save the data from the index response, we need to check the deletePredicate, and delete items that match it
+                if ([[self class] indexDeletePredicate]) {
+                    NSError *error = nil;
+                    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([self class])];
+                    [fetchRequest setPredicate:[[self class] indexDeletePredicate]];
+                    NSMutableArray *objectsMatchingDeletePredicate = [[context executeFetchRequest:fetchRequest error:&error] mutableCopy];
+                    [objectsMatchingDeletePredicate removeObjectsInArray:objectsToKeep];
+                    [objectsMatchingDeletePredicate enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                        [context deleteObject:obj];
+                    }];
+                }
+                
                 // Save the context after all the objects have been created
                 [NSManagedObject saveContext:context];
                 if (complete) {
