@@ -107,7 +107,7 @@
     [mutableURLRequest addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [mutableURLRequest addValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [mutableURLRequest setValue:[NSString stringWithFormat:@"Bearer %@", [ROBotManager sharedInstance].accessToken] forHTTPHeaderField:@"Authorization"];
-    NSString *etag = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"etag%@", [[self class] indexURL]]];
+    NSString *etag = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"etag%@", [[self class] readURL]]];
     [mutableURLRequest addValue:etag forHTTPHeaderField:@"If-None-Match"];
     [[ROBotManager sharedInstance].headers enumerateObjectsUsingBlock:^(NSDictionary *headerDictionary, NSUInteger idx, BOOL *stop) {
         [mutableURLRequest setValue:[headerDictionary valueForKey:@"headerValue"] forHTTPHeaderField:[headerDictionary valueForKey:@"headerField"]];
