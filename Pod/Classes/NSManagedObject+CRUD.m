@@ -107,7 +107,7 @@
     [mutableURLRequest addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [mutableURLRequest addValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [mutableURLRequest setValue:[NSString stringWithFormat:@"Bearer %@", [ROBotManager sharedInstance].accessToken] forHTTPHeaderField:@"Authorization"];
-    NSString *etag = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"etag%@", [[self class] readURL]]];
+    NSString *etag = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"etag%@", [self readURL]]];
     [mutableURLRequest addValue:etag forHTTPHeaderField:@"If-None-Match"];
     [[ROBotManager sharedInstance].headers enumerateObjectsUsingBlock:^(NSDictionary *headerDictionary, NSUInteger idx, BOOL *stop) {
         [mutableURLRequest setValue:[headerDictionary valueForKey:@"headerValue"] forHTTPHeaderField:[headerDictionary valueForKey:@"headerField"]];
@@ -128,7 +128,7 @@
         // If the response is valid, save the etag
         NSDictionary *headers = [(NSHTTPURLResponse *)response allHeaderFields];
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setObject:[headers valueForKey:@"Etag"] forKey:[NSString stringWithFormat:@"etag%@", [[self class] indexURL]]];
+        [defaults setObject:[headers valueForKey:@"Etag"] forKey:[NSString stringWithFormat:@"etag%@", [self readURL]]];
         [defaults synchronize];
         
         BOOL success = false;
