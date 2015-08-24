@@ -33,8 +33,8 @@
             
         }];
     
-    User *user = [User newInScratchContext:[ROBot newChildContext]];
-    [user saveContext];
+//    User *user = [User newInScratchContext:[ROBot newChildContext]];
+//    [user saveContext];
     
     return YES;
 }
