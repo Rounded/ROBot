@@ -295,8 +295,16 @@
     [mutableURLRequest addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [mutableURLRequest addValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [mutableURLRequest setValue:[NSString stringWithFormat:@"Bearer %@", [ROBotManager sharedInstance].accessToken] forHTTPHeaderField:@"Authorization"];
-    NSString *etag = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"etag%@", [[self class] indexURL]]];
-    [mutableURLRequest addValue:etag forHTTPHeaderField:@"If-None-Match"];
+    
+    NSError *error = nil;
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([self class])];
+    NSArray *objects = [[ROBot newChildContext] executeFetchRequest:fetchRequest error:&error];
+    if (objects.count > 0) {
+        // Only send the ETag if there are more than 0 objects, else if the
+        NSString *etag = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"etag%@", [[self class] indexURL]]];
+        [mutableURLRequest addValue:etag forHTTPHeaderField:@"If-None-Match"];
+    }
+
     [[ROBotManager sharedInstance].headers enumerateObjectsUsingBlock:^(NSDictionary *headerDictionary, NSUInteger idx, BOOL *stop) {
         [mutableURLRequest setValue:[headerDictionary valueForKey:@"headerValue"] forHTTPHeaderField:[headerDictionary valueForKey:@"headerField"]];
     }];
