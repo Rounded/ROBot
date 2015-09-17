@@ -396,10 +396,18 @@
     }] resume];
 }
 
-+ (void)customRequestAtURL:(NSString *)urlString andBody:(NSDictionary *)body andMethod:(NSString *)httpMethod withCompletion:(void (^)(void))complete andFailure:(void (^)(ROBotError *))failure {
++ (void)customRequestAtURL:(NSString *)urlString andHeaders:(NSDictionary *)headers andBody:(NSDictionary *)body andMethod:(NSString *)httpMethod withCompletion:(void (^)(void))complete andFailure:(void (^)(ROBotError *))failure {
+    
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [ROBotManager sharedInstance].baseURL, urlString]];
     NSMutableURLRequest *mutableURLRequest = [[NSMutableURLRequest alloc] initWithURL:url];
     NSURLSession *session = [NSURLSession sharedSession];
+    
+    if (headers) {
+        [headers enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *obj, BOOL *stop) {
+            [mutableURLRequest addValue:obj forHTTPHeaderField:key];
+        }];
+    }
+    
     [mutableURLRequest setHTTPMethod:httpMethod.uppercaseString];
     if (body) {
         [mutableURLRequest setHTTPBody:[NSJSONSerialization dataWithJSONObject:body options:0 error:nil]];
@@ -412,7 +420,7 @@
     }];
     [NSManagedObject printLogsForRequest:mutableURLRequest];
     [[session dataTaskWithRequest:mutableURLRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-
+        
         [NSManagedObject printLogsForResponse:response data:data error:error];
         
         if ([NSManagedObject validateStatusCodeForResponse:response withCrudType:CUSTOM]) {
@@ -469,9 +477,13 @@
                 });
             }
         }
-
+        
         
     }] resume];
+}
+
++ (void)customRequestAtURL:(NSString *)urlString andBody:(NSDictionary *)body andMethod:(NSString *)httpMethod withCompletion:(void (^)(void))complete andFailure:(void (^)(ROBotError *))failure {
+    [NSManagedObject customRequestAtURL:urlString andHeaders:nil andBody:body andMethod:httpMethod withCompletion:complete andFailure:failure];
 }
 
 
