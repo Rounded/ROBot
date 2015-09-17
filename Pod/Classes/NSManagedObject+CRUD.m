@@ -424,6 +424,13 @@
         [NSManagedObject printLogsForResponse:response data:data error:error];
         
         if ([NSManagedObject validateStatusCodeForResponse:response withCrudType:CUSTOM]) {
+            
+            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+            if (httpResponse.statusCode == 304) {
+                complete(data, response);
+                return;
+            }
+            
             NSError *jsonError = nil;
             [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&jsonError];
             
