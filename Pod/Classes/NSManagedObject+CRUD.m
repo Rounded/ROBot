@@ -396,7 +396,7 @@
     }] resume];
 }
 
-+ (void)customRequestAtURL:(NSString *)urlString andHeaders:(NSDictionary *)headers andBody:(NSDictionary *)body andMethod:(NSString *)httpMethod withCompletion:(void (^)(void))complete andFailure:(void (^)(ROBotError *))failure {
++ (void)customRequestAtURL:(NSString *)urlString andHeaders:(NSDictionary *)headers andBody:(NSDictionary *)body andMethod:(NSString *)httpMethod withCompletion:(void (^)(NSData *data, NSURLResponse *response))complete andFailure:(void (^)(ROBotError *))failure {
     
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [ROBotManager sharedInstance].baseURL, urlString]];
     NSMutableURLRequest *mutableURLRequest = [[NSMutableURLRequest alloc] initWithURL:url];
@@ -465,7 +465,7 @@
                 [NSManagedObject saveContext:context];
                 if (complete) {
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        complete();
+                        complete(data, response);
                     });
                 }
             }
@@ -482,7 +482,7 @@
     }] resume];
 }
 
-+ (void)customRequestAtURL:(NSString *)urlString andBody:(NSDictionary *)body andMethod:(NSString *)httpMethod withCompletion:(void (^)(void))complete andFailure:(void (^)(ROBotError *))failure {
++ (void)customRequestAtURL:(NSString *)urlString andBody:(NSDictionary *)body andMethod:(NSString *)httpMethod withCompletion:(void (^)(NSData *data, NSURLResponse *response))complete andFailure:(void (^)(ROBotError *))failure {
     [NSManagedObject customRequestAtURL:urlString andHeaders:nil andBody:body andMethod:httpMethod withCompletion:complete andFailure:failure];
 }
 
