@@ -39,10 +39,6 @@
     return nil;
 }
 
-+ (NSPredicate *)indexDeletePredicate {
-    return nil;
-}
-
 #pragma mark — CRUD
 
 - (void)create:(void (^)(void))complete failure:(void (^)(ROBotError *))failure {
@@ -283,6 +279,10 @@
 }
 
 + (void)index:(void (^)(void))complete failure:(void (^)(ROBotError *))failure {
+    [NSManagedObject indexWithDeletePredicate:nil complete:complete failure:failure];
+}
+
++ (void)indexWithDeletePredicate:(NSPredicate *)deletePredicate complete:(void (^)(void))complete failure:(void (^)(ROBotError *error))failure {
     
     //
     // TODO: We should check to see if offline changes are pending for this object type, and make sure those are synced before we make an index request
@@ -365,10 +365,10 @@
                 }];
                 
                 // After we save the data from the index response, we need to check the deletePredicate, and delete items that match it
-                if ([[self class] indexDeletePredicate]) {
+                if (deletePredicate) {
                     NSError *error = nil;
                     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([self class])];
-                    [fetchRequest setPredicate:[[self class] indexDeletePredicate]];
+                    [fetchRequest setPredicate:deletePredicate];
                     NSMutableArray *objectsMatchingDeletePredicate = [[context executeFetchRequest:fetchRequest error:&error] mutableCopy];
                     [objectsMatchingDeletePredicate removeObjectsInArray:objectsToKeep];
                     [objectsMatchingDeletePredicate enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -396,8 +396,16 @@
     }] resume];
 }
 
++ (void)customRequestAtURL:(NSString *)urlString andBody:(NSDictionary *)body andMethod:(NSString *)httpMethod withCompletion:(void (^)(NSData *data, NSURLResponse *response))complete andFailure:(void (^)(ROBotError *))failure {
+    [NSManagedObject customRequestAtURL:urlString andHeaders:nil andBody:body andMethod:httpMethod withCompletion:complete andFailure:failure];
+}
+
 + (void)customRequestAtURL:(NSString *)urlString andHeaders:(NSDictionary *)headers andBody:(NSDictionary *)body andMethod:(NSString *)httpMethod withCompletion:(void (^)(NSData *data, NSURLResponse *response))complete andFailure:(void (^)(ROBotError *))failure {
-    
+    [NSManagedObject customRequestAtURL:urlString andHeaders:headers andBody:body andMethod:httpMethod andDeletePredicate:nil withCompletion:complete andFailure:failure];
+}
+
++ (void)customRequestAtURL:(NSString *)urlString andHeaders:(NSDictionary *)headers andBody:(NSDictionary *)body andMethod:(NSString *)httpMethod andDeletePredicate:(NSPredicate *)deletePredicate withCompletion:(void (^)(NSData *data, NSURLResponse *response))complete andFailure:(void (^)(ROBotError *))failure {
+
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [ROBotManager sharedInstance].baseURL, urlString]];
     NSMutableURLRequest *mutableURLRequest = [[NSMutableURLRequest alloc] initWithURL:url];
     NSURLSession *session = [NSURLSession sharedSession];
@@ -450,6 +458,7 @@
                 
                 NSManagedObjectContext *context = [ROBot newChildContext];
                 
+                __block NSMutableArray *objectsToKeep = [NSMutableArray new];
                 [jsonArray enumerateObjectsUsingBlock:^(NSDictionary *jsonObject, NSUInteger idx, BOOL *stop) {
                     
                     // Check the database to see if the object in the JSON response exists already (based on the primary key)
@@ -461,12 +470,26 @@
                     if (objects.count > 0) {
                         // The object already exists in the database, so let's just update it
                         [[objects objectAtIndex:0] setDictionaryToCoreDataEntity:jsonObject];
+                        [objectsToKeep addObject:[objectsToKeep objectAtIndex:0]];
                     } else {
                         // The object doesn't exist in the database, so we need to create it
                         NSManagedObject *newObject = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class]) inManagedObjectContext:context];
                         [newObject setDictionaryToCoreDataEntity:jsonObject];
+                        [objectsToKeep addObject:newObject];
                     }
                 }];
+                
+                // After we save the data from the index response, we need to check the deletePredicate, and delete items that match it
+                if (deletePredicate) {
+                    NSError *error = nil;
+                    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([self class])];
+                    [fetchRequest setPredicate:deletePredicate];
+                    NSMutableArray *objectsMatchingDeletePredicate = [[context executeFetchRequest:fetchRequest error:&error] mutableCopy];
+                    [objectsMatchingDeletePredicate removeObjectsInArray:objectsToKeep];
+                    [objectsMatchingDeletePredicate enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                        [context deleteObject:obj];
+                    }];
+                }
                 
                 // Save the context after all the objects have been created
                 [NSManagedObject saveContext:context];
@@ -488,11 +511,6 @@
         
     }] resume];
 }
-
-+ (void)customRequestAtURL:(NSString *)urlString andBody:(NSDictionary *)body andMethod:(NSString *)httpMethod withCompletion:(void (^)(NSData *data, NSURLResponse *response))complete andFailure:(void (^)(ROBotError *))failure {
-    [NSManagedObject customRequestAtURL:urlString andHeaders:nil andBody:body andMethod:httpMethod withCompletion:complete andFailure:failure];
-}
-
 
 #pragma mark — Helpers
 
