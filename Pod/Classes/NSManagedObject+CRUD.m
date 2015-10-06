@@ -64,6 +64,18 @@
         if ([self didCacheOffline:response crudType:CREATE]) {
             success = TRUE;
         } else if ([NSManagedObject validateStatusCodeForResponse:response withCrudType:CREATE]) {
+            
+            if (data == nil) {
+                // if the data is nil, don't try to parse it
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (failure) {
+                        ROBotError *error = [[ROBotError alloc] initWithResponse:response andResponseData:data];
+                        failure(error);
+                    }
+                });
+                return;
+            }
+            
             NSError *jsonError = nil;
             NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&jsonError];
             
@@ -132,6 +144,18 @@
         [NSManagedObject printLogsForResponse:response data:data error:error];
         
         if ([NSManagedObject validateStatusCodeForResponse:response withCrudType:READ]) {
+            
+            if (data == nil) {
+                // if the data is nil, don't try to parse it
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (failure) {
+                        ROBotError *error = [[ROBotError alloc] initWithResponse:response andResponseData:data];
+                        failure(error);
+                    }
+                });
+                return;
+            }
+
             NSError *jsonError = nil;
             NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&jsonError];
             
@@ -183,6 +207,17 @@
         if ([self didCacheOffline:response crudType:UPDATE]) {
             success = TRUE;
         } else if ([NSManagedObject validateStatusCodeForResponse:response withCrudType:UPDATE]) {
+            if (data == nil) {
+                // if the data is nil, don't try to parse it
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (failure) {
+                        ROBotError *error = [[ROBotError alloc] initWithResponse:response andResponseData:data];
+                        failure(error);
+                    }
+                });
+                return;
+            }
+
             NSError *jsonError = nil;
             NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&jsonError];
             
@@ -324,7 +359,17 @@
         }
         
         if ([NSManagedObject validateStatusCodeForResponse:response withCrudType:READ]) {
-            
+            if (data == nil) {
+                // if the data is nil, don't try to parse it
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (failure) {
+                        ROBotError *error = [[ROBotError alloc] initWithResponse:response andResponseData:data];
+                        failure(error);
+                    }
+                });
+                return;
+            }
+
             // If the response is valid, save the etag
             NSDictionary *headers = [(NSHTTPURLResponse *)response allHeaderFields];
             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -432,6 +477,17 @@
         [NSManagedObject printLogsForResponse:response data:data error:error];
         
         if ([NSManagedObject validateStatusCodeForResponse:response withCrudType:CUSTOM]) {
+            
+            if (data == nil) {
+                // if the data is nil, don't try to parse it
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (failure) {
+                        ROBotError *error = [[ROBotError alloc] initWithResponse:response andResponseData:data];
+                        failure(error);
+                    }
+                });
+                return;
+            }
             
             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
             if (httpResponse.statusCode == 304) {
