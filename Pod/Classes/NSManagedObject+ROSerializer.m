@@ -66,11 +66,11 @@ static NSString *pk = @"id";
             // use detector to figure out what format its in and convert it
             // will convert to NULL if it can't convert (which is good since it was a string, which will cause it to error below)
             __block id newDateObj = NULL;
-            [detector enumerateMatchesInString:obj options:kNilOptions range:NSMakeRange(0, [obj length]) usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
-                if ([result resultType] == NSTextCheckingTypeDate) {
-                    newDateObj = result.date;
-                }
-            }];
+            // [detector enumerateMatchesInString:obj options:kNilOptions range:NSMakeRange(0, [obj length]) usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
+            //     if ([result resultType] == NSTextCheckingTypeDate) {
+            //         newDateObj = result.date;
+            //     }
+            // }];
             if (newDateObj == nil) {
                 // couldn't use the match, maybe its a Rails 4.0 format
                 [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];

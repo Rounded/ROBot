@@ -17,7 +17,6 @@
 - (NSString *)deleteURL;
 
 + (NSString *)indexURL;
-+ (NSPredicate *)indexDeletePredicate;
 
 - (void)create:(void (^)(void))complete failure:(void (^)(ROBotError *error))failure;
 - (void)read:(void (^)(void))complete failure:(void (^)(ROBotError *error))failure;
@@ -25,8 +24,12 @@
 - (void)delete:(void (^)(void))complete failure:(void (^)(ROBotError *error))failure;
 
 - (void)save:(void (^)(void))complete failure:(void (^)(ROBotError *))failure;
+
 + (void)index:(void (^)(void))complete failure:(void (^)(ROBotError *error))failure;
-+ (void)customRequestAtURL:(NSString *)urlString andHeaders:(NSDictionary *)headers andBody:(NSDictionary *)body andMethod:(NSString *)httpMethod withCompletion:(void (^)(NSData *data, NSURLResponse *response))complete andFailure:(void (^)(ROBotError *))failure;
++ (void)indexWithDeletePredicate:(NSString *)deletePredicate complete:(void (^)(void))complete failure:(void (^)(ROBotError *error))failure;
+
 + (void)customRequestAtURL:(NSString *)urlString andBody:(NSDictionary *)body andMethod:(NSString *)httpMethod withCompletion:(void (^)(NSData *data, NSURLResponse *response))complete andFailure:(void (^)(ROBotError *))failure;
++ (void)customRequestAtURL:(NSString *)urlString andHeaders:(NSDictionary *)headers andBody:(NSDictionary *)body andMethod:(NSString *)httpMethod withCompletion:(void (^)(NSData *data, NSURLResponse *response))complete andFailure:(void (^)(ROBotError *))failure;
++ (void)customRequestAtURL:(NSString *)urlString andHeaders:(NSDictionary *)headers andBody:(NSDictionary *)body andMethod:(NSString *)httpMethod andDeletePredicate:(NSString *)deletePredicate withCompletion:(void (^)(NSData *data, NSURLResponse *response))complete andFailure:(void (^)(ROBotError *))failure;
 
 @end

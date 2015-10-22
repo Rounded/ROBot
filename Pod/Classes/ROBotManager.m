@@ -107,55 +107,63 @@ static ROBotManager *ROBotManagerInstance = nil;
 
 - (void)uploadCachedData {
 
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    NSManagedObjectContext *context = [NSManagedObjectContext new];
-    context.persistentStoreCoordinator = self.persistentStoreCoordinator;
+    @try {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        
+        NSManagedObjectContext *context = [NSManagedObjectContext new];
+        context.persistentStoreCoordinator = self.persistentStoreCoordinator;
 
-    NSArray *create_ids = [defaults stringArrayForKey:[ROBotManager cacheType:CREATE]];
-    if (create_ids) {
-        for (NSString *id in create_ids) {
-            NSManagedObjectID *moId = [self.persistentStoreCoordinator managedObjectIDForURIRepresentation:[NSURL URLWithString:id]];
-            NSManagedObject *object = [context objectWithID:moId];
-            [object create:nil failure:nil];
-            
-            if (self.verboseLogging) {
-                NSLog(@"creating object: %@", object);
+        NSArray *create_ids = [defaults stringArrayForKey:[ROBotManager cacheType:CREATE]];
+        if (create_ids) {
+            for (NSString *id in create_ids) {
+                NSManagedObjectID *moId = [self.persistentStoreCoordinator managedObjectIDForURIRepresentation:[NSURL URLWithString:id]];
+                // Crashing on next line... possibly due to context issue?
+                NSManagedObject *object = [context objectWithID:moId];
+                [object create:nil failure:nil];
+                
+                if (self.verboseLogging) {
+                    NSLog(@"creating object: %@", object);
+                }
             }
         }
-    }
-    
-    NSArray *update_ids = [defaults stringArrayForKey:[ROBotManager cacheType:UPDATE]];
-    if (update_ids) {
-        for (NSString *id in update_ids) {
-            NSManagedObjectID *moId = [self.persistentStoreCoordinator managedObjectIDForURIRepresentation:[NSURL URLWithString:id]];
-            NSManagedObject *object = [context objectWithID:moId];
-            [object update:nil failure:nil];
-            
-            if (self.verboseLogging) {
-                NSLog(@"updating object: %@", object);
+        
+        NSArray *update_ids = [defaults stringArrayForKey:[ROBotManager cacheType:UPDATE]];
+        if (update_ids) {
+            for (NSString *id in update_ids) {
+                NSManagedObjectID *moId = [self.persistentStoreCoordinator managedObjectIDForURIRepresentation:[NSURL URLWithString:id]];
+                NSManagedObject *object = [context objectWithID:moId];
+                [object update:nil failure:nil];
+                
+                if (self.verboseLogging) {
+                    NSLog(@"updating object: %@", object);
+                }
             }
         }
-    }
-    
-    NSArray *delete_ids = [defaults stringArrayForKey:[ROBotManager cacheType:DELETE]];
-    if (delete_ids) {
-        for (NSString *id in delete_ids) {
-            NSManagedObjectID *moId = [self.persistentStoreCoordinator managedObjectIDForURIRepresentation:[NSURL URLWithString:id]];
-            NSManagedObject *object = [context objectWithID:moId];
-            [object create:nil failure:nil];
-            
-            if (self.verboseLogging) {
-                NSLog(@"deleting object: %@", object);
+        
+        NSArray *delete_ids = [defaults stringArrayForKey:[ROBotManager cacheType:DELETE]];
+        if (delete_ids) {
+            for (NSString *id in delete_ids) {
+                NSManagedObjectID *moId = [self.persistentStoreCoordinator managedObjectIDForURIRepresentation:[NSURL URLWithString:id]];
+                NSManagedObject *object = [context objectWithID:moId];
+                [object create:nil failure:nil];
+                
+                if (self.verboseLogging) {
+                    NSLog(@"deleting object: %@", object);
+                }
             }
         }
+        
+        [defaults removeObjectForKey:[ROBotManager cacheType:CREATE]];
+        [defaults removeObjectForKey:[ROBotManager cacheType:UPDATE]];
+        [defaults removeObjectForKey:[ROBotManager cacheType:DELETE]];
+        [defaults synchronize];
     }
-    
-    [defaults removeObjectForKey:[ROBotManager cacheType:CREATE]];
-    [defaults removeObjectForKey:[ROBotManager cacheType:UPDATE]];
-    [defaults removeObjectForKey:[ROBotManager cacheType:DELETE]];
-    [defaults synchronize];
-
+    @catch (NSException *exception) {
+        
+    }
+    @finally {
+        
+    }
 }
 
 
