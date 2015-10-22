@@ -10,8 +10,6 @@
 #import "NSManagedObject+ROSerializer.h"
 #import "ROBotManager.h"
 
-
-
 @implementation NSManagedObject (CRUD)
 
 - (NSString *)createURL {
