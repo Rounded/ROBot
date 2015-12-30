@@ -89,14 +89,14 @@ static NSString *pk = @"id";
             obj = [NSDecimalNumber decimalNumberWithString:obj];
         }
         
-        // If the object exists in the mapping, use the mapping
-        if ([[self class] mapping] && [[[self class] mapping] objectForKey:key]) {
+        // If the object exists in the mapping, use the mapping and if the object isn't null
+        if (obj && obj != (id)[NSNull null] && [[self class] mapping] && [[[self class] mapping] objectForKey:key]) {
             [self setValue:obj forKey:[[[self class] mapping] objectForKey:key]];
         }
         // Otherwise assign the value to the corresponding value in the db
         else {
             // If the key is an element in the db, and if the object isn't null
-            if (attributes[key] && obj && obj && obj != (id)[NSNull null]) {
+            if (attributes[key] && obj && obj != (id)[NSNull null]) {
                 [self setValue:obj forKey:key];
             }
         }
