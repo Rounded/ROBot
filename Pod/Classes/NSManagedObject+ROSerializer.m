@@ -233,32 +233,46 @@ static NSString *pk = @"id";
 }
 
 + (BOOL)saveContext:(NSManagedObjectContext *)context {
-    
     __block BOOL returnFlag = TRUE;
     
-    [context performBlockAndWait:^{
-        NSError *error = nil;
-        if (context.hasChanges && ![context save:&error]) {
-            if ([ROBotManager sharedInstance].verboseLogging == TRUE) {
-                NSLog(@"Could not save context: %@", error.localizedDescription);
-            }
-            returnFlag = FALSE;
+    // Sometimes, the context comes in without a persistent store coordinator
+    // If it doesn't have one, try setting it to the ROBotManager persistentStoreCoordinator
+    // If that thing is nil too, then just skip this method cause something is really bad :(
+    if (!context.persistentStoreCoordinator) {
+        if ([[ROBotManager sharedInstance] persistentStoreCoordinator]) {
+            context.persistentStoreCoordinator = [[ROBotManager sharedInstance] persistentStoreCoordinator];
         }
-    }];
-    
-    
-    if (context.parentContext) {
-//        [context.parentContext performBlockAndWait:^{
+    }
+    if (context.persistentStoreCoordinator) {
+        [context performBlockAndWait:^{
             NSError *error = nil;
-            if (context.parentContext.hasChanges && ![context.parentContext save:&error]) {
+            if (context.hasChanges && ![context save:&error]) {
                 if ([ROBotManager sharedInstance].verboseLogging == TRUE) {
                     NSLog(@"Could not save context: %@", error.localizedDescription);
                 }
                 returnFlag = FALSE;
             }
-//        }];
+        }];
+        
+        
+        if (context.parentContext) {
+            NSError *error = nil;
+            @try {
+                if (context.parentContext.hasChanges && ![context.parentContext save:&error]) {
+                    if ([ROBotManager sharedInstance].verboseLogging == TRUE) {
+                        NSLog(@"Could not save context: %@", error.localizedDescription);
+                    }
+                    returnFlag = FALSE;
+                }
+            }
+            @catch (NSException *exception) {
+                if ([ROBotManager sharedInstance].verboseLogging == TRUE) {
+                    NSLog(@"Could not save context: %@", exception.debugDescription);
+                }
+                returnFlag = FALSE;
+            }
+        }
     }
-    
     return returnFlag;
 }
 
@@ -315,9 +329,15 @@ static NSString *pk = @"id";
         
         // handle NSDates to JSON
         if ([obj isKindOfClass:[NSDate class]]) {
-            [objectDict setValue:[dateFormmater stringFromDate:obj] forKey:key];
+            NSString *customFormatterMethod = [NSString stringWithFormat:@"%@Formatter", key];
+            SEL selector = NSSelectorFromString(customFormatterMethod);
+            if ([self respondsToSelector:selector]) {
+                NSDateFormatter *customFormatter = [self valueForKey:[NSString stringWithFormat:@"%@Formatter", key]];
+                [objectDict setValue:[customFormatter stringFromDate:obj] forKey:key];
+            } else {
+                [objectDict setValue:[dateFormmater stringFromDate:obj] forKey:key];
+            }
         }
-        
         
     }];
     
