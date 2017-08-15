@@ -125,19 +125,36 @@ static NSString *pk = @"id";
                         // If the relationship is toMany, make sure that the corresponding json object is an array
                         assert([json[relationshipDescription.name] isKindOfClass:[NSArray class]]);
                         
-                        NSMutableSet *relationshipObjects = [NSMutableSet new];
-                        for (NSDictionary *childObject in json[relationshipDescription.name]) {
-                            NSManagedObject *object = [self createOrUpdateObject:childObject forEntityName:entity.name];
-                            [relationshipObjects addObject:object];
-                            // if the relationship is many-to-many, add "self" to the set of current objects in the inverse relationship
-//                            if (relationshipDescription.inverseRelationship.toMany) {
-//                                NSMutableSet *currentObjectsInRelationship = [[object valueForKeyPath:relationshipDescription.inverseRelationship.name] mutableCopy];
-//                                [currentObjectsInRelationship addObject:self];
-//                                [object setValue:currentObjectsInRelationship forKey:relationshipDescription.inverseRelationship.name];
-//                            } else {
+                        if (relationshipDescription.isOrdered) {
+                            NSMutableOrderedSet *relationshipObjects = [NSMutableOrderedSet new];
+                            for (NSDictionary *childObject in json[relationshipDescription.name]) {
+                                NSManagedObject *object = [self createOrUpdateObject:childObject forEntityName:entity.name];
+                                [relationshipObjects addObject:object];
+                                // if the relationship is many-to-many, add "self" to the set of current objects in the inverse relationship
+                                //                            if (relationshipDescription.inverseRelationship.toMany) {
+                                //                                NSMutableSet *currentObjectsInRelationship = [[object valueForKeyPath:relationshipDescription.inverseRelationship.name] mutableCopy];
+                                //                                [currentObjectsInRelationship addObject:self];
+                                //                                [object setValue:currentObjectsInRelationship forKey:relationshipDescription.inverseRelationship.name];
+                                //                            } else {
                                 // Set the to-many relationship
                                 [self setValue:relationshipObjects forKey:relationshipDescription.name];
-//                            }
+                                //                            }
+                            }
+                        } else {
+                            NSMutableSet *relationshipObjects = [NSMutableSet new];
+                            for (NSDictionary *childObject in json[relationshipDescription.name]) {
+                                NSManagedObject *object = [self createOrUpdateObject:childObject forEntityName:entity.name];
+                                [relationshipObjects addObject:object];
+                                // if the relationship is many-to-many, add "self" to the set of current objects in the inverse relationship
+                                //                            if (relationshipDescription.inverseRelationship.toMany) {
+                                //                                NSMutableSet *currentObjectsInRelationship = [[object valueForKeyPath:relationshipDescription.inverseRelationship.name] mutableCopy];
+                                //                                [currentObjectsInRelationship addObject:self];
+                                //                                [object setValue:currentObjectsInRelationship forKey:relationshipDescription.inverseRelationship.name];
+                                //                            } else {
+                                // Set the to-many relationship
+                                [self setValue:relationshipObjects forKey:relationshipDescription.name];
+                                //                            }
+                            }
                         }
                     } else {
                         // If the relationship isn't toMany, make sure that the corresponding json object is a dictionary
