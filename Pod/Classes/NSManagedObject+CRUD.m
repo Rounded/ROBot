@@ -573,7 +573,7 @@
     if ([httpResponse statusCode]==404 && crudType == DELETE){
         // if we attempt to delete something, but we get a 404 from the server, then it might've already been deleted
         return TRUE;
-    } else if ([httpResponse statusCode]==200 || [httpResponse statusCode]==201 || [httpResponse statusCode]==304) {
+    } else if ([httpResponse statusCode] == 200 || [httpResponse statusCode] == 201 || [httpResponse statusCode] == 204 || [httpResponse statusCode] == 304) {
         return TRUE;
     }
     return FALSE;
