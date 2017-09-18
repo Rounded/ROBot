@@ -364,7 +364,7 @@ static NSString *pk = @"id";
         // if the relationship is one to one, serialize the object
         if ([obj isKindOfClass:[NSManagedObject class]]) {
             objectDict[key] = [((NSManagedObject *)obj) asDictionary];
-        } else if ([obj isKindOfClass:[NSArray class]] || [obj isKindOfClass:[NSSet class]]) {
+        } else if ([obj isKindOfClass:[NSArray class]] || [obj isKindOfClass:[NSSet class]] || [obj isKindOfClass:[NSOrderedSet class]]) {
             // If the relationship is one to many, serialize the array
             NSMutableArray *childObjects = [NSMutableArray new];
             NSSet *toManyRel = obj;
