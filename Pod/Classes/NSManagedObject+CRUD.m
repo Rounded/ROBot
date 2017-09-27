@@ -443,11 +443,19 @@
     [self customRequestAtURL:urlString andHeaders:nil andBody:body andMethod:httpMethod withCompletion:complete andFailure:failure];
 }
 
++ (void)customRequestAtURL:(NSString *)urlString andBody:(NSDictionary *)body andMethod:(NSString *)httpMethod andShouldPersist:(BOOL)shouldPersist withCompletion:(void (^)(NSData *data, NSURLResponse *response))complete andFailure:(void (^)(ROBotError *))failure {
+    [self customRequestAtURL:urlString andHeaders:nil andBody:body andMethod:httpMethod andDeletePredicate:nil andShouldPersist:false withCompletion:complete andFailure:failure];
+}
+
 + (void)customRequestAtURL:(NSString *)urlString andHeaders:(NSDictionary *)headers andBody:(NSDictionary *)body andMethod:(NSString *)httpMethod withCompletion:(void (^)(NSData *data, NSURLResponse *response))complete andFailure:(void (^)(ROBotError *))failure {
     [self customRequestAtURL:urlString andHeaders:headers andBody:body andMethod:httpMethod andDeletePredicate:nil withCompletion:complete andFailure:failure];
 }
 
 + (void)customRequestAtURL:(NSString *)urlString andHeaders:(NSDictionary *)headers andBody:(NSDictionary *)body andMethod:(NSString *)httpMethod andDeletePredicate:(NSString *)deletePredicate withCompletion:(void (^)(NSData *data, NSURLResponse *response))complete andFailure:(void (^)(ROBotError *))failure {
+    [self customRequestAtURL:urlString andHeaders:headers andBody:body andMethod:httpMethod andDeletePredicate:deletePredicate andShouldPersist:true withCompletion:complete andFailure:failure];
+}
+
++ (void)customRequestAtURL:(NSString *)urlString andHeaders:(NSDictionary *)headers andBody:(NSDictionary *)body andMethod:(NSString *)httpMethod andDeletePredicate:(NSString *)deletePredicate andShouldPersist:(BOOL)shouldPersist withCompletion:(void (^)(NSData *data, NSURLResponse *response))complete andFailure:(void (^)(ROBotError *))failure {
 
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [ROBotManager sharedInstance].baseURL, urlString]];
     NSMutableURLRequest *mutableURLRequest = [[NSMutableURLRequest alloc] initWithURL:url];
@@ -493,65 +501,69 @@
                 return;
             }
             
-            NSError *jsonError = nil;
-            [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&jsonError];
-            
-            if (jsonError != nil) {
-                if ([ROBotManager sharedInstance].verboseLogging == TRUE) {
-                    NSLog(@"Could not parse JSON: %@", jsonError.localizedDescription);
+            if (shouldPersist) {
+                NSError *jsonError = nil;
+                [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&jsonError];
+                
+                if (jsonError != nil) {
+                    if ([ROBotManager sharedInstance].verboseLogging == TRUE) {
+                        NSLog(@"Could not parse JSON: %@", jsonError.localizedDescription);
+                    }
+                } else {
+                    NSMutableArray *jsonArray = [NSMutableArray new];
+                    if ([[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&jsonError] isKindOfClass:[NSArray class]]) {
+                        // the response is an array, so set it equal to jsonArray
+                        jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&jsonError];
+                    } else {
+                        // if the response is not an array, let's just put it in an array and have it be an array of size 1
+                        [jsonArray addObject:[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&jsonError]];
+                    }
+                    
+                    NSManagedObjectContext *context = [ROBot newChildContext];
+                    
+                    __block NSMutableArray *objectsToKeep = [NSMutableArray new];
+                    [jsonArray enumerateObjectsUsingBlock:^(NSDictionary *jsonObject, NSUInteger idx, BOOL *stop) {
+                        
+                        // Check the database to see if the object in the JSON response exists already (based on the primary key)
+                        NSError *error = nil;
+                        NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([self class])];
+                        [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"%K = %@", [[self class] primaryKey], jsonObject[[[self class] primaryKey]]]];
+                        
+                        NSArray *objects = [context executeFetchRequest:fetchRequest error:&error];
+                        if (objects.count > 0) {
+                            // The object already exists in the database, so let's just update it
+                            [[objects objectAtIndex:0] setDictionaryToCoreDataEntity:jsonObject];
+                            [objectsToKeep addObject:[objects objectAtIndex:0]];
+                        } else {
+                            // The object doesn't exist in the database, so we need to create it
+                            NSManagedObject *newObject = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class]) inManagedObjectContext:context];
+                            [newObject setDictionaryToCoreDataEntity:jsonObject];
+                            [objectsToKeep addObject:newObject];
+                        }
+                    }];
+                    
+                    // After we save the data from the index response, we need to check the deletePredicate, and delete items that match it
+                    if (deletePredicate) {
+                        NSError *error = nil;
+                        NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([self class])];
+                        [fetchRequest setPredicate:[NSPredicate predicateWithFormat:deletePredicate]];
+                        NSMutableArray *objectsMatchingDeletePredicate = [[context executeFetchRequest:fetchRequest error:&error] mutableCopy];
+                        [objectsMatchingDeletePredicate removeObjectsInArray:objectsToKeep];
+                        [objectsMatchingDeletePredicate enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                            [context deleteObject:obj];
+                        }];
+                    }
+                    
+                    // Save the context after all the objects have been created
+                    [NSManagedObject saveContext:context];
+                    if (complete) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            complete(data, response);
+                        });
+                    }
                 }
             } else {
-                NSMutableArray *jsonArray = [NSMutableArray new];
-                if ([[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&jsonError] isKindOfClass:[NSArray class]]) {
-                    // the response is an array, so set it equal to jsonArray
-                    jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&jsonError];
-                } else {
-                    // if the response is not an array, let's just put it in an array and have it be an array of size 1
-                    [jsonArray addObject:[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&jsonError]];
-                }
-                
-                NSManagedObjectContext *context = [ROBot newChildContext];
-                
-                __block NSMutableArray *objectsToKeep = [NSMutableArray new];
-                [jsonArray enumerateObjectsUsingBlock:^(NSDictionary *jsonObject, NSUInteger idx, BOOL *stop) {
-                    
-                    // Check the database to see if the object in the JSON response exists already (based on the primary key)
-                    NSError *error = nil;
-                    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([self class])];
-                    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"%K = %@", [[self class] primaryKey], jsonObject[[[self class] primaryKey]]]];
-                    
-                    NSArray *objects = [context executeFetchRequest:fetchRequest error:&error];
-                    if (objects.count > 0) {
-                        // The object already exists in the database, so let's just update it
-                        [[objects objectAtIndex:0] setDictionaryToCoreDataEntity:jsonObject];
-                        [objectsToKeep addObject:[objects objectAtIndex:0]];
-                    } else {
-                        // The object doesn't exist in the database, so we need to create it
-                        NSManagedObject *newObject = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class]) inManagedObjectContext:context];
-                        [newObject setDictionaryToCoreDataEntity:jsonObject];
-                        [objectsToKeep addObject:newObject];
-                    }
-                }];
-                
-                // After we save the data from the index response, we need to check the deletePredicate, and delete items that match it
-                if (deletePredicate) {
-                    NSError *error = nil;
-                    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([self class])];
-                    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:deletePredicate]];
-                    NSMutableArray *objectsMatchingDeletePredicate = [[context executeFetchRequest:fetchRequest error:&error] mutableCopy];
-                    [objectsMatchingDeletePredicate removeObjectsInArray:objectsToKeep];
-                    [objectsMatchingDeletePredicate enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                        [context deleteObject:obj];
-                    }];
-                }
-                
-                // Save the context after all the objects have been created
-                [NSManagedObject saveContext:context];
-                if (complete) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        complete(data, response);
-                    });
-                }
+                complete(data, response);
             }
         } else {
             if (failure) {
