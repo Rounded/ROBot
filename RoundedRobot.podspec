@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "RoundedRobot"
-  s.version          = "0.7.3"
+  s.version          = "0.7.4"
   s.summary          = "The world's simplest networking / core-data library."
   s.description      = <<-DESC
                        ROBot solves two problems.

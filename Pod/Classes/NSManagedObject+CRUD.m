@@ -444,7 +444,7 @@
 }
 
 + (void)customRequestAtURL:(NSString *)urlString andBody:(NSDictionary *)body andMethod:(NSString *)httpMethod andShouldPersist:(BOOL)shouldPersist withCompletion:(void (^)(NSData *data, NSURLResponse *response))complete andFailure:(void (^)(ROBotError *))failure {
-    [self customRequestAtURL:urlString andHeaders:nil andBody:body andMethod:httpMethod andDeletePredicate:nil andShouldPersist:false withCompletion:complete andFailure:failure];
+    [self customRequestAtURL:urlString andHeaders:nil andBody:body andMethod:httpMethod andDeletePredicate:nil andShouldPersist:shouldPersist withCompletion:complete andFailure:failure];
 }
 
 + (void)customRequestAtURL:(NSString *)urlString andHeaders:(NSDictionary *)headers andBody:(NSDictionary *)body andMethod:(NSString *)httpMethod withCompletion:(void (^)(NSData *data, NSURLResponse *response))complete andFailure:(void (^)(ROBotError *))failure {
