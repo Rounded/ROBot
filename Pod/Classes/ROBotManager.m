@@ -166,6 +166,12 @@ static ROBotManager *ROBotManagerInstance = nil;
     }
 }
 
-
+- (void)cancelAllTasks {
+    [[NSURLSession sharedSession] getTasksWithCompletionHandler:^(NSArray<NSURLSessionDataTask *> * _Nonnull dataTasks, NSArray<NSURLSessionUploadTask *> * _Nonnull uploadTasks, NSArray<NSURLSessionDownloadTask *> * _Nonnull downloadTasks) {
+        [dataTasks enumerateObjectsUsingBlock:^(NSURLSessionDataTask * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [obj cancel];
+        }];
+    }];
+}
 
 @end

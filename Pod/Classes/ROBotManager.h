@@ -35,4 +35,6 @@ typedef NS_ENUM(NSInteger, CRUD) {
 @property (nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic) NSManagedObjectContext *mainContext;
 
+- (void)cancelAllTasks;
+
 @end
