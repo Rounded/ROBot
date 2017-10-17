@@ -162,9 +162,12 @@
                     NSLog(@"Could not parse JSON: %@", jsonError.localizedDescription);
                 }
             } else {
-                // Save in the background context
-                NSManagedObjectContext *context = [ROBot newChildContext];
-                success = [[self inContext:context] saveToDatabase:json];
+                if (self.managedObjectContext) {
+                    success = [self saveToDatabase:json];
+                } else {
+                    NSManagedObjectContext *context = [ROBot newChildContext];
+                    success = [[self inContext:context] saveToDatabase:json];
+                }
             }
         }
         
